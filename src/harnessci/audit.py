@@ -6,6 +6,7 @@ single AuditReport. Does not call LLMs, GitHub APIs, or external services.
 
 from __future__ import annotations
 
+import hashlib
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -29,44 +30,64 @@ def run_audit(
     config: dict[str, Any] | None = None,
     git_cwd: str | Path | None = None,
 ) -> AuditReport:
-    """Run a full deterministic audit and return an AuditReport.
+    """Run a full deterministic audit from a git revision range."""
+    diff_text = _git_diff(base_rev, head_rev, git_cwd)
+    return _build_audit_report(
+        diff_text=diff_text,
+        spec_path=spec_path,
+        config=config,
+        metadata={"base_rev": base_rev, "head_rev": head_rev},
+    )
 
-    Steps:
-    1. Load config.
-    2. Load spec (use empty SpecModel if missing or unreadable).
-    3. Obtain git diff via subprocess.
-    4. Parse diff → classify → build DiffFeatures.
-    5. Build empty TestSignals and TelemetrySummary (not in PR5 scope).
-    6. Compute ScoreBreakdown.
-    7. Build findings.
-    8. Apply decision rules.
-    9. Return AuditReport.
+
+def run_audit_from_diff_text(
+    diff_text: str,
+    spec_path: str | Path | None = None,
+    config: dict[str, Any] | None = None,
+) -> AuditReport:
+    """Run a deterministic audit from already loaded unified diff text.
+
+    This pure API is intended for benchmarks and offline analysis where a PR diff
+    is already available and cloning the source repository would be unnecessary.
+    It does not call git, GitHub, LLMs, or external services.
     """
-    cfg = config if config is not None else load_config(None)
+    return _build_audit_report(
+        diff_text=diff_text,
+        spec_path=spec_path,
+        config=config,
+        metadata={
+            "source": "diff_text",
+            "diff_sha256": hashlib.sha256(diff_text.encode("utf-8")).hexdigest(),
+            "diff_bytes": len(diff_text.encode("utf-8")),
+        },
+    )
 
-    # --- Spec ---
+
+# ---------------------------------------------------------------------------
+# Private helpers
+# ---------------------------------------------------------------------------
+
+
+def _build_audit_report(
+    diff_text: str,
+    spec_path: str | Path | None,
+    config: dict[str, Any] | None,
+    metadata: dict[str, str | int | float | bool | None],
+) -> AuditReport:
+    """Build an AuditReport from loaded diff text and optional spec/config."""
+    cfg = config if config is not None else load_config(None)
     spec = _load_spec(spec_path)
 
-    # --- Git diff ---
-    diff_text = _git_diff(base_rev, head_rev, git_cwd)
-
-    # --- Diff parsing ---
     raw_files = parse_diff_text(diff_text)
     classified = classify_files(raw_files)
     diff_features = build_diff_features(classified)
 
-    # --- Signals (stubs for PR5) ---
     test_signals = TestSignals()
     telemetry = TelemetrySummary()
 
-    # --- Scoring ---
     scores = compute_scores(spec, diff_features, test_signals, telemetry)
-
-    # --- Findings ---
     risk_cfg = cfg.get("risk", {})
     findings = build_findings(spec, diff_features, test_signals, telemetry)
-
-    # --- Decision ---
     decision = decide(
         scores=scores,
         test_signals=test_signals,
@@ -77,9 +98,6 @@ def run_audit(
         insufficient_on_missing_spec=True,
     )
 
-    # --- Recommendation ---
-    recommendation = _recommendation(decision)
-
     return AuditReport(
         decision=decision,
         overall_agentic_risk=scores.overall_agentic_risk,
@@ -89,14 +107,9 @@ def run_audit(
         test_signals=test_signals,
         telemetry=telemetry,
         findings=findings,
-        recommendation=recommendation,
-        metadata={"base_rev": base_rev, "head_rev": head_rev},
+        recommendation=_recommendation(decision),
+        metadata=metadata,
     )
-
-
-# ---------------------------------------------------------------------------
-# Private helpers
-# ---------------------------------------------------------------------------
 
 
 def _load_spec(spec_path: str | Path | None) -> SpecModel:

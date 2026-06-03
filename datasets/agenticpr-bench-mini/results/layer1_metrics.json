@@ -1,0 +1,111 @@
+{
+  "n": 80,
+  "accuracy_proxy": 0.5,
+  "precision_needs_review_or_block": 0.5,
+  "recall_needs_review_or_block": 1.0,
+  "confusion_matrix_needs_review_or_block": {
+    "tp": 40,
+    "fp": 40,
+    "tn": 0,
+    "fn": 0
+  },
+  "mean_risk_by_label": {
+    "ACCEPTABLE": 47.3,
+    "NEEDS_REVIEW": 49.55
+  },
+  "decision_distribution": {
+    "INSUFFICIENT_INFORMATION": 80
+  },
+  "agent_breakdown": {
+    "Claude_Code": {
+      "n": 16,
+      "human_label_distribution": {
+        "ACCEPTABLE": 8,
+        "NEEDS_REVIEW": 8
+      },
+      "decision_distribution": {
+        "INSUFFICIENT_INFORMATION": 16
+      },
+      "mean_overall_agentic_risk": 49.5,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 8,
+        "fp": 8,
+        "tn": 0,
+        "fn": 0
+      }
+    },
+    "Copilot": {
+      "n": 16,
+      "human_label_distribution": {
+        "ACCEPTABLE": 8,
+        "NEEDS_REVIEW": 8
+      },
+      "decision_distribution": {
+        "INSUFFICIENT_INFORMATION": 16
+      },
+      "mean_overall_agentic_risk": 49.56,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 8,
+        "fp": 8,
+        "tn": 0,
+        "fn": 0
+      }
+    },
+    "Cursor": {
+      "n": 16,
+      "human_label_distribution": {
+        "NEEDS_REVIEW": 8,
+        "ACCEPTABLE": 8
+      },
+      "decision_distribution": {
+        "INSUFFICIENT_INFORMATION": 16
+      },
+      "mean_overall_agentic_risk": 54.56,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 8,
+        "fp": 8,
+        "tn": 0,
+        "fn": 0
+      }
+    },
+    "Devin": {
+      "n": 16,
+      "human_label_distribution": {
+        "ACCEPTABLE": 8,
+        "NEEDS_REVIEW": 8
+      },
+      "decision_distribution": {
+        "INSUFFICIENT_INFORMATION": 16
+      },
+      "mean_overall_agentic_risk": 48.0,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 8,
+        "fp": 8,
+        "tn": 0,
+        "fn": 0
+      }
+    },
+    "OpenAI_Codex": {
+      "n": 16,
+      "human_label_distribution": {
+        "NEEDS_REVIEW": 8,
+        "ACCEPTABLE": 8
+      },
+      "decision_distribution": {
+        "INSUFFICIENT_INFORMATION": 16
+      },
+      "mean_overall_agentic_risk": 40.5,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 8,
+        "fp": 8,
+        "tn": 0,
+        "fn": 0
+      }
+    }
+  },
+  "notes": [
+    "Metrics use maintainer merge/close decisions as proxy labels, not perfect correctness.",
+    "Human positive means human_label != ACCEPTABLE.",
+    "Model positive means decision is REVIEW_REQUIRED, BLOCK, or INSUFFICIENT_INFORMATION."
+  ]
+}

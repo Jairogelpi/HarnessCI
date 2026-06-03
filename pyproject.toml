@@ -15,6 +15,12 @@ harnessci = "harnessci.cli:main"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.4,<9", "ruff>=0.14,<1"]
+dataset = [
+  "fsspec>=2025.10.0",
+  "huggingface-hub>=1.1.0",
+  "pandas>=2.3.0",
+  "pyarrow>=22.0.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

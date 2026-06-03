@@ -11,3 +11,7 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+
+# Rebuildable dataset raw material (may contain third-party code or PR text)
+datasets/agenticpr-bench-mini/raw/diffs/
+datasets/agenticpr-bench-mini/raw/sample_candidates.csv

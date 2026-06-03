@@ -1,0 +1,149 @@
+{
+  "dataset": "AgenticPR-Bench-mini",
+  "layer": "layer1_real_github_bot_prs",
+  "records": 80,
+  "label_rule": {
+    "ACCEPTABLE": "merged_at present in AIDev",
+    "NEEDS_REVIEW": "closed without merge in AIDev"
+  },
+  "counts_by_agent_label": {
+    "OpenAI_Codex:ACCEPTABLE": 8,
+    "OpenAI_Codex:NEEDS_REVIEW": 8,
+    "Copilot:ACCEPTABLE": 8,
+    "Copilot:NEEDS_REVIEW": 8,
+    "Devin:ACCEPTABLE": 8,
+    "Devin:NEEDS_REVIEW": 8,
+    "Cursor:ACCEPTABLE": 8,
+    "Cursor:NEEDS_REVIEW": 8,
+    "Claude_Code:ACCEPTABLE": 8,
+    "Claude_Code:NEEDS_REVIEW": 8
+  },
+  "failures": [
+    {
+      "html_url": "https://github.com/mjcreativemedia/cleantrashrooms/pull/21",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/mjcreativemedia/cleantrashrooms/pulls/21: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/R21Digital/Project-MorningStar/pull/153",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/R21Digital/Project-MorningStar/pulls/153: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/markus-lassfolk/rutos-starlink-failover/pull/230",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/markus-lassfolk/rutos-starlink-failover/pulls/230: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/StochasticAnalytics/cisTEM/pull/22",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/bolt-foundry/bolt-foundry/pull/1345",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/bolt-foundry/bolt-foundry/pulls/1345: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/alibukharai/digital-signage/pull/10",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/yakkl/yakkl/pull/57",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/yakkl/yakkl/pulls/57: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/DiegoDCosta/tagme-desafio-crud/pull/1",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/bolt-foundry/bolt-foundry/pull/944",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/bolt-foundry/bolt-foundry/pulls/944: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/GaryOcean428/gary-zero/pull/201",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/bobharper208/sentry/pull/102",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/bobharper208/sentry/pulls/102: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/Hari-hara7/Portfolio-site/pull/2",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/luckydizzier/Wrecept_V0.5/pull/124",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/luckydizzier/Wrecept_V0.5/pulls/124: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/liljoker919/organisize/pull/142",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/liljoker919/organisize/pulls/142: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/bolt-foundry/bolt-foundry/pull/1644",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/bolt-foundry/bolt-foundry/pulls/1644: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/bolt-foundry/bolt-foundry/pull/1463",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/bolt-foundry/bolt-foundry/pulls/1463: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/satoshi19840417/my-okutama-site/pull/107",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/satoshi19840417/my-okutama-site/pulls/107: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/vincentkyalomusembi/House_price_predicator/pull/1",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/bolt-foundry/bolt-foundry/pull/738",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/bolt-foundry/bolt-foundry/pulls/738: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/opentelemetrybot/opentelemetry-lambda/pull/4",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/ClubBoss/Poker_Analyzer/pull/1683",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/ClubBoss/Poker_Analyzer/pulls/1683: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/BeaRafa/BeaRafa.github.io/pull/2",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/BeaRafa/BeaRafa.github.io/pulls/2: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/black77dragon/DragonShield/pull/488",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/black77dragon/DragonShield/pulls/488: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/Treszyk/TeaShopPP4/pull/8",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/Treszyk/TeaShopPP4/pulls/8: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/Viir/pine/pull/2",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/Viir/pine/pulls/2: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/zhiro178/brainrot-gamer-stash/pull/102",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/zhiro178/brainrot-gamer-stash/pulls/102: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/CommunityToolkit/Aspire/pull/769",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/se21072/seikin-fansite/pull/5",
+      "error": "Fetched diff does not look like a git diff"
+    },
+    {
+      "html_url": "https://github.com/13nosui/kiro-development-template-heroui-nextjs/pull/15",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/13nosui/kiro-development-template-heroui-nextjs/pulls/15: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    },
+    {
+      "html_url": "https://github.com/chota-jd/portfolio-ui/pull/9",
+      "error": "GitHub HTTP 404 for https://api.github.com/repos/chota-jd/portfolio-ui/pulls/9: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#get-a-pull-request\",\"status\":\"404\"}"
+    }
+  ],
+  "limitations": [
+    "Maintainer merge decision is an imperfect proxy for code correctness.",
+    "Public PRs may disappear after AIDev collection; missing PRs are excluded, not relabeled.",
+    "Layer 1 has no agent telemetry and often no explicit task spec.",
+    "Diffs are fetched from live GitHub and may change if repositories are rewritten."
+  ]
+}
