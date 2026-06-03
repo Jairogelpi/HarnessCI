@@ -1,0 +1,69 @@
+name: "HarnessCI"
+description: "CI for AI-generated Pull Requests. Audits spec compliance, diff minimality, test adequacy, and security risk."
+author: "Jairogelpi"
+
+branding:
+  icon: "shield"
+  color: "red"
+
+inputs:
+  spec-path:
+    description: "Path to the task spec markdown file (e.g. .agent/spec.md)"
+    required: false
+    default: ""
+  config:
+    description: "Path to harnessci.yaml config file"
+    required: false
+    default: "harnessci.yaml"
+  base-ref:
+    description: "Base git ref (default: PR base branch)"
+    required: false
+    default: ""
+  head-ref:
+    description: "Head git ref (default: PR head SHA)"
+    required: false
+    default: ""
+  output-json:
+    description: "Path to write JSON audit report"
+    required: false
+    default: "harnessci-report.json"
+  output-markdown:
+    description: "Path to write Markdown audit report"
+    required: false
+    default: "harnessci-report.md"
+  fail-on-block:
+    description: "Fail the check when decision is BLOCK"
+    required: false
+    default: "true"
+  github-token:
+    description: "GitHub token for posting PR comments"
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  decision:
+    description: "Audit decision: PASS, REVIEW_REQUIRED, BLOCK, or INSUFFICIENT_INFORMATION"
+  overall-risk:
+    description: "Overall agentic risk score (0-100)"
+  report-json:
+    description: "Path to the JSON audit report"
+  report-markdown:
+    description: "Path to the Markdown audit report"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    INPUT_SPEC_PATH: ${{ inputs.spec-path }}
+    INPUT_CONFIG: ${{ inputs.config }}
+    INPUT_BASE_REF: ${{ inputs.base-ref }}
+    INPUT_HEAD_REF: ${{ inputs.head-ref }}
+    INPUT_OUTPUT_JSON: ${{ inputs.output-json }}
+    INPUT_OUTPUT_MARKDOWN: ${{ inputs.output-markdown }}
+    INPUT_FAIL_ON_BLOCK: ${{ inputs.fail-on-block }}
+    INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+    GITHUB_EVENT_PATH: ${{ github.event_path }}
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    GITHUB_SHA: ${{ github.sha }}
+    GITHUB_BASE_REF: ${{ github.base_ref }}
+    GITHUB_HEAD_REF: ${{ github.head_ref }}

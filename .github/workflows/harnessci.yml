@@ -1,0 +1,37 @@
+name: HarnessCI Audit
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audit:
+    name: Audit AI-generated PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run HarnessCI
+        uses: Jairogelpi/HarnessCI@v0
+        with:
+          spec-path: ".agent/spec.md"
+          config: "harnessci.yaml"
+          fail-on-block: "true"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: harnessci-report
+          path: |
+            harnessci-report.json
+            harnessci-report.md
+          if-no-files-found: ignore
