@@ -1,0 +1,39 @@
+project:
+  name: HarnessCI
+  academic_name: "Forensic auditing of LLM-agent-generated Pull Requests using specifications, harness traces, and risk analysis"
+  tagline: "Stop merging AI-generated PRs blindly."
+  summary: >-
+    HarnessCI is CI for AI-generated Pull Requests. It audits whether an agentic PR
+    follows the original specification, keeps the diff minimal, has adequate tests,
+    avoids hidden security or architecture risk, and used a reasonable generation process.
+
+sdd:
+  mode: interactive
+  artifact_store:
+    openspec: true
+    engram: true
+  pr_strategy: auto-forecast
+  review_budget_changed_lines: 400
+  phase_gates:
+    require_user_approval_between_major_phases: true
+    protect_review_workload: true
+
+implementation_policy:
+  deterministic_core_required: true
+  gentle_ai_runtime_dependency: false
+  llm_judge_optional: true
+  product_code_status: not_started
+
+strict_tdd:
+  enabled: true
+  test_command: "py -m pytest"
+  reason: "Python package scaffold and pytest test runner now exist; this Windows/Pi environment uses `py` because the `python` alias opens the Windows Store stub."
+
+artifacts:
+  docs:
+    product_spec: docs/product_spec.md
+    architecture: docs/architecture.md
+    scoring_model: docs/scoring_model.md
+    telemetry_schema: docs/telemetry_schema.md
+    research_protocol: docs/research_protocol.md
+  skills_dir: skills

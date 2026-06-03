@@ -1,0 +1,42 @@
+project:
+  name: "my-repo"
+  language: "python"
+
+spec:
+  paths:
+    - ".agent/spec.md"
+    - "docs/spec.md"
+  use_issue_body: true
+  use_pr_body: true
+
+checks:
+  run_tests: true
+  test_command: "pytest"
+  run_lint: true
+  lint_command: "ruff check ."
+  run_coverage: true
+  coverage_command: "pytest --cov=src"
+  run_security: true
+
+risk:
+  strictness: "medium"
+  block_on_failed_tests: true
+  block_on_security_critical: true
+  require_tests_for_sensitive_changes: true
+
+telemetry:
+  enabled: true
+  paths:
+    - ".agent/trace.json"
+    - ".openhands/trajectory.json"
+    - ".harnessci/telemetry.json"
+
+judge:
+  enabled: false
+  provider: "openai"
+  model: "gpt-4.1-mini"
+
+report:
+  comment_on_pr: true
+  upload_artifact: true
+  fail_check_on_block: true
