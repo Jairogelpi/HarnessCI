@@ -4,34 +4,88 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   audit:
-    name: Audit AI-generated PR
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Run HarnessCI
-        uses: Jairogelpi/HarnessCI@v0
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          spec-path: ".agent/spec.md"
-          config: "harnessci.yaml"
-          fail-on-block: "true"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          python-version: "3.11"
 
-      - name: Upload audit report
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Install HarnessCI
+        run: pip install -e .
+
+      - name: Initialize domain learning (if needed)
+        run: |
+          if [ -f .harnessci/spec.json ]; then
+            echo "Already initialized — using pre-built domain spec"
+          elif [ -n "$GROQ_API_KEY" ]; then
+            echo "Mining repo with Groq..."
+            python -m harnessci init --repo . --force
+          else
+            echo "WARNING: No spec and no GROQ_API_KEY. Audit will use lightweight fallback."
+          fi
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+      - name: Audit PR
+        id: audit
+        run: |
+          python -m harnessci audit \
+            --base ${{ github.event.pull_request.base.sha }} \
+            --head ${{ github.event.pull_request.head.sha }} \
+            --output result.json \
+            --markdown-output result.md
+          echo "decision=$(python -c "import json; print(json.load(open('result.json'))['decision'])")" >> $GITHUB_OUTPUT
+          echo "risk=$(python -c "import json; print(json.load(open('result.json'))['overall_agentic_risk'])")" >> $GITHUB_OUTPUT
+
+      - name: Comment PR
+        uses: actions/github-script@v7
         with:
-          name: harnessci-report
-          path: |
-            harnessci-report.json
-            harnessci-report.md
-          if-no-files-found: ignore
+          script: |
+            const fs = require('fs');
+            const result = JSON.parse(fs.readFileSync('result.json', 'utf8'));
+            const md = fs.readFileSync('result.md', 'utf8');
+
+            const decision = result.decision;
+            const risk = result.overall_agentic_risk;
+            const findings = result.findings || [];
+
+            let icon = '✅';
+            if (decision === 'BLOCK') icon = '🚫';
+            else if (decision === 'REVIEW_REQUIRED') icon = '⚠️';
+            else if (decision === 'INSUFFICIENT_INFORMATION') icon = '❓';
+
+            let body = `## ${icon} HarnessCI Audit\n\n`;
+            body += `**Decision:** \`${decision}\` | **Risk:** ${risk}/100\n\n`;
+
+            if (findings.length > 0) {
+              body += `### Findings (${findings.length})\n`;
+              for (const f of findings) {
+                const sev = f.severity === 'critical' ? '🔴' :
+                           f.severity === 'high' ? '🟠' :
+                           f.severity === 'medium' ? '🟡' : '🔵';
+                body += `- ${sev} [${f.category}] ${f.message}\n`;
+              }
+            } else {
+              body += 'No findings detected.\n';
+            }
+
+            body += `\n---\n*Powered by [HarnessCI](https://github.com/Jairogelpi/HarnessCI)*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

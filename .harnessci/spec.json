@@ -1,0 +1,50 @@
+{
+  "domain": "AI-generated Pull Request Auditing",
+  "entities": [
+    {
+      "name": "HarnessCI",
+      "files": [
+        "pyproject.toml",
+        "src/harnessci/config.py",
+        "README.md",
+        "tmp/sdd-mvp-core-audit/7a6bf3db/SPEC.md"
+      ],
+      "invariants": [
+        "follows original issue, task, or spec",
+        "does not touch unrelated files or sensitive areas",
+        "passes tests for the right reasons",
+        "adds or changes adequate tests",
+        "does not introduce security-sensitive changes",
+        "does not show unstable behavior"
+      ]
+    }
+  ],
+  "conventions": {
+    "naming": "PascalCase",
+    "api": "RESTful API",
+    "auth": "OAuth 2.0"
+  },
+  "forbidden_paths": [
+    "tmp/sdd-mvp-core-audit/7a6bf3db/SPEC.md"
+  ],
+  "allowed_test_patterns": [
+    "test_*.py",
+    "tests/*_test.py"
+  ],
+  "architecture": {
+    "layers": [
+      "CLI",
+      "Audit Core",
+      "API"
+    ],
+    "dependencies": [
+      "setuptools",
+      "wheel",
+      "pydantic",
+      "pyyaml"
+    ]
+  },
+  "security_invariants": [
+    "does not introduce security-sensitive changes"
+  ]
+}
