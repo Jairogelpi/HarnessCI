@@ -1,7 +1,7 @@
 """Audit orchestration for HarnessCI.
 
-Ties together spec loading, diff parsing, scoring, and decision into a
-single AuditReport. Does not call LLMs, GitHub APIs, or external services.
+Ties together spec loading, diff parsing, spec verification, drift detection,
+scoring, and decision into a single AuditReport.
 """
 
 from __future__ import annotations
@@ -14,7 +14,16 @@ from typing import Any
 from .config import load_config
 from .diff import build_diff_features, classify_files, parse_diff_text
 from .errors import HarnessCIError
-from .models import AuditReport, DiffFeatures, SpecModel, TelemetrySummary, TestSignals
+from .models import (
+    AuditFinding,
+    AuditReport,
+    DiffFeatures,
+    FindingCategory,
+    FindingSeverity,
+    SpecModel,
+    TelemetrySummary,
+    TestSignals,
+)
 from .scoring import build_findings, compute_scores, decide
 from .spec import parse_spec_file, parse_spec_text
 
@@ -86,18 +95,41 @@ def _build_audit_report(
 ) -> AuditReport:
     """Build an AuditReport from loaded diff text and optional spec/config."""
     cfg = config if config is not None else load_config(None)
-    spec = _load_spec(spec_path, spec_text)
+    risk_cfg = cfg.get("risk", {})
 
+    # 1. Load spec (mined > provided > fallback)
+    spec = _load_or_infer_spec(spec_path, spec_text)
+
+    # 2. Parse diff
     raw_files = parse_diff_text(diff_text)
     classified = classify_files(raw_files)
     diff_features = build_diff_features(classified)
 
+    # 3. Derive test signals
     test_signals = _derive_test_signals(diff_features)
     telemetry = TelemetrySummary()
 
+    # 4. Run spec verifier on mined spec if available
+    spec_findings = _run_spec_verifier(diff_features, spec)
+
+    # 5. Run drift matcher if domain embeddings exist
+    drift_signals = _run_drift_matcher(diff_features)
+
+    # 6. Core scoring + findings
     scores = compute_scores(spec, diff_features, test_signals, telemetry)
-    risk_cfg = cfg.get("risk", {})
     findings = build_findings(spec, diff_features, test_signals, telemetry)
+
+    # 7. Merge verification findings and drift signals into findings list
+    findings.extend(spec_findings)
+    for ds in drift_signals:
+        findings.append(AuditFinding(
+            severity=FindingSeverity.MEDIUM,
+            category=FindingCategory.ARCHITECTURE,
+            message=f"Semantic drift detected: {ds.evidence}",
+            evidence="; ".join(ds.changed_files[:5]),
+        ))
+
+    # 8. Decision
     decision = decide(
         scores=scores,
         test_signals=test_signals,
@@ -130,6 +162,40 @@ def _derive_test_signals(diff_features: DiffFeatures) -> TestSignals:
     )
 
 
+def _load_or_infer_spec(
+    spec_path: str | Path | None,
+    spec_text: str | None = None,
+) -> SpecModel:
+    """Load spec: provided > mined > fallback.
+
+    Priority:
+    1. spec_text (inline)
+    2. spec_path (file)
+    3. Mined spec from .harnessci/spec.json (auto-detected from cwd)
+    4. Empty SpecModel (unusable)
+    """
+    # 1-2. Provided spec — use directly
+    if spec_text or spec_path:
+        return _load_spec(spec_path, spec_text)
+
+    # 3. Try mined spec only when no explicit spec provided
+    try:
+        from .spec_inference import load_mined_spec, spec_exists
+
+        cwd = Path.cwd()
+        if spec_exists(cwd):
+            mined = load_mined_spec(cwd)
+            if mined:
+                domain = mined.get("domain", "Inferred")
+                summary = mined.get("summary_md", "")
+                spec_text_mined = f"# {domain}\n\n{summary}"
+                return _load_spec(None, spec_text_mined)
+    except Exception:  # noqa: BLE001
+        pass
+
+    return SpecModel()
+
+
 def _load_spec(spec_path: str | Path | None, spec_text: str | None = None) -> SpecModel:
     """Try to parse the spec; return an unusable SpecModel on any failure."""
     try:
@@ -140,6 +206,45 @@ def _load_spec(spec_path: str | Path | None, spec_text: str | None = None) -> Sp
     except Exception:  # noqa: BLE001
         return SpecModel()
     return SpecModel()
+
+
+def _run_spec_verifier(
+    diff_features: DiffFeatures,
+    spec: SpecModel,
+) -> list[AuditFinding]:
+    """Run SpecVerifier on the diff using mined spec if available."""
+    try:
+        from .spec.verifier import SpecVerifier
+        from .spec_inference import load_mined_spec, spec_exists
+
+        cwd = Path.cwd()
+        if spec_exists(cwd):
+            mined = load_mined_spec(cwd)
+            if mined:
+                verifier = SpecVerifier(spec=mined)
+                return verifier.verify(diff_features)
+    except Exception:  # noqa: BLE001
+        pass
+    return []
+
+
+def _run_drift_matcher(diff_features: DiffFeatures) -> list[object]:
+    """Run DriftMatcher to detect architecture drift from embeddings."""
+    try:
+        from .semantic import DriftMatcher
+        from .semantic.store import is_available as vec_available
+
+        if not vec_available():
+            return []
+
+        db_path = Path.cwd() / ".harnessci" / "vectors.db"
+        if not db_path.exists():
+            return []
+
+        matcher = DriftMatcher(db_path=db_path)
+        return matcher.detect_drift(diff_features.files)
+    except Exception:  # noqa: BLE001
+        return []
 
 
 def _git_diff(base_rev: str, head_rev: str, cwd: str | Path | None) -> str:
