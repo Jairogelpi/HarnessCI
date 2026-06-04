@@ -1,0 +1,77 @@
+{
+  "data_source": "datasets\\agenticpr-bench-mini\\results\\layer1.1_results.csv",
+  "label_note": "Human positive means human_label != ACCEPTABLE; labels are maintainer-decision proxies.",
+  "baseline_note": "Churn baselines use fixed thresholds selected before metric computation, not tuned on this slice.",
+  "baselines": {
+    "harnessci_layer1.1": {
+      "n": 80,
+      "accuracy_proxy": 0.4875,
+      "precision_needs_review_or_block": 0.4839,
+      "recall_needs_review_or_block": 0.375,
+      "f1_needs_review_or_block": 0.4225,
+      "positive_predictions": 31,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 15,
+        "fp": 16,
+        "tn": 24,
+        "fn": 25
+      }
+    },
+    "accept_all": {
+      "n": 80,
+      "accuracy_proxy": 0.5,
+      "precision_needs_review_or_block": null,
+      "recall_needs_review_or_block": 0.0,
+      "f1_needs_review_or_block": null,
+      "positive_predictions": 0,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 40,
+        "fn": 40
+      }
+    },
+    "files_only_gt_5": {
+      "n": 80,
+      "accuracy_proxy": 0.4875,
+      "precision_needs_review_or_block": 0.4857,
+      "recall_needs_review_or_block": 0.425,
+      "f1_needs_review_or_block": 0.4533,
+      "positive_predictions": 35,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 17,
+        "fp": 18,
+        "tn": 22,
+        "fn": 23
+      }
+    },
+    "churn_only_gt_250": {
+      "n": 80,
+      "accuracy_proxy": 0.475,
+      "precision_needs_review_or_block": 0.4773,
+      "recall_needs_review_or_block": 0.525,
+      "f1_needs_review_or_block": 0.5,
+      "positive_predictions": 44,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 21,
+        "fp": 23,
+        "tn": 17,
+        "fn": 19
+      }
+    },
+    "files_or_churn": {
+      "n": 80,
+      "accuracy_proxy": 0.5,
+      "precision_needs_review_or_block": 0.5,
+      "recall_needs_review_or_block": 0.575,
+      "f1_needs_review_or_block": 0.5349,
+      "positive_predictions": 46,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 23,
+        "fp": 23,
+        "tn": 17,
+        "fn": 17
+      }
+    }
+  }
+}

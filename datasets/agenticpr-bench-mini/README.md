@@ -42,6 +42,8 @@ Generated files:
 - `results/layer1.1_results.csv` — per-PR HarnessCI decision and risk output using weak specs.
 - `results/layer1.1_results.json` — JSON equivalent of the layer-1.1 results.
 - `results/layer1.1_metrics.json` — layer-1.1 proxy metrics against maintainer merge/close labels.
+- `results/layer1.1_baseline_comparison.csv` — HarnessCI vs simple non-circular baselines.
+- `results/layer1.1_baseline_comparison.json` — JSON equivalent of the baseline comparison.
 
 ## Evaluation
 
@@ -51,6 +53,7 @@ same diffs with those specs:
 ```bash
 py scripts/build_agenticpr_layer1_specs.py
 py scripts/evaluate_agenticpr_layer1.py
+py scripts/compare_agenticpr_layer1_baselines.py
 ```
 
 The evaluator reads the safe manifest and local raw diffs, then audits each diff with
@@ -58,13 +61,20 @@ The evaluator reads the safe manifest and local raw diffs, then audits each diff
 because maintainer merge/close decisions are useful but imperfect labels.
 
 The weak specs are not hidden gold requirements. They are a transparent attempt to
-provide minimal PR intent from title/body excerpt only. This separates two findings:
+provide minimal PR intent from title/body excerpt only. The comparison script also
+runs fixed, non-circular baselines (`accept_all`, files-only, churn-only, and
+files-or-churn) so HarnessCI is not evaluated in isolation.
+
+This separates two findings:
 
 1. **Layer 1 diff-only baseline:** without task intent, HarnessCI should avoid
    pretending confidence and may report `INSUFFICIENT_INFORMATION`.
 2. **Layer 1.1 weak-spec evaluation:** with imperfect reconstructed intent,
    HarnessCI can produce `PASS` / `REVIEW_REQUIRED` / `BLOCK` proxy decisions while
    still documenting that labels are maintainer-decision proxies.
+3. **Baseline comparison:** simple churn rules can be competitive or stronger on
+   maintainer-decision proxies; this is evidence about the weakness of this proxy
+   layer, not a claim that churn is better at judging correctness.
 
 ## Bias controls
 
@@ -80,6 +90,7 @@ provide minimal PR intent from title/body excerpt only. This separates two findi
 - Some closed-without-merge PRs may be duplicates, superseded, or rejected for non-technical reasons.
 - Layer 1 generally lacks agent telemetry and explicit task specs.
 - Layer 1.1 specs are weak reconstructions from PR title/body excerpts, not authoritative requirements.
+- Fixed churn baselines may exploit maintainer/repository review patterns rather than code quality.
 - Live GitHub metadata may drift if repositories are deleted or rewritten.
 - This layer evaluates whether HarnessCI correlates with maintainer decisions, not whether it perfectly judges code quality.
 
