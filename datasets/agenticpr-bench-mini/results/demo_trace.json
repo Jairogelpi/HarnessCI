@@ -1,0 +1,21 @@
+{
+  "agent": "Claude Code",
+  "model": "Claude Sonnet 4",
+  "commit": "e9f9454ec4f9fbad18d4719d733d31db411e9fa5",
+  "files_changed": " 1 file changed, 0 insertions(+), 0 deletions(-)",
+  "diff_lines": 5,
+  "telemetry": {
+    "available": true,
+    "edit_attempts": 3,
+    "retries": 1,
+    "test_runs": 2,
+    "failed_test_runs": 0,
+    "error_count": 0,
+    "tokens": 4500,
+    "latency_ms": 12000,
+    "cost_estimate": 0.015,
+    "tool_calls": 8
+  },
+  "source": "harnessci_demo_trace",
+  "generated_at": "2026-06-04"
+}

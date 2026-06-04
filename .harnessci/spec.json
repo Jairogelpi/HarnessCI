@@ -1,5 +1,5 @@
 {
-  "domain": "AI-generated Pull Request Auditing",
+  "domain": "AI-generated Pull Requests",
   "entities": [
     {
       "name": "HarnessCI",
@@ -7,7 +7,7 @@
         "pyproject.toml",
         "src/harnessci/config.py",
         "README.md",
-        "tmp/sdd-mvp-core-audit/7a6bf3db/SPEC.md"
+        ".harnessci/SPEC.md"
       ],
       "invariants": [
         "follows original issue, task, or spec",
@@ -15,7 +15,7 @@
         "passes tests for the right reasons",
         "adds or changes adequate tests",
         "does not introduce security-sensitive changes",
-        "does not show unstable behavior"
+        "agent or harness shows stable behavior"
       ]
     }
   ],
@@ -25,17 +25,18 @@
     "auth": "OAuth 2.0"
   },
   "forbidden_paths": [
-    "tmp/sdd-mvp-core-audit/7a6bf3db/SPEC.md"
+    "unrelated files",
+    "sensitive areas"
   ],
   "allowed_test_patterns": [
     "test_*.py",
-    "tests/*_test.py"
+    "test_*.yaml"
   ],
   "architecture": {
     "layers": [
-      "CLI",
-      "Audit Core",
-      "API"
+      "config",
+      "audit",
+      "checks"
     ],
     "dependencies": [
       "setuptools",
