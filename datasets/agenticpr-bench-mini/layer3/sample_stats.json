@@ -1,0 +1,50 @@
+{
+  "total_prs": 7500,
+  "per_agent": {
+    "Claude_Code": {
+      "total": 1500,
+      "merged": 750,
+      "closed": 750
+    },
+    "Copilot": {
+      "total": 1500,
+      "merged": 750,
+      "closed": 750
+    },
+    "Cursor": {
+      "total": 1500,
+      "merged": 750,
+      "closed": 750
+    },
+    "Devin": {
+      "total": 1500,
+      "merged": 750,
+      "closed": 750
+    },
+    "OpenAI_Codex": {
+      "total": 1500,
+      "merged": 750,
+      "closed": 750
+    }
+  },
+  "unique_repos": 887,
+  "max_per_repo": 10,
+  "methodology": {
+    "bias_controls": [
+      "Equal representation: 750 merged + 750 closed per agent",
+      "Repository diversity: max 10 PRs per repo",
+      "Stratified by agent (5 agents × 2 labels × 750 PRs)",
+      "Consistent time window (2024-2025)",
+      "PR size: naturally distributed across repository pool",
+      "Excludes open PRs (no maintainer decision)",
+      "Label rule: merged_at present = ACCEPTABLE, closed without merge = NEEDS_REVIEW"
+    ],
+    "limitations": [
+      "Maintainer merge decision is imperfect proxy for code quality",
+      "Some closed PRs may be rejected for non-technical reasons",
+      "PR body content not preserved (bounded excerpt only)",
+      "Diffs require GitHub API token to fetch (not included)",
+      "Agent labels are from AIDev bot detection, may have false positives"
+    ]
+  }
+}

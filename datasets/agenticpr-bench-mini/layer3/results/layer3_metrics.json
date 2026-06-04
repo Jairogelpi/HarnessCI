@@ -1,0 +1,87 @@
+{
+  "total_cases": 7338,
+  "agent_metrics": {
+    "Claude_Code": {
+      "sample_size": 1338,
+      "mean_risk": 22,
+      "median_risk": 22.0,
+      "std_risk": 0.0,
+      "mean_findings": 1,
+      "strict_accuracy": 0.5605,
+      "decisions": {
+        "PASS": 1338,
+        "REVIEW_REQUIRED": 0,
+        "BLOCK": 0
+      },
+      "false_positives": 0,
+      "false_negatives": 588
+    },
+    "Copilot": {
+      "sample_size": 1500,
+      "mean_risk": 22,
+      "median_risk": 22.0,
+      "std_risk": 0.0,
+      "mean_findings": 1,
+      "strict_accuracy": 0.5,
+      "decisions": {
+        "PASS": 1500,
+        "REVIEW_REQUIRED": 0,
+        "BLOCK": 0
+      },
+      "false_positives": 0,
+      "false_negatives": 750
+    },
+    "Cursor": {
+      "sample_size": 1500,
+      "mean_risk": 22.0,
+      "median_risk": 22.0,
+      "std_risk": 0.09,
+      "mean_findings": 1,
+      "strict_accuracy": 0.5,
+      "decisions": {
+        "PASS": 1500,
+        "REVIEW_REQUIRED": 0,
+        "BLOCK": 0
+      },
+      "false_positives": 0,
+      "false_negatives": 750
+    },
+    "Devin": {
+      "sample_size": 1500,
+      "mean_risk": 22,
+      "median_risk": 22.0,
+      "std_risk": 0.0,
+      "mean_findings": 1,
+      "strict_accuracy": 0.5,
+      "decisions": {
+        "PASS": 1500,
+        "REVIEW_REQUIRED": 0,
+        "BLOCK": 0
+      },
+      "false_positives": 0,
+      "false_negatives": 750
+    },
+    "OpenAI_Codex": {
+      "sample_size": 1500,
+      "mean_risk": 22,
+      "median_risk": 22.0,
+      "std_risk": 0.0,
+      "mean_findings": 1,
+      "strict_accuracy": 0.5,
+      "decisions": {
+        "PASS": 1500,
+        "REVIEW_REQUIRED": 0,
+        "BLOCK": 0
+      },
+      "false_positives": 0,
+      "false_negatives": 750
+    }
+  },
+  "methodology": "metadata-based audit (title + body → spec, proxy diff)",
+  "limitations": [
+    "No actual diffs — uses proxy diff from title/body length",
+    "Security detection uses keyword matching on title/body",
+    "File-level signals not available without GitHub API",
+    "Maintainer merge labels are imperfect proxies for correctness"
+  ]
+}
