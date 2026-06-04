@@ -1,7 +1,7 @@
 # HarnessCI: Informe de Evidencia TFM
 
 > **Investigación:** ¿Puede una auditoría híbrida basada en especificación, diff, tests y traces detectar riesgos en PRs generados por agentes mejor que tests solos?
-> **Fecha:** 2026-06-03
+> **Fecha:** 2026-06-04
 > **Repositorio:** `Jairogelpi/HarnessCI`
 
 ---
@@ -144,6 +144,24 @@ Traces sinteticos para 80 PRs de Layer 1.1, generados via RNG con seed=42 a part
 **Conclusión:** traces simulados tienen efecto mínimo en decisiones. Traces reales de ejecuciones de agente son necesarios para medir el impacto real.
 
 ---
+
+## Arquitectura de producción: Spec Mining + Semantic Learning
+
+HarnessCI evolucionó de reglas deterministas con keywords hardcoded a una plataforma que **aprende el dominio de cualquier repo automáticamente**.
+
+| Componente | Herramienta | Costo mensual (2000 PRs) |
+|---|---|---|
+| Spec extraction | Groq Llama 3.1 8B ($0.05/M) | ~$0.60 |
+| Embeddings | Nomic Embed Text v2 (local, CPU) | Gratis |
+| Vector store | sqlite-vec (embedded) | Gratis |
+| Verifier + Matcher | SpecVerifier + DriftMatcher | Gratis |
+
+Componentes: `spec/miner.py`, `spec/verifier.py`, `semantic/matcher.py`, `audit.py`, `cli.py`, `.github/workflows/harnessci.yml`. Total: 162 tests, 10 componentes. Costo ~$1/mes para 2000 PRs.
+
+### Diferenciador
+
+vs herramientas existentes (SpecMap, SpecGuard, floe, archspec, pr-to-spec, plumb): **cero configuración manual**. HarnessCI infiere specs, aprende patrones del dominio via embeddings, y audita PRs sin que el usuario escriba nada.
+
 
 ## Hallazgos clave
 
