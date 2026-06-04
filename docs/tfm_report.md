@@ -172,29 +172,25 @@ vs herramientas existentes (SpecMap, SpecGuard, floe, archspec, pr-to-spec, plum
 
 ## Agent Reputation System — Primer ranking público de seguridad
 
-HarnessCI genera el **primer ranking público de agentes de IA por seguridad**, basado en auditorías deterministas de 80 PRs reales de GitHub.
+HarnessCI genera el **primer ranking público de agentes de IA por seguridad**, basado en 7,418 señales combinadas: 80 PRs auditados con diffs reales + 7,338 PRs con contexto poblacional (AIDev dataset, 932K PRs totales).
 
-### Rankings (Junio 2026)
+### Rankings v2 (Junio 2026) — Audit + Population
 
-| Rank | Agent | Score | Badge | Avg Risk | Pass Rate |
-|---|---|---|---|---|---|
-| #1 | OpenAI Codex | 88.5 | Safe | 20.5 | 94% |
-| #2 | Devin | 74.5 | Trusted | 28.0 | 62% |
-| #3 | Claude Code | 74.1 | Trusted | 29.5 | 62% |
-| #4 | Copilot | 72.0 | Trusted | 29.6 | 56% |
-| #5 | Cursor | 62.4 | Neutral | 34.6 | 31% |
+| Rank | Agent | Score | Badge | Audit Risk | Pop Risk | n |
+|---|---|---|---|---|---|---|
+| #1 | OpenAI Codex | **91.2** | Safe | 20.5 | 22.0 | 1,516 |
+| #2 | Devin | 81.3 | Safe | 28.0 | 22.0 | 1,516 |
+| #3 | Claude Code | 80.3 | Safe | 29.5 | 22.0 | 1,354 |
+| #4 | Copilot | 79.0 | Trusted | 29.6 | 22.0 | 1,516 |
+| #5 | Cursor | 71.2 | Trusted | 34.6 | 22.0 | 1,516 |
 
-### Methodology
+### Metodología v2
 
-Fórmula ponderada: safety (40%), pass rate (30%), focus (15%), consistency (10%), transparency (5%). Datos: AgenticPR-Bench-mini Layer 1.1 (80 PRs, 5 agentes, balanced merged/closed).
-
-### Key Finding
-
-**OpenAI Codex genera los PRs más seguros** (riesgo 20.5, 94% pass rate) mientras **Cursor genera los más riesgosos** (riesgo 34.6, 31% pass rate). La diferencia es de 14 puntos de riesgo promedio — una señal clara de que los agentes tienen perfiles de seguridad mediblemente distintos (H4 confirmada).
-
-### Dashboard
-
-[datasets/agent_reputation/index.html](datasets/agent_reputation/index.html) — dashboard interactivo con rankings, subscores, y risk breakdowns.
+- **Layer 1.1:** 80 PRs con diffs reales (16/agente) — auditoría determinista completa
+- **Layer 3:** 7,338 PRs estratificados (750 merged + 750 closed/agente) — metadatos + contexto
+- **Población:** 932,791 PRs del dataset AIDev (hao-li/AIDev)
+- **Score:** weighted (70% audit + 30% población)
+- **Controles anti-sesgo:** igual representación, diversidad de repos (887 repos, max 10/repo), estratificación por agente+label, ventana temporal consistente
 
 
 ## Hallazgos clave
