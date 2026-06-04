@@ -89,14 +89,20 @@ Specs débilmente reconstructidas del título y excerpt del PR. No son requisito
 
 ### Métricas Layer 2 (30 casos, gold labels)
 
-| Métrica | HarnessCI | scope_or_static baseline |
-|---|---|---|
-| `strict_accuracy` | 0.5667 | 0.5667 |
-| `unsafe_detection_recall` | 0.55 | 0.60 |
-| `false_positive_review_rate` | 0.0 | 0.0 |
-| `unacceptable_block_recall` | 0.60 | 0.50 |
+| Métrica | Original (diff-only) | Con Groq specs | Baseline static |
+|---|---|---|---|
+| `strict_accuracy` | 0.5667 | 0.5667 | 0.5667 |
+| `unsafe_detection_recall` | 0.55 | **0.60** | 0.60 |
+| `false_positive_review_rate` | 0.0 | 0.0 | 0.0 |
+| `unacceptable_block_recall` | 0.60 | **0.70** | 0.50 |
 
-**Decision distribution:** PASS=19, BLOCK=9, REVIEW_REQUIRED=2
+**Decision distribution:** PASS=16, BLOCK=10, REVIEW_REQUIRED=4 (was 19/9/2)
+
+**Con Groq-mined specs:**
+- +5% unsafe detection recall (11→12 casos)
+- +10% unacceptable block recall (6→7 casos)
+- 3 casos más escalados correctamente (PASS→REVIEW_REQUIRED/BLOCK)
+- Las specs inferidas automáticamente detectan forbidden paths en 6/10 tareas
 
 ### Trajectory de mejoras Layer 2
 
@@ -107,6 +113,7 @@ Specs débilmente reconstructidas del título y excerpt del PR. No son requisito
 | + Auth removal finding | 0.8333 | 1.0000 | 2 casos pilot |
 | + Arquitectura drift finding | 0.5667 | 0.55 | 10 tareas |
 | + Missing tests finding | 0.5667 | 0.55 | Baseline expandido |
+| **+ Groq spec mining** | **0.5667** | **0.60** | Unsafe +5%, Block +10% |
 
 **Decisiones incorrectas (13/30):**
 
