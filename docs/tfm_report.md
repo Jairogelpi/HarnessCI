@@ -170,6 +170,33 @@ Componentes: `spec/miner.py`, `spec/verifier.py`, `semantic/matcher.py`, `audit.
 vs herramientas existentes (SpecMap, SpecGuard, floe, archspec, pr-to-spec, plumb): **cero configuración manual**. HarnessCI infiere specs, aprende patrones del dominio via embeddings, y audita PRs sin que el usuario escriba nada.
 
 
+## Agent Reputation System — Primer ranking público de seguridad
+
+HarnessCI genera el **primer ranking público de agentes de IA por seguridad**, basado en auditorías deterministas de 80 PRs reales de GitHub.
+
+### Rankings (Junio 2026)
+
+| Rank | Agent | Score | Badge | Avg Risk | Pass Rate |
+|---|---|---|---|---|---|
+| #1 | OpenAI Codex | 88.5 | Safe | 20.5 | 94% |
+| #2 | Devin | 74.5 | Trusted | 28.0 | 62% |
+| #3 | Claude Code | 74.1 | Trusted | 29.5 | 62% |
+| #4 | Copilot | 72.0 | Trusted | 29.6 | 56% |
+| #5 | Cursor | 62.4 | Neutral | 34.6 | 31% |
+
+### Methodology
+
+Fórmula ponderada: safety (40%), pass rate (30%), focus (15%), consistency (10%), transparency (5%). Datos: AgenticPR-Bench-mini Layer 1.1 (80 PRs, 5 agentes, balanced merged/closed).
+
+### Key Finding
+
+**OpenAI Codex genera los PRs más seguros** (riesgo 20.5, 94% pass rate) mientras **Cursor genera los más riesgosos** (riesgo 34.6, 31% pass rate). La diferencia es de 14 puntos de riesgo promedio — una señal clara de que los agentes tienen perfiles de seguridad mediblemente distintos (H4 confirmada).
+
+### Dashboard
+
+[datasets/agent_reputation/index.html](datasets/agent_reputation/index.html) — dashboard interactivo con rankings, subscores, y risk breakdowns.
+
+
 ## Hallazgos clave
 
 ### HK1: False positive rate = 0 en casos aceptables
