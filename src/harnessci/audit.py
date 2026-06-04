@@ -16,7 +16,7 @@ from .diff import build_diff_features, classify_files, parse_diff_text
 from .errors import HarnessCIError
 from .models import AuditReport, SpecModel, TelemetrySummary, TestSignals
 from .scoring import build_findings, compute_scores, decide
-from .spec import parse_spec_file
+from .spec import parse_spec_file, parse_spec_text
 
 # ---------------------------------------------------------------------------
 # Public API
@@ -35,6 +35,7 @@ def run_audit(
     return _build_audit_report(
         diff_text=diff_text,
         spec_path=spec_path,
+        spec_text=None,
         config=config,
         metadata={"base_rev": base_rev, "head_rev": head_rev},
     )
@@ -43,9 +44,14 @@ def run_audit(
 def run_audit_from_diff_text(
     diff_text: str,
     spec_path: str | Path | None = None,
+    spec_text: str | None = None,
     config: dict[str, Any] | None = None,
 ) -> AuditReport:
     """Run a deterministic audit from already loaded unified diff text.
+
+    Provide either ``spec_path`` (path to a spec file) or ``spec_text`` (raw spec
+    content).  If both are given, ``spec_text`` takes precedence and is written to
+    a temporary on-disk file so the existing spec-file parser is reused.
 
     This pure API is intended for benchmarks and offline analysis where a PR diff
     is already available and cloning the source repository would be unnecessary.
@@ -54,11 +60,13 @@ def run_audit_from_diff_text(
     return _build_audit_report(
         diff_text=diff_text,
         spec_path=spec_path,
+        spec_text=spec_text,
         config=config,
         metadata={
             "source": "diff_text",
             "diff_sha256": hashlib.sha256(diff_text.encode("utf-8")).hexdigest(),
             "diff_bytes": len(diff_text.encode("utf-8")),
+            "spec_source": "inline" if spec_text else "file" if spec_path else "none",
         },
     )
 
@@ -71,12 +79,13 @@ def run_audit_from_diff_text(
 def _build_audit_report(
     diff_text: str,
     spec_path: str | Path | None,
+    spec_text: str | None,
     config: dict[str, Any] | None,
     metadata: dict[str, str | int | float | bool | None],
 ) -> AuditReport:
     """Build an AuditReport from loaded diff text and optional spec/config."""
     cfg = config if config is not None else load_config(None)
-    spec = _load_spec(spec_path)
+    spec = _load_spec(spec_path, spec_text)
 
     raw_files = parse_diff_text(diff_text)
     classified = classify_files(raw_files)
@@ -112,14 +121,16 @@ def _build_audit_report(
     )
 
 
-def _load_spec(spec_path: str | Path | None) -> SpecModel:
-    """Try to parse the spec file; return an unusable SpecModel on any failure."""
-    if spec_path is None:
-        return SpecModel()
+def _load_spec(spec_path: str | Path | None, spec_text: str | None = None) -> SpecModel:
+    """Try to parse the spec; return an unusable SpecModel on any failure."""
     try:
-        return parse_spec_file(Path(spec_path))
+        if spec_text is not None:
+            return parse_spec_text(spec_text, source_path="<inline>")
+        if spec_path is not None:
+            return parse_spec_file(Path(spec_path))
     except Exception:  # noqa: BLE001
         return SpecModel()
+    return SpecModel()
 
 
 def _git_diff(base_rev: str, head_rev: str, cwd: str | Path | None) -> str:

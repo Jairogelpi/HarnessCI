@@ -1,0 +1,119 @@
+{
+  "n": 80,
+  "accuracy_proxy": 0.4875,
+  "precision_needs_review_or_block": 0.4839,
+  "recall_needs_review_or_block": 0.375,
+  "confusion_matrix_needs_review_or_block": {
+    "tp": 15,
+    "fp": 16,
+    "tn": 24,
+    "fn": 25
+  },
+  "mean_risk_by_label": {
+    "ACCEPTABLE": 27.3,
+    "NEEDS_REVIEW": 29.55
+  },
+  "decision_distribution": {
+    "PASS": 49,
+    "REVIEW_REQUIRED": 31
+  },
+  "spec_used_count": 80,
+  "agent_breakdown": {
+    "Claude_Code": {
+      "n": 16,
+      "human_label_distribution": {
+        "ACCEPTABLE": 8,
+        "NEEDS_REVIEW": 8
+      },
+      "decision_distribution": {
+        "REVIEW_REQUIRED": 6,
+        "PASS": 10
+      },
+      "mean_overall_agentic_risk": 29.5,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 4,
+        "fp": 2,
+        "tn": 6,
+        "fn": 4
+      }
+    },
+    "Copilot": {
+      "n": 16,
+      "human_label_distribution": {
+        "ACCEPTABLE": 8,
+        "NEEDS_REVIEW": 8
+      },
+      "decision_distribution": {
+        "PASS": 9,
+        "REVIEW_REQUIRED": 7
+      },
+      "mean_overall_agentic_risk": 29.56,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 2,
+        "fp": 5,
+        "tn": 3,
+        "fn": 6
+      }
+    },
+    "Cursor": {
+      "n": 16,
+      "human_label_distribution": {
+        "NEEDS_REVIEW": 8,
+        "ACCEPTABLE": 8
+      },
+      "decision_distribution": {
+        "REVIEW_REQUIRED": 11,
+        "PASS": 5
+      },
+      "mean_overall_agentic_risk": 34.56,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 4,
+        "fp": 7,
+        "tn": 1,
+        "fn": 4
+      }
+    },
+    "Devin": {
+      "n": 16,
+      "human_label_distribution": {
+        "ACCEPTABLE": 8,
+        "NEEDS_REVIEW": 8
+      },
+      "decision_distribution": {
+        "PASS": 10,
+        "REVIEW_REQUIRED": 6
+      },
+      "mean_overall_agentic_risk": 28.0,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 4,
+        "fp": 2,
+        "tn": 6,
+        "fn": 4
+      }
+    },
+    "OpenAI_Codex": {
+      "n": 16,
+      "human_label_distribution": {
+        "NEEDS_REVIEW": 8,
+        "ACCEPTABLE": 8
+      },
+      "decision_distribution": {
+        "PASS": 15,
+        "REVIEW_REQUIRED": 1
+      },
+      "mean_overall_agentic_risk": 20.5,
+      "confusion_matrix_needs_review_or_block": {
+        "tp": 1,
+        "fp": 0,
+        "tn": 8,
+        "fn": 7
+      }
+    }
+  },
+  "notes": [
+    "Metrics use maintainer merge/close decisions as proxy labels, not perfect correctness.",
+    "Human positive means human_label != ACCEPTABLE.",
+    "Model positive means decision is REVIEW_REQUIRED, BLOCK, or INSUFFICIENT_INFORMATION.",
+    "Layer 1.1 uses weak specs reconstructed from PR metadata, not hidden gold specs."
+  ]
+}

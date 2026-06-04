@@ -101,24 +101,41 @@ def test_evaluate_layer1_writes_results_and_metrics(tmp_path: Path):
         + "\n",
         encoding="utf-8",
     )
+    specs = tmp_path / "specs.jsonl"
+    specs.write_text(
+        json.dumps(
+            {
+                "dataset_id": "sample__repo__pull_1",
+                "spec_text": (
+                    "## Goal\nImplement login behavior.\n\n"
+                    "## Acceptance Criteria\n- Login function exists"
+                ),
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     results_dir = tmp_path / "results"
 
     rows, metrics = evaluator.evaluate_layer1(
         manifest_path=manifest,
+        specs_path=specs,
         results_dir=results_dir,
         repo_root=tmp_path,
     )
 
     assert len(rows) == 1
     assert metrics["n"] == 1
-    assert (results_dir / "layer1_results.csv").exists()
-    assert (results_dir / "layer1_results.json").exists()
-    assert (results_dir / "layer1_metrics.json").exists()
+    assert (results_dir / "layer1.1_results.csv").exists()
+    assert (results_dir / "layer1.1_results.json").exists()
+    assert (results_dir / "layer1.1_metrics.json").exists()
 
-    with (results_dir / "layer1_results.csv").open(encoding="utf-8", newline="") as fh:
+    with (results_dir / "layer1.1_results.csv").open(encoding="utf-8", newline="") as fh:
         csv_rows = list(csv.DictReader(fh))
     assert csv_rows[0]["dataset_id"] == "sample__repo__pull_1"
-    assert csv_rows[0]["harnessci_decision"] == "INSUFFICIENT_INFORMATION"
+    assert csv_rows[0]["spec_used"] == "True"
+    # With a usable spec provided, HarnessCI makes a real decision.
+    assert csv_rows[0]["harnessci_decision"] in {"PASS", "REVIEW_REQUIRED", "BLOCK"}
 
-    parsed_json = json.loads((results_dir / "layer1_results.json").read_text(encoding="utf-8"))
+    parsed_json = json.loads((results_dir / "layer1.1_results.json").read_text(encoding="utf-8"))
     assert "body" not in parsed_json[0]

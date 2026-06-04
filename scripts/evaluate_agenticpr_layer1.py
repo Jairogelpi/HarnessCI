@@ -1,11 +1,11 @@
 """Evaluate HarnessCI against AgenticPR-Bench-mini layer 1.
 
 The evaluator reads the safe layer-1 manifest, audits each local PR diff with
-HarnessCI's pure diff API, and writes proxy comparison artifacts:
+HarnessCI's pure diff API, and writes layer-1.1 proxy comparison artifacts:
 
-- datasets/agenticpr-bench-mini/results/layer1_results.csv
-- datasets/agenticpr-bench-mini/results/layer1_results.json
-- datasets/agenticpr-bench-mini/results/layer1_metrics.json
+- datasets/agenticpr-bench-mini/results/layer1.1_results.csv
+- datasets/agenticpr-bench-mini/results/layer1.1_results.json
+- datasets/agenticpr-bench-mini/results/layer1.1_metrics.json
 
 Layer 1 labels are maintainer-decision proxies, not perfect correctness labels:
 merged PRs are `ACCEPTABLE`; closed-without-merge PRs are `NEEDS_REVIEW`.
@@ -30,7 +30,9 @@ if str(SRC_DIR) not in sys.path:
 
 DATASET_DIR = ROOT / "datasets" / "agenticpr-bench-mini"
 DEFAULT_MANIFEST = DATASET_DIR / "raw" / "layer1_real_github_prs.jsonl"
+DEFAULT_SPECS = DATASET_DIR / "raw" / "layer1.1_specs.jsonl"
 DEFAULT_RESULTS_DIR = DATASET_DIR / "results"
+DEFAULT_OUTPUT_PREFIX = "layer1.1"
 
 RESULT_FIELDS = [
     "dataset_id",
@@ -48,6 +50,7 @@ RESULT_FIELDS = [
     "manifest_changed_files",
     "manifest_additions",
     "manifest_deletions",
+    "spec_used",
     "finding_count",
     "top_findings",
     "diff_sha256",
@@ -60,20 +63,42 @@ MODEL_POSITIVE_DECISIONS = {
 }
 
 
+def _load_spec_cache(specs_path: Path) -> dict[str, str]:
+    """Load layer-1.1 specs into a dict keyed by dataset_id."""
+    if not specs_path.exists():
+        return {}
+    cache: dict[str, str] = {}
+    with specs_path.open(encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+                cache[str(rec.get("dataset_id", ""))] = str(rec.get("spec_text", ""))
+            except json.JSONDecodeError:
+                continue
+    return cache
+
+
 def evaluate_layer1(
     manifest_path: Path = DEFAULT_MANIFEST,
+    specs_path: Path = DEFAULT_SPECS,
     results_dir: Path = DEFAULT_RESULTS_DIR,
     repo_root: Path = ROOT,
+    output_prefix: str = DEFAULT_OUTPUT_PREFIX,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Evaluate all layer-1 manifest entries and write result artifacts."""
     records = read_manifest(manifest_path)
-    rows = [evaluate_record(record, repo_root=repo_root) for record in records]
+    spec_cache = _load_spec_cache(specs_path)
+    print(f"Loaded {len(spec_cache)} layer-1.1 specs from {specs_path.name}")
+    rows = [evaluate_record(record, spec_cache, repo_root=repo_root) for record in records]
     metrics = compute_metrics(rows)
 
     results_dir.mkdir(parents=True, exist_ok=True)
-    write_results_csv(results_dir / "layer1_results.csv", rows)
-    write_results_json(results_dir / "layer1_results.json", rows)
-    write_metrics_json(results_dir / "layer1_metrics.json", metrics)
+    write_results_csv(results_dir / f"{output_prefix}_results.csv", rows)
+    write_results_json(results_dir / f"{output_prefix}_results.json", rows)
+    write_metrics_json(results_dir / f"{output_prefix}_metrics.json", metrics)
     return rows, metrics
 
 
@@ -97,8 +122,12 @@ def read_manifest(path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def evaluate_record(record: dict[str, Any], repo_root: Path = ROOT) -> dict[str, Any]:
-    """Audit one manifest record and return a safe result row."""
+def evaluate_record(
+    record: dict[str, Any],
+    spec_cache: dict[str, str],
+    repo_root: Path = ROOT,
+) -> dict[str, Any]:
+    """Audit one manifest record with optional spec and return a safe result row."""
     diff_path = repo_root / str(record.get("diff_path", ""))
     if not diff_path.exists():
         raise FileNotFoundError(
@@ -106,7 +135,10 @@ def evaluate_record(record: dict[str, Any], repo_root: Path = ROOT) -> dict[str,
         )
 
     diff_text = diff_path.read_text(encoding="utf-8", errors="replace")
-    report = audit_diff_text(diff_text)
+    dataset_id = str(record.get("dataset_id", ""))
+    spec_text = spec_cache.get(dataset_id)
+
+    report = audit_diff_text(diff_text, spec_text=spec_text)
 
     decision = report.decision.value
     top_findings = [finding.message for finding in report.findings[:3]]
@@ -126,16 +158,17 @@ def evaluate_record(record: dict[str, Any], repo_root: Path = ROOT) -> dict[str,
         "manifest_changed_files": record.get("changed_files"),
         "manifest_additions": record.get("additions"),
         "manifest_deletions": record.get("deletions"),
+        "spec_used": bool(spec_text),
         "finding_count": len(report.findings),
         "top_findings": " | ".join(top_findings),
         "diff_sha256": record.get("diff_sha256", ""),
     }
 
 
-def audit_diff_text(diff_text: str) -> Any:
-    """Call HarnessCI's pure diff API with imports resolved at runtime."""
+def audit_diff_text(diff_text: str, spec_text: str | None = None) -> Any:
+    """Call HarnessCI's pure diff API with optional spec text."""
     audit_module = importlib.import_module("harnessci.audit")
-    return audit_module.run_audit_from_diff_text(diff_text)
+    return audit_module.run_audit_from_diff_text(diff_text, spec_text=spec_text)
 
 
 def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -149,6 +182,7 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "confusion_matrix_needs_review_or_block": {"tp": 0, "fp": 0, "tn": 0, "fn": 0},
             "mean_risk_by_label": {},
             "decision_distribution": {},
+            "spec_used_count": 0,
             "agent_breakdown": {},
         }
 
@@ -167,12 +201,14 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "confusion_matrix_needs_review_or_block": confusion,
         "mean_risk_by_label": mean_risk_by(rows, key="human_label"),
         "decision_distribution": dict(Counter(str(row["harnessci_decision"]) for row in rows)),
+        "spec_used_count": sum(1 for row in rows if row.get("spec_used")),
         "agent_breakdown": agent_breakdown(rows),
         "notes": [
             "Metrics use maintainer merge/close decisions as proxy labels, "
             "not perfect correctness.",
             "Human positive means human_label != ACCEPTABLE.",
             "Model positive means decision is REVIEW_REQUIRED, BLOCK, or INSUFFICIENT_INFORMATION.",
+            "Layer 1.1 uses weak specs reconstructed from PR metadata, not hidden gold specs.",
         ],
     }
 
@@ -267,13 +303,22 @@ def main() -> int:
     )
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--results-dir", type=Path, default=DEFAULT_RESULTS_DIR)
+    parser.add_argument(
+        "--specs",
+        type=Path,
+        default=DEFAULT_SPECS,
+        help="Path to layer-1.1 specs JSONL (default: auto-detected)",
+    )
     parser.add_argument("--repo-root", type=Path, default=ROOT)
+    parser.add_argument("--output-prefix", default=DEFAULT_OUTPUT_PREFIX)
     args = parser.parse_args()
 
     rows, metrics = evaluate_layer1(
         manifest_path=args.manifest,
+        specs_path=args.specs,
         results_dir=args.results_dir,
         repo_root=args.repo_root,
+        output_prefix=args.output_prefix,
     )
     print(f"Evaluated {len(rows)} PRs")
     print(f"accuracy_proxy={metrics['accuracy_proxy']}")
