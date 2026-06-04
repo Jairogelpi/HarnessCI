@@ -1,0 +1,78 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - modules/
+  - environments/
+  - '*.tf'
+  id: task_0065
+  repository_slice: terraform-infra
+  spec:
+    acceptance_criteria:
+    - Implementation follows snake_case conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository terraform-infra: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - modules/iam/
+    - terraform.tfstate
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: HCL
+      auth: AWS IAM
+      naming: snake_case
+    entities:
+    - files:
+      - modules/vpc/
+      - modules/networking/
+      invariants:
+      - CIDR not overlapping
+      - NAT gateway per AZ
+      name: VPC
+    - files:
+      - modules/eks/
+      - modules/iam/
+      invariants:
+      - node groups min 2
+      - IRSA for service accounts
+      name: EKS
+    forbidden_paths: *id001
+    languages:
+    - hcl
+    test_patterns:
+    - '*_test.tf'
+    - tests/
+  template_domain: Terraform AWS infrastructure
+  title: '[terraform-infra] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0065_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0065_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0065_unacceptable.diff
+      primary_label: UNACCEPTABLE

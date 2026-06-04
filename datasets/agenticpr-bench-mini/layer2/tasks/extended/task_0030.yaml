@@ -1,0 +1,77 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - src/
+  - tests/
+  - Cargo.toml
+  id: task_0030
+  repository_slice: rust-cli-tool
+  spec:
+    acceptance_criteria:
+    - Implementation follows snake_case conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository rust-cli-tool: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - src/main.rs
+    - Cargo.lock
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: CLI flags
+      auth: none
+      naming: snake_case
+    entities:
+    - files:
+      - src/processor.rs
+      - src/pipeline.rs
+      invariants:
+      - handles SIGTERM
+      - output is deterministic
+      name: Processor
+    - files:
+      - src/config.rs
+      invariants:
+      - validated on startup
+      - defaults for all fields
+      name: Config
+    forbidden_paths: *id001
+    languages:
+    - rust
+    test_patterns:
+    - tests/
+    - '#[cfg(test)]'
+  template_domain: Rust CLI data processing tool
+  title: '[rust-cli-tool] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0030_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0030_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0030_unacceptable.diff
+      primary_label: UNACCEPTABLE

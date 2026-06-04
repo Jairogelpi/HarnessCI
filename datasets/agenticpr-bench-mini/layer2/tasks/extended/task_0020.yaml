@@ -1,0 +1,78 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - internal/
+  - proto/
+  - cmd/
+  - go.mod
+  id: task_0020
+  repository_slice: go-grpc-service
+  spec:
+    acceptance_criteria:
+    - Implementation follows camelCase conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository go-grpc-service: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - internal/auth/
+    - configs/production.yaml
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: gRPC
+      auth: mTLS
+      naming: camelCase
+    entities:
+    - files:
+      - internal/service/
+      - proto/
+      invariants:
+      - all RPCs have deadlines
+      - errors use status codes
+      name: Service
+    - files:
+      - internal/repository/
+      invariants:
+      - all queries have context
+      - connections are pooled
+      name: Repository
+    forbidden_paths: *id001
+    languages:
+    - go
+    test_patterns:
+    - '*_test.go'
+    - internal/*/testing/
+  template_domain: Go gRPC microservice
+  title: '[go-grpc-service] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0020_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0020_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0020_unacceptable.diff
+      primary_label: UNACCEPTABLE

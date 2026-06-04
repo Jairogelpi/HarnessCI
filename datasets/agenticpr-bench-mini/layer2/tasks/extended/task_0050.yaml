@@ -1,0 +1,78 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - src/
+  - __tests__/
+  - package.json
+  id: task_0050
+  repository_slice: vue-admin
+  spec:
+    acceptance_criteria:
+    - Implementation follows camelCase conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository vue-admin: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - src/stores/auth.ts
+    - src/utils/crypto.ts
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: REST
+      auth: JWT + Pinia store
+      naming: camelCase
+    entities:
+    - files:
+      - src/views/
+      - src/composables/useResource.ts
+      invariants:
+      - pagination on list
+      - validation on form
+      name: Resource
+    - files:
+      - src/stores/auth.ts
+      - src/router/guards.ts
+      invariants:
+      - token refresh before expiry
+      - role-based access
+      name: Auth
+    forbidden_paths: *id001
+    languages:
+    - typescript
+    test_patterns:
+    - __tests__/
+    - '*.spec.ts'
+  template_domain: Vue 3 admin panel with CRUD
+  title: '[vue-admin] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0050_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0050_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0050_unacceptable.diff
+      primary_label: UNACCEPTABLE

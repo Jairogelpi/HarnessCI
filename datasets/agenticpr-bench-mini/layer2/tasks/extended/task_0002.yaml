@@ -1,0 +1,75 @@
+- change_type: feature
+  expected_scope: medium_change
+  expected_touched_files:
+  - app/
+  - tests/
+  - requirements.txt
+  id: task_0002
+  repository_slice: fastapi-auth-demo
+  spec:
+    acceptance_criteria:
+    - Implementation follows snake_case conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository fastapi-auth-demo: add pagination to list endpoint'
+    out_of_scope: &id001
+    - app/auth/middleware.py
+    - app/core/secrets.py
+    risk_areas:
+    - feature
+  template:
+    conventions:
+      api: REST
+      auth: JWT in Authorization header
+      naming: snake_case
+    entities:
+    - files:
+      - app/models/user.py
+      invariants:
+      - password is hashed
+      name: User
+    - files:
+      - app/auth/middleware.py
+      - app/auth/session.py
+      invariants:
+      - session expires after 30min
+      name: Session
+    forbidden_paths: *id001
+    languages:
+    - python
+    test_patterns:
+    - tests/
+    - '*_test.py'
+  template_domain: FastAPI authentication microservice
+  title: '[fastapi-auth-demo] Add pagination to list endpoint'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: false
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0002_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: false
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0002_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: false
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0002_unacceptable.diff
+      primary_label: UNACCEPTABLE
