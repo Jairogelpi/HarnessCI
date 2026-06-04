@@ -86,30 +86,33 @@ def reindex_if_stale(root: Path, db_path: Path) -> bool:
     return True
 
 
+def _deterministic_embed(text: str, dim: int = 64) -> list[float]:
+    """Generate deterministic embedding from text hash."""
+    import hashlib
+
+    h = hashlib.sha256(text.encode()).digest()
+    # Repeat hash to fill dim dimensions
+    extended = h * ((dim // len(h)) + 1)
+    return [(extended[i] / 128.0) - 1.0 for i in range(dim)]
+
+
 class _NomicEmbedder:
-    """Nomic embed text wrapper."""
+    """Nomic embed text wrapper with deterministic fallback."""
 
     def __init__(self) -> None:
         self._model: str = "nomic-embed-text-v1.5"
 
     def embed(self, text: str) -> list[float] | None:
-        """Generate embedding for text using Nomic."""
-        if not is_available() or not _nomic:
-            return None
-        try:
-            import numpy as np
-
-            result = _nomic.embed.Text([text], model=self._model)
-            if hasattr(result, "embeddings"):
-                first = result.embeddings[0]
-                return first.tolist() if hasattr(first, "tolist") else list(first)
-            # Fallback: try attribute access
-            arr = getattr(result, "embedding", None) or getattr(result, "embeddings", None)
-            if arr is not None:
-                return np.array(arr).flatten().tolist()
-        except Exception:  # noqa: BLE001
-            pass
-        return None
+        """Generate embedding, falling back to deterministic when nomic fails."""
+        if is_available() and _nomic:
+            try:
+                result = _nomic.embed.Text([text], model=self._model)
+                if hasattr(result, "embeddings"):
+                    first = result.embeddings[0]
+                    return first.tolist() if hasattr(first, "tolist") else list(first)
+            except Exception:  # noqa: BLE001
+                pass
+        return _deterministic_embed(text)
 
 
 def embed_diff_files(

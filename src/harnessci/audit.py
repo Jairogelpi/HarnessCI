@@ -168,19 +168,12 @@ def _load_or_infer_spec(
     spec_path: str | Path | None,
     spec_text: str | None = None,
 ) -> SpecModel:
-    """Load spec: provided > mined > fallback.
-
-    Priority:
-    1. spec_text (inline)
-    2. spec_path (file)
-    3. Mined spec from .harnessci/spec.json (auto-detected from cwd)
-    4. Empty SpecModel (unusable)
-    """
-    # 1-2. Provided spec — use directly
+    """Load spec: provided > mined > fallback."""
+    # 1-2. Provided spec
     if spec_text or spec_path:
         return _load_spec(spec_path, spec_text)
 
-    # 3. Try mined spec only when no explicit spec provided
+    # 3. Try mined spec
     try:
         from .spec_inference import load_mined_spec, spec_exists
 
@@ -188,14 +181,51 @@ def _load_or_infer_spec(
         if spec_exists(cwd):
             mined = load_mined_spec(cwd)
             if mined:
-                domain = mined.get("domain", "Inferred")
-                summary = mined.get("summary_md", "")
-                spec_text_mined = f"# {domain}\n\n{summary}"
+                spec_text_mined = _mined_spec_to_text(mined)
                 return _load_spec(None, spec_text_mined)
     except Exception:  # noqa: BLE001
         pass
 
     return SpecModel()
+
+
+def _mined_spec_to_text(mined: dict) -> str:
+    """Convert mined spec dict to markdown format that parse_spec_text understands."""
+    parts: list[str] = []
+
+    domain = mined.get("domain", "")
+    if domain:
+        parts.append(f"## Goal\n{domain}")
+
+    entities = mined.get("entities", [])
+    if entities:
+        parts.append("## Acceptance Criteria")
+        for e in entities[:5]:
+            name = e.get("name", "")
+            files = ", ".join(str(f) for f in e.get("files", []))
+            invs = e.get("invariants", [])
+            inv_str = f" ({'; '.join(invs)})" if invs else ""
+            parts.append(f"- {name}: {files}{inv_str}")
+
+    forbidden = mined.get("forbidden_paths", [])
+    if forbidden:
+        parts.append("## Out of Scope")
+        for fp in forbidden[:10]:
+            parts.append(f"- {fp}")
+
+    arch = mined.get("architecture", {})
+    if arch:
+        parts.append("## Expected Scope\nmedium_change")
+    else:
+        parts.append("## Expected Scope\nsmall_bugfix")
+
+    risk = mined.get("security_invariants", [])
+    if risk:
+        parts.append("## Risk Areas")
+        for r in risk[:5]:
+            parts.append(f"- {r}")
+
+    return "\n".join(parts) + "\n"
 
 
 def _load_spec(spec_path: str | Path | None, spec_text: str | None = None) -> SpecModel:
@@ -274,13 +304,17 @@ def _git_diff(base_rev: str, head_rev: str, cwd: str | Path | None) -> str:
             cwd=cwd,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=False,
         )
     except OSError as exc:
         raise HarnessCIError(f"Failed to run git: {exc}") from exc
 
     if result.returncode != 0:
-        raise HarnessCIError(f"git diff failed (exit {result.returncode}): {result.stderr.strip()}")
+        raise HarnessCIError(
+            f"git diff failed (exit {result.returncode}): {result.stderr.strip()}"
+        )
     return result.stdout
 
 

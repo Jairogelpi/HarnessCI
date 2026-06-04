@@ -42,6 +42,11 @@ def test_run_audit_from_diff_text_returns_report_without_git(monkeypatch):
 
     monkeypatch.setattr(subprocess, "run", fail_subprocess_run)
 
+    # Disable auto-detection of mined spec (test should not depend on repo state)
+    def _fake_spec_exists(_root):
+        return False
+    monkeypatch.setattr("harnessci.spec_inference.spec_exists", _fake_spec_exists)
+
     audit = _audit_module()
     models = _models_module()
     report = audit.run_audit_from_diff_text(SAMPLE_DIFF)

@@ -177,22 +177,14 @@ def _cmd_audit(args: argparse.Namespace) -> None:
     from .audit import run_audit
     from .config import load_config
     from .report import render_json, render_markdown
-    from .spec_inference import load_mined_spec, spec_exists
 
     try:
         config = load_config(args.config if args.config else None)
 
-        # Try to load mined spec
-        repo = Path.cwd()
+        # Let audit auto-detect mined spec (zero-config)
+        # Only pass spec_text when explicitly provided via --infer or --spec
         spec_text = None
-
-        if spec_exists(repo):
-            mined = load_mined_spec(repo)
-            if mined:
-                summary = mined.get("summary_md", "")
-                domain = mined.get("domain", "Inferred")
-                spec_text = f"# {domain}\n\n{summary}"
-        elif args.infer:
+        if args.infer:
             spec_text = (
                 "# Auto-inferred spec\n\n"
                 "Inferred from diff context. Run `harnessci init` for full learning."
