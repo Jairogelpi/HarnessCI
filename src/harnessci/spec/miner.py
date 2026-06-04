@@ -1,6 +1,7 @@
 """LLM-based spec extraction for HarnessCI.
 
-Uses Gemini 2.0 Flash-Lite to infer a structured spec from repository code.
+Uses Groq's Llama 3.1 8B for fast, cheap spec mining from repository code.
+Fallback: returns empty spec when no API key available.
 """
 
 from __future__ import annotations
@@ -15,7 +16,8 @@ import requests
 # Constants
 # ---------------------------------------------------------------------------
 
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODEL = "llama-3.1-8b-instant"
 SKIP_DIRS = {".venv", "node_modules", "__pycache__", ".git"}
 
 MINING_SYSTEM = (
@@ -29,14 +31,15 @@ MINING_SYSTEM = (
 
 
 # ---------------------------------------------------------------------------
-# Gemini client
+# LLM client (Groq)
 # ---------------------------------------------------------------------------
 
-class GeminiClient:
-    """Lightweight Gemini 2.0 Flash-Lite client using requests."""
+
+class GroqClient:
+    """Lightweight Groq client using requests — OpenAI-compatible API."""
 
     def __init__(self, api_key: str | None = None) -> None:
-        self.api_key = api_key or os.environ.get("GEMINI_API_KEY", "")
+        self.api_key = api_key or os.environ.get("GROQ_API_KEY", "")
         self._available = bool(self.api_key)
 
     @property
@@ -44,30 +47,42 @@ class GeminiClient:
         return self._available and bool(self.api_key)
 
     def complete(self, prompt: str, system: str = "") -> str:
-        """Call Gemini API and return text response."""
+        """Call Groq API and return text response."""
         if not self.available:
-            return '{"error": "GEMINI_API_KEY not set"}'
+            return '{"error": "GROQ_API_KEY not set"}'
 
-        url = f"{GEMINI_API_URL}?key={self.api_key}"
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+        messages: list[dict[str, str]] = []
+        if system:
+            messages.append({"role": "system", "content": system})
+        messages.append({"role": "user", "content": prompt})
+
         payload: dict = {
-            "contents": [{"parts": [{"text": (system + "\n\n" + prompt) if system else prompt}]}]
+            "model": MODEL,
+            "messages": messages,
+            "temperature": 0.1,
+            "max_tokens": 1024,
         }
 
         try:
-            resp = requests.post(url, json=payload, timeout=30)
+            resp = requests.post(
+                GROQ_API_URL,
+                json=payload,
+                headers=headers,
+                timeout=30,
+            )
             if resp.status_code != 200:
                 return f'{{"error": "API error {resp.status_code}: {resp.text[:200]}"}}'
 
             data = resp.json()
-            candidates = data.get("candidates", [])
-            if not candidates:
-                return '{"error": "No candidates in response"}'
+            choices = data.get("choices", [])
+            if not choices:
+                return '{"error": "No choices in response"}'
 
-            parts = candidates[0].get("content", {}).get("parts", [])
-            if not parts:
-                return '{"error": "No parts in candidate"}'
-
-            return parts[0].get("text", '{"error": "No text in part"}')
+            return choices[0].get("message", {}).get("content", '{"error": "No content"}')
 
         except requests.Timeout:
             return '{"error": "Request timed out"}'
@@ -75,12 +90,12 @@ class GeminiClient:
             return '{"error": "Request failed"}'
 
 
-def create_llm_client(provider: str = "gemini") -> GeminiClient | None:
+def create_llm_client(provider: str = "groq") -> GroqClient | None:
     """Factory: create LLM client for the given provider."""
-    if provider == "gemini":
-        key = os.environ.get("GEMINI_API_KEY", "")
+    if provider == "groq":
+        key = os.environ.get("GROQ_API_KEY", "")
         if key:
-            return GeminiClient(key)
+            return GroqClient(key)
     return None
 
 
@@ -116,7 +131,6 @@ def _scan_structure(root: Path) -> dict:
     except Exception:  # noqa: BLE001
         pass
 
-    # Config files
     for cfg_name in ["pyproject.toml", "package.json", "requirements.txt", "go.mod"]:
         cfg_path = root / cfg_name
         if cfg_path.exists():
@@ -126,7 +140,6 @@ def _scan_structure(root: Path) -> dict:
             except Exception:  # noqa: BLE001
                 pass
 
-    # Detect languages
     if any(root.rglob("*.py")):
         structure["languages"].append("python")
     if any(root.rglob("*.js")) or any(root.rglob("*.ts")):
@@ -202,8 +215,8 @@ def _build_mining_prompt(structure: dict, key_files: list[dict]) -> str:
         prompt += f"\n\n=== {kf['path']} ===\n{kf['content'][:500]}"
 
     prompt += """
-Extract JSON with exact keys: domain, entities (name/files/invariants), 
-conventions (naming/api/auth), forbidden_paths, allowed_test_patterns, 
+Extract JSON with exact keys: domain, entities (name/files/invariants),
+conventions (naming/api/auth), forbidden_paths, allowed_test_patterns,
 architecture (layers/dependencies), security_invariants, summary_md.
 Output ONLY the JSON. No markdown, no explanation."""
     return prompt
@@ -217,12 +230,12 @@ def _validate_spec(spec_dict: dict) -> bool:
 
 def mine_spec(
     root: Path,
-    llm_client: GeminiClient | None = None,
+    llm_client: GroqClient | None = None,
 ) -> tuple[dict, str]:
-    """Full spec mining pipeline.
+    """Full spec mining pipeline using Groq Llama.
 
     Returns:
-        Tuple of (spec_dict, summary_md). On failure, returns empty spec with error.
+        Tuple of (spec_dict, summary_md). On failure, returns empty spec.
     """
     if llm_client is None:
         llm_client = create_llm_client()

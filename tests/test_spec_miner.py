@@ -1,4 +1,4 @@
-"""Tests for the LLM spec miner."""
+"""Tests for the LLM spec miner (Groq/Llama)."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import json
 from unittest.mock import patch
 
 from harnessci.spec.miner import (
-    GeminiClient,
+    GroqClient,
     _empty_spec,
     _scan_structure,
     _select_key_files,
@@ -16,20 +16,20 @@ from harnessci.spec.miner import (
 )
 
 
-class TestGeminiClient:
+class TestGroqClient:
     def test_available_with_key(self):
-        with patch.dict("os.environ", {"GEMINI_API_KEY": "test-key-123"}):
-            client = GeminiClient()
+        with patch.dict("os.environ", {"GROQ_API_KEY": "test-key-123"}):
+            client = GroqClient()
             assert client.available is True
 
     def test_unavailable_without_key(self):
         with patch.dict("os.environ", {}, clear=True):
-            client = GeminiClient()
+            client = GroqClient()
             assert client.available is False
 
     def test_complete_unavailable_returns_error_json(self):
         with patch.dict("os.environ", {}, clear=True):
-            client = GeminiClient()
+            client = GroqClient()
             result = client.complete("test prompt")
             assert '"error"' in result
 
@@ -92,8 +92,8 @@ class TestMineSpec:
             "summary_md": "## Test\n\nA test project.",
         })
 
-        with patch.object(GeminiClient, "complete", return_value=mock_response):
-            client = GeminiClient("fake-key")
+        with patch.object(GroqClient, "complete", return_value=mock_response):
+            client = GroqClient("fake-key")
             spec, summary = mine_spec(tmp_path, client)
             assert spec["domain"] == "Test project"
             assert spec["conventions"]["naming"] == "snake_case"
@@ -112,30 +112,31 @@ class TestMineSpec:
   "summary_md": "Test"
 }
 ```"""
-        with patch.object(GeminiClient, "complete", return_value=mock_response):
-            client = GeminiClient("fake-key")
+        with patch.object(GroqClient, "complete", return_value=mock_response):
+            client = GroqClient("fake-key")
             spec, _ = mine_spec(tmp_path, client)
             assert spec["domain"] == "Test"
 
     def test_mine_spec_handles_invalid_json(self, tmp_path):
-        with patch.object(GeminiClient, "complete", return_value="not valid json"):
-            client = GeminiClient("fake-key")
+        with patch.object(GroqClient, "complete", return_value="not valid json"):
+            client = GroqClient("fake-key")
             spec, _ = mine_spec(tmp_path, client)
             assert spec["domain"] == "unknown"
 
     def test_mine_spec_handles_incomplete_spec_response(self, tmp_path):
         mock_response = json.dumps({"domain": "Test"})
-        with patch.object(GeminiClient, "complete", return_value=mock_response):
-            client = GeminiClient("fake-key")
+        with patch.object(GroqClient, "complete", return_value=mock_response):
+            client = GroqClient("fake-key")
             spec, _ = mine_spec(tmp_path, client)
             assert spec["domain"] == "unknown"
 
 
 class TestCreateLLMClient:
     def test_returns_client_when_key_set(self):
-        with patch.dict("os.environ", {"GEMINI_API_KEY": "test"}):
+        with patch.dict("os.environ", {"GROQ_API_KEY": "test"}):
             client = create_llm_client()
             assert client is not None
+            assert isinstance(client, GroqClient)
 
     def test_returns_none_when_key_not_set(self):
         with patch.dict("os.environ", {}, clear=True):
