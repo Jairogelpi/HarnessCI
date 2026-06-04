@@ -1,0 +1,52 @@
+diff --git a/src/api/client.ts b/src/api/client.ts
+index 9a2b3c4..1f5d8e2 100644
+--- a/src/api/client.ts
++++ b/src/api/client.ts
+@@ -1,12 +1,25 @@
+-export const fetchData = (url) => fetch(url).then((r) => r.json());
+-export const postData = (url, data) =>
+-  fetch(url, { method: "POST", body: JSON.stringify(data) }).then((r) => r.json());
++interface ApiResponse<T> {
++  data: T;
++  status: number;
++}
++
++interface ApiError {
++  status: number;
++  message: string;
++}
++
++export async function fetchData<T>(url: string): Promise<ApiResponse<T>> {
++  const response = await fetch(url);
++  const data = await response.json();
++  return { data, status: response.status };
++}
++
++export async function postData<T>(
++  url: string,
++  body: unknown,
++): Promise<ApiResponse<T> | ApiError> {
++  const response = await fetch(url, {
++    method: "POST",
++    body: JSON.stringify(body),
++    headers: { "Content-Type": "application/json" },
++  });
++  const data = await response.json();
++  return { data, status: response.status };
++}
+diff --git a/src/api/types.ts b/src/api/types.ts
+new file mode 100644
+index 0000000..3e5a1c7
+--- /dev/null
++++ b/src/api/types.ts
+@@ -0,0 +1,9 @@
++export interface ChartData {
++  labels: string[];
++  values: number[];
++}
++
++export interface InvoiceRecord {
++  id: string;
++  customer: string;
++  amount: number;
++}

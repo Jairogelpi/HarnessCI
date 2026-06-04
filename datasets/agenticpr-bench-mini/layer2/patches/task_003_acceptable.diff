@@ -1,0 +1,17 @@
+diff --git a/app/utils/response.py b/app/utils/response.py
+new file mode 100644
+index 0000000..e3f41a9
+--- /dev/null
++++ b/app/utils/response.py
+@@ -0,0 +1,13 @@
++"""Reusable response parsing utilities."""
++import json
++
++
++def parse_json_response(response: object) -> dict | None:
++    """Parse a JSON response and return the data dict, or None on error."""
++    try:
++        return json.loads(response.body)
++    except (AttributeError, ValueError, TypeError):
++        return None
++

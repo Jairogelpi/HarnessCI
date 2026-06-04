@@ -1,0 +1,39 @@
+diff --git a/billing/views.py b/billing/views.py
+index 9e3f41a..4b2c7d0 100644
+--- a/billing/views.py
++++ b/billing/views.py
+@@ -1,9 +1,11 @@
+ from django.http import JsonResponse
+ from billing.models import Invoice
+ from billing.middleware import require_billing_admin
++from django.views.decorators.http import require_POST
+ 
+ 
+ @require_POST
+ @require_billing_admin
+ def create_invoice(request):
+-    data = json.loads(request.body)
+-    invoice = Invoice.objects.create(
+-        customer_id=data["customer_id"], amount_cents=data["amount_cents"]
++    idempotency_key = request.headers.get("X-Idempotency-Key")
++    data = json.loads(request.body)
++    invoice = Invoice.objects.create(
++        customer_id=data["customer_id"], amount_cents=data["amount_cents"],
++        idempotency_key=idempotency_key,
+     )
+     return JsonResponse(invoice.to_dict(), status=201)
+diff --git a/billing/models.py b/billing/models.py
+index 7d24afe..c8f12a4 100644
+--- a/billing/models.py
++++ b/billing/models.py
+@@ -9,9 +9,10 @@ class Invoice(models.Model):
+         (CREATED, "Created"),
+     )
+     customer_id = models.CharField(max_length=64)
+     amount_cents = models.IntegerField()
+     status = models.CharField(max_length=32, choices=STATUS_CHOICES, default=CREATED)
++    idempotency_key = models.CharField(max_length=128, blank=True, null=True, unique=True)
+ 
+     def to_dict(self):
+-        return {"id": self.id, "customer": self.customer_id, "amount": self.amount_cents}
++        return {"id": self.id, "customer": self.customer_id, "amount": self.amount_cents, "status": self.status}

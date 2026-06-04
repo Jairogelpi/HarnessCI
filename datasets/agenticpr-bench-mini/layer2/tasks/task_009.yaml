@@ -1,0 +1,56 @@
+- id: task_009
+  title: Fix slow query performance in the invoice listing endpoint
+  repository_slice: django-billing-demo
+  change_type: bugfix-with-edge-case
+  expected_scope: small_bugfix
+  spec:
+    goal: >-
+      Fix the N+1 query problem in the invoice listing endpoint so that
+      related customer data is fetched in a single query instead of one per row.
+    acceptance_criteria:
+      - Invoice list uses select_related or prefetch_related to reduce queries.
+      - Response time for 100 invoices is under 200ms.
+      - Existing tests for invoice listing continue to pass.
+      - No changes to API response format or field names.
+    out_of_scope:
+      - Adding new filters or sorting options to the listing.
+      - Modifying the invoice creation endpoint.
+      - Adding caching layers.
+    risk_areas:
+      - performance
+      - database
+  expected_touched_files:
+    - billing/views.py
+    - billing/models.py
+    - tests/test_invoices.py
+  variants:
+    acceptable:
+      patch: patches/task_009_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_009_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_009_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: true

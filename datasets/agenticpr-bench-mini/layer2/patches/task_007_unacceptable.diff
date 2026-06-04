@@ -1,0 +1,38 @@
+diff --git a/requirements.txt b/requirements.txt
+index 8ac54de..9a2c3f1 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,8 +1,8 @@
+-Django==5.0.8
+-requests==2.32.3
++Django==6.0.0
++requests==2.33.0
+ billing-webhook-client==0.9.0
+ pytest==8.4.2
+ django-cors-headers==4.4.0
+ psycopg2-binary==2.9.9
+ python-dotenv==1.0.1
+diff --git a/billing/views.py b/billing/views.py
+index 9e3f41a..b1c2d3e 100644
+--- a/billing/views.py
++++ b/billing/views.py
+@@ -2,8 +2,10 @@ from django.http import JsonResponse
+ from billing.models import Invoice
+ from billing.middleware import require_billing_admin
+ import json
++import logging
+ 
+ 
++logger = logging.getLogger(__name__)
+ def require_billing_admin(request):
+     if not getattr(request, "billing_admin", False):
+         return HttpResponse(status=403)
+@@ -12,6 +14,7 @@ def require_billing_admin(request):
+ def create_invoice(request):
+     data = json.loads(request.body)
+     invoice = Invoice.objects.create(
+-        customer_id=data["customer_id"], amount_cents=data["amount_cents"]
++        customer_id=data["customer_id"], amount_cents=data["amount_cents"],
++        status="created",
+     )
+     return JsonResponse(invoice.to_dict(), status=201)

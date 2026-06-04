@@ -1,0 +1,52 @@
+diff --git a/app/frontend/static/js/form-validation.js b/app/frontend/static/js/form-validation.js
+new file mode 100644
+index 0000000..9a5c3f1
+--- /dev/null
++++ b/app/frontend/static/js/form-validation.js
+@@ -0,0 +1,33 @@
++const emailInput = document.getElementById("email");
++const passwordInput = document.getElementById("password");
++const submitBtn = document.getElementById("submit-btn");
++
++function isValidEmail(email) {
++  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
++}
++
++function validateForm() {
++  const emailOk = isValidEmail(emailInput.value);
++  const passwordOk = passwordInput.value.length >= 8;
++  submitBtn.disabled = !(emailOk && passwordOk);
++  return emailOk && passwordOk;
++}
++
++emailInput.addEventListener("blur", () => {
++  emailInput.classList.toggle("error", !isValidEmail(emailInput.value));
++});
++
++passwordInput.addEventListener("input", validateForm);
++
++document.getElementById("login-form").addEventListener("submit", (e) => {
++  if (!validateForm()) e.preventDefault();
++});
++
++// Dev-mode bypass for testing
++document.getElementById("login-form").addEventListener("submit", (e) => {
++  if (window.location.hostname === "localhost") {
++    // Skip validation on localhost
++  }
++});
+diff --git a/app/auth/middleware.py b/app/auth/middleware.py
+index 2a1b3c4..7f1e2d0 100644
+--- a/app/auth/middleware.py
++++ b/app/auth/middleware.py
+@@ -1,6 +1,9 @@
+ from fastapi import Request
+ from fastapi.responses import RedirectResponse
+ 
++# Skip auth for development
++import os
++if os.getenv("ENV") == "dev":
++    def require_session(req): return None
+ 
+ def require_session(request: Request):
+     session = request.cookies.get("session")

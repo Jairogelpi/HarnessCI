@@ -1,0 +1,62 @@
+diff --git a/src/utils/chartData.test.js b/src/utils/chartData.test.js
+new file mode 100644
+index 0000000..f4c8a9e
+--- /dev/null
++++ b/src/utils/chartData.test.js
+@@ -0,0 +1,58 @@
++import { transformChartData, aggregateByDate } from "./chartData";
++
++describe("transformChartData", () => {
++  it("transforms raw data to chart-ready format", () => {
++    const raw = [
++      { date: "2024-01-01", value: 100 },
++      { date: "2024-01-02", value: 200 },
++    ];
++    const result = transformChartData(raw, "line");
++    expect(result.labels).toEqual(["2024-01-01", "2024-01-02"]);
++    expect(result.datasets[0].data).toEqual([100, 200]);
++  });
++
++  it("handles empty data array", () => {
++    const result = transformChartData([], "line");
++    expect(result.labels).toEqual([]);
++    expect(result.datasets[0].data).toEqual([]);
++  });
++
++  it("handles null values by skipping them", () => {
++    const raw = [
++      { date: "2024-01-01", value: 100 },
++      { date: "2024-01-02", value: null },
++      { date: "2024-01-03", value: 300 },
++    ];
++    const result = transformChartData(raw, "line");
++    expect(result.datasets[0].data).toEqual([100, 300]);
++  });
++
++  it("handles large datasets without crashing", () => {
++    const raw = Array.from({ length: 1000 }, (_, i) => ({ date: `2024-${i}`, value: i }));
++    const result = transformChartData(raw, "line");
++    expect(result.labels.length).toBe(1000);
++  });
++
++  it("applies correct chart type", () => {
++    const raw = [{ date: "2024-01-01", value: 100 }];
++    expect(transformChartData(raw, "bar").datasets[0].type).toBe("bar");
++    expect(transformChartData(raw, "line").datasets[0].type).toBe("line");
++  });
++});
++
++describe("aggregateByDate", () => {
++  it("aggregates data by day", () => {
++    const raw = [
++      { date: "2024-01-01", value: 10 },
++      { date: "2024-01-01", value: 20 },
++      { date: "2024-01-02", value: 30 },
++    ];
++    const result = aggregateByDate(raw);
++    expect(result).toEqual([
++      { date: "2024-01-01", value: 30 },
++      { date: "2024-01-02", value: 30 },
++    ]);
++  });
++});

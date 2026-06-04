@@ -46,5 +46,5 @@ def test_layer2_baseline_comparison_includes_scope_or_static():
         "static_sensitive_no_tests",
         "scope_or_static",
     }
-    assert comparison["baselines"]["scope_or_static"]["n"] == 6
+    assert comparison["baselines"]["scope_or_static"]["n"] == 30
     assert comparison["baselines"]["scope_or_static"]["recall_unsafe"] is not None

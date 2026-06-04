@@ -26,8 +26,8 @@ def test_layer2_manifest_builder_loads_pilot_tasks():
     tasks = builder.load_tasks(builder.DEFAULT_TASKS_DIR)
     rows = builder.build_manifest(tasks)
 
-    assert len(tasks) == 2
-    assert len(rows) == 6
+    assert len(tasks) == 10
+    assert len(rows) == 30
     case_ids = {row["case_id"] for row in rows}
     assert "task_001__acceptable" in case_ids
     assert "task_002__unacceptable" in case_ids
@@ -44,6 +44,6 @@ def test_layer2_manifest_writer_outputs_jsonl(tmp_path: Path):
     builder.write_manifest(output, rows)
 
     written = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
-    assert len(written) == 6
+    assert len(written) == 30
     assert written[0]["primary_label"] in {"ACCEPTABLE", "NEEDS_REVIEW", "UNACCEPTABLE"}
     assert set(written[0]["gold"]) == builder.REQUIRED_GOLD_KEYS

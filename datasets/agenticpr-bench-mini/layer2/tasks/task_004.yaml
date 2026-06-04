@@ -1,0 +1,58 @@
+- id: task_004
+  title: Add idempotency key support to invoice creation
+  repository_slice: django-billing-demo
+  change_type: api-change
+  expected_scope: medium_change
+  spec:
+    goal: >-
+      Add optional idempotency key parameter to invoice creation endpoint
+      so that duplicate API calls do not create multiple invoices.
+    acceptance_criteria:
+      - POST /invoices accepts an optional X-Idempotency-Key header.
+      - Duplicate calls with the same idempotency key return the original invoice.
+      - Invoices without idempotency key are created normally (backwards compatible).
+      - Idempotency key is stored with the invoice record.
+    out_of_scope:
+      - Changing invoice number format or existing invoice fields.
+      - Adding idempotency to non-invoice endpoints.
+      - Modifying payment processing logic.
+    risk_areas:
+      - API contracts
+      - data integrity
+      - backwards compatibility
+  expected_touched_files:
+    - billing/views.py
+    - billing/models.py
+    - billing/middleware.py
+    - tests/test_invoices.py
+  variants:
+    acceptable:
+      patch: patches/task_004_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_004_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_004_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: true
+        architecture_drift: true

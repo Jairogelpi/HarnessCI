@@ -1,0 +1,33 @@
+diff --git a/tests/test_rate_limit.py b/tests/test_rate_limit.py
+new file mode 100644
+index 0000000..c1e8a3f
+--- /dev/null
++++ b/tests/test_rate_limit.py
+@@ -0,0 +1,21 @@
++import pytest
++from httpx import AsyncClient, ASGITransport
++from app.main import app
++
++
++@pytest.mark.asyncio
++async def test_rate_limit_returns_429_when_exceeded():
++    transport = ASGITransport(app=app)
++    async with AsyncClient(transport=transport, base_url="http://test") as client:
++        # Make 101 requests
++        responses = []
++        for _ in range(101):
++            r = await client.get("/api/public/data")
++            responses.append(r.status_code)
++        # Last request should be rate limited
++        assert responses[-1] == 429
++
++
++@pytest.mark.asyncio
++async def test_retry_after_header_present():
++    transport = ASGITransport(app=app)
++    async with AsyncClient(transport=transport, base_url="http://test") as client:
++        # Trigger rate limit
++        for _ in range(101):
++            await client.get("/api/public/data")
++        r = await client.get("/api/public/data")
++        assert r.status_code == 429

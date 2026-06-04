@@ -47,7 +47,7 @@ def test_run_audit_from_diff_text_returns_report_without_git(monkeypatch):
     report = audit.run_audit_from_diff_text(SAMPLE_DIFF)
 
     assert isinstance(report, models.AuditReport)
-    assert report.decision == models.Decision.REVIEW_REQUIRED
+    assert report.decision == models.Decision.INSUFFICIENT_INFORMATION
     assert report.diff.files_changed == 1
     assert report.diff.lines_added == 2
     assert report.diff.lines_deleted == 0

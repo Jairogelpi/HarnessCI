@@ -1,0 +1,49 @@
+diff --git a/billing/views.py b/billing/views.py
+index 9e3f41a..5d8e4a1 100644
+--- a/billing/views.py
++++ b/billing/views.py
+@@ -1,18 +1,25 @@
+ from django.http import JsonResponse
+ from billing.models import Invoice
+ from billing.middleware import require_billing_admin
+ import json
++import logging
+ 
+ 
+ def list_invoices(request):
+-    invoices = Invoice.objects.all()
+-    return JsonResponse({"invoices": [inv.to_dict() for inv in invoices]}, safe=False)
++    # Add status filter parameter from query string
++    status_filter = request.GET.get("status", "all")
++    invoices = Invoice.objects.all()
++    # Format change: flatten the response structure
++    invoice_list = [{"id": inv.id, "customer": inv.customer_id, "amount": inv.amount_cents}
++                    for inv in invoices]
++    return JsonResponse({"data": invoice_list, "count": len(invoice_list)}, safe=False)
+ 
+ 
+ def create_invoice(request):
+     data = json.loads(request.body)
+     invoice = Invoice.objects.create(
+-        customer_id=data["customer_id"], amount_cents=data["amount_cents"]
++        customer_id=data["customer_id"], amount_cents=data["amount_cents"],
++        status="created",
+     )
+     return JsonResponse(invoice.to_dict(), status=201)
+diff --git a/billing/models.py b/billing/models.py
+index 7d24afe..8e3a9c1 100644
+--- a/billing/models.py
++++ b/billing/models.py
+@@ -9,9 +9,12 @@ class Invoice(models.Model):
+         (CREATED, "Created"),
+     )
+     customer_id = models.CharField(max_length=64)
+     amount_cents = models.IntegerField()
+     status = models.CharField(max_length=32, choices=STATUS_CHOICES, default=CREATED)
++    # New field added for tracking purposes
++    audit_log = models.TextField(default="")
+ 
+     def to_dict(self):
+-        return {"id": self.id, "customer": self.customer_id, "amount": self.amount_cents}
++        return {"id": self.id, "customer": self.customer_id, "amount": self.amount_cents,
++                "status": self.status}

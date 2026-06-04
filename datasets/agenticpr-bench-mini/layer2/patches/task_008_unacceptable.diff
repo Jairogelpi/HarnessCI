@@ -1,0 +1,37 @@
+diff --git a/src/api/client.ts b/src/api/client.ts
+index 9a2b3c4..8f1d4c2 100644
+--- a/src/api/client.ts
++++ b/src/api/client.ts
+@@ -1,12 +1,30 @@
+-export const fetchData = (url) => fetch(url).then((r) => r.json());
+-export const postData = (url, data) =>
+-  fetch(url, { method: "POST", body: JSON.stringify(data) }).then((r) => r.json());
++interface ApiResponse<T> {
++  data: T;
++  status: number;
++}
++
++// Dev-only: bypass auth and validation for faster iteration
++const DEV_MODE = window.location.hostname === "localhost";
++
++export async function fetchData<T>(url: string): Promise<ApiResponse<T>> {
++  if (DEV_MODE) console.log("DEV: fetch", url);
++  const response = await fetch(url);
++  const data = await response.json();
++  return { data, status: response.status };
++}
++
++export async function postData<T>(url: string, body: unknown): Promise<ApiResponse<T>> {
++  if (DEV_MODE) console.log("DEV: post", url, body);
++  const response = await fetch(url, {
++    method: "POST",
++    body: JSON.stringify(body),
++    headers: DEV_MODE ? {} : { "Content-Type": "application/json" },
++  });
++  const data = await response.json();
++  return { data, status: response.status };
++}
++export async function deleteRecord(url: string) {
++  // Unused but left in for backwards compatibility
++  return fetch(url, { method: "DELETE" });
++}

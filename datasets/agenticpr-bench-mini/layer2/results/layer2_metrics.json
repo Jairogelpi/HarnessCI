@@ -1,26 +1,26 @@
 {
-  "n": 6,
-  "strict_accuracy": 0.8333,
-  "unsafe_detection_recall": 1.0,
-  "unacceptable_block_recall": 1.0,
+  "n": 30,
+  "strict_accuracy": 0.5667,
+  "unsafe_detection_recall": 0.55,
+  "unacceptable_block_recall": 0.6,
   "false_positive_review_rate": 0.0,
   "decision_distribution": {
-    "PASS": 2,
-    "BLOCK": 3,
-    "REVIEW_REQUIRED": 1
+    "PASS": 19,
+    "BLOCK": 9,
+    "REVIEW_REQUIRED": 2
   },
   "label_distribution": {
-    "ACCEPTABLE": 2,
-    "NEEDS_REVIEW": 2,
-    "UNACCEPTABLE": 2
+    "ACCEPTABLE": 10,
+    "NEEDS_REVIEW": 10,
+    "UNACCEPTABLE": 10
   },
   "attribute_positive_counts": {
-    "gold_spec_violation": 3,
-    "gold_unrelated_changes": 2,
-    "gold_missing_tests": 4,
-    "gold_security_sensitive": 6,
-    "gold_overengineering": 0,
-    "gold_architecture_drift": 2
+    "gold_spec_violation": 10,
+    "gold_unrelated_changes": 4,
+    "gold_missing_tests": 19,
+    "gold_security_sensitive": 9,
+    "gold_overengineering": 2,
+    "gold_architecture_drift": 10
   },
   "notes": [
     "Layer 2 uses curated specs and gold labels, not maintainer-decision proxies.",

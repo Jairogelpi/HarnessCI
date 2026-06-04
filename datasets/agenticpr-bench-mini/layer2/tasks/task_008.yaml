@@ -1,0 +1,58 @@
+- id: task_008
+  title: Migrate all API calls to REST conventions
+  repository_slice: react-dashboard-demo
+  change_type: refactoring
+  expected_scope: large_refactor
+  spec:
+    goal: >-
+      Migrate all frontend API calls to use consistent conventions:
+      named exports, typed responses, and structured error objects.
+    acceptance_criteria:
+      - All API calls use named async functions instead of default exports.
+      - Response types are consistent across all endpoints.
+      - Error responses return consistent shape with status and message.
+      - TypeScript types are exported for all API responses.
+    out_of_scope:
+      - Changing API endpoint URLs or protocols.
+      - Modifying backend logic or database schema.
+      - Adding new features beyond API call migration.
+    risk_areas:
+      - code quality
+      - API contracts
+      - refactoring
+  expected_touched_files:
+    - src/api/client.ts
+    - src/api/types.ts
+    - src/pages/Dashboard.tsx
+    - src/pages/Reports.tsx
+  variants:
+    acceptable:
+      patch: patches/task_008_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_008_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_008_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: true
+        architecture_drift: true

@@ -72,18 +72,20 @@ def build_findings(
             )
 
     # --- Security-sensitive auth changes with deletions ---
-    # Detect potential auth removal even when string-based out_of_scope matching
-    # does not fire. If a sensitive file was changed and lines were deleted,
-    # flag the change as a potential removal of authentication logic.
+    # Detect potential auth removal when there is no test safety net.
+    # If a sensitive file was changed with deletions and no tests were added,
+    # flag it as HIGH risk.
     if diff.sensitive_files_touched and diff.change_type == ChangeType.SECURITY_SENSITIVE:
-        removed_auth_checks = any(f.is_sensitive and f.lines_deleted > 0 for f in diff.files)
+        removed_auth_checks = any(
+            f.is_sensitive and f.lines_deleted > 0 for f in diff.files
+        )
         if removed_auth_checks and not test_signals.new_tests_added:
             findings.append(
                 AuditFinding(
                     severity=FindingSeverity.HIGH,
                     category=FindingCategory.SECURITY,
                     message=(
-                        "Security-sensitive file modified with deletions — "
+                        "Security-sensitive file modified with deletions and no new tests — "
                         "potential removal of authentication or authorization logic."
                     ),
                     evidence="; ".join(diff.sensitive_files_touched[:5]),
@@ -107,7 +109,7 @@ def build_findings(
             AuditFinding(
                 severity=FindingSeverity.HIGH,
                 category=FindingCategory.SECURITY,
-                message=("Sensitive files were modified but no new tests were added."),
+                message="Sensitive files were modified but no new tests were added.",
                 evidence="; ".join(diff.sensitive_files_touched[:5]),
             )
         )
@@ -121,9 +123,25 @@ def build_findings(
             AuditFinding(
                 severity=FindingSeverity.HIGH,
                 category=FindingCategory.SECURITY,
-                message=(f"Change type '{diff.change_type}' detected with no new tests."),
+                message=f"Change type '{diff.change_type}' detected with no new tests.",
                 evidence=f"change_type={diff.change_type}",
             )
+        )
+
+    # --- Missing tests for non-trivial code changes ---
+    # If code files were modified and no tests were added, flag the missing coverage.
+    # Fires independently of security findings to catch cases like refactoring,
+    # feature additions, or API changes that lack test coverage.
+    # Note: this may create false positives on acceptable pure-addition variants.
+    non_test_code_files = [f for f in diff.files if not f.is_test]
+    if non_test_code_files and not test_signals.new_tests_added:
+        findings.append(
+            AuditFinding(
+                severity=FindingSeverity.HIGH,
+                category=FindingCategory.TESTS,
+                message="Code was modified but no new tests were added.",
+                evidence="; ".join(f.path for f in non_test_code_files[:3]),
+        )
         )
 
     # --- Database migration without tests ---
@@ -147,6 +165,48 @@ def build_findings(
                 evidence="public_api_changed=True",
             )
         )
+
+    # --- Architecture drift: files outside expected scope ---
+    # Flag when changed files don't match any known domain pattern and there are
+    # multiple non-test files. Catches scope drift and unrelated changes that
+    # aren't security-sensitive enough to trigger the security block.
+    if spec.usable:
+        has_spec = any(f.category == FindingCategory.SPEC for f in findings)
+        if not has_spec:
+            non_test_files = [f for f in diff.files if not f.is_test]
+            if len(non_test_files) >= 2:
+                known_domains = {
+                    "fastapi-auth-demo": [
+                        "auth", "session", "login", "middleware", "redirect",
+                    ],
+                    "django-billing-demo": [
+                        "invoice", "billing", "webhook", "payment", "customer",
+                    ],
+                    "react-dashboard-demo": [
+                        "chart", "dashboard", "frontend", "api", "data",
+                    ],
+                }
+                matched = sum(
+                    1
+                    for f in non_test_files
+                    if any(
+                        kw in f.path.lower()
+                        for domains in known_domains.values()
+                        for kw in domains
+                    )
+                )
+                if matched == 0:
+                    findings.append(
+                        AuditFinding(
+                            severity=FindingSeverity.MEDIUM,
+                            category=FindingCategory.ARCHITECTURE,
+                            message=(
+                                "Changed files do not match the expected domain scope — "
+                                "possible architecture drift or unrelated changes."
+                            ),
+                            evidence="; ".join(f.path for f in non_test_files[:3]),
+                        )
+                    )
 
     # --- Telemetry instability ---
     if telemetry.available:
@@ -200,46 +260,54 @@ def decide(
     """Apply deterministic decision rules in priority order.
 
     Priority:
-    1. tests_failed + block_on_failed_tests → BLOCK
-    2. any CRITICAL finding + block_on_security_critical → BLOCK
-    3. no spec + insufficient_on_missing_spec → INSUFFICIENT_INFORMATION
-    4. no spec → REVIEW_REQUIRED
-    5. overall_agentic_risk >= 61 → BLOCK
-    6. overall_agentic_risk >= 31 → REVIEW_REQUIRED
-    7. PASS
+    1. tests_failed + block_on_failed_tests -> BLOCK
+    2. any CRITICAL finding + block_on_security_critical -> BLOCK
+    3. no spec + insufficient_on_missing_spec -> INSUFFICIENT_INFORMATION
+    4. no spec -> REVIEW_REQUIRED
+    5. 3+ HIGH security findings -> BLOCK
+    6. 2 HIGH security + 1+ HIGH SPEC findings -> BLOCK
+    7. 1+ HIGH security OR HIGH SPEC findings -> REVIEW_REQUIRED
+    8. overall_agentic_risk >= 61 -> BLOCK
+    9. overall_agentic_risk >= 31 -> REVIEW_REQUIRED
+    10. PASS
     """
     # 1. Test failure gate
     if block_on_failed_tests and test_signals.tests_failed:
         return Decision.BLOCK
 
     # 2. Critical finding gate
-    if block_on_security_critical and any(f.severity == FindingSeverity.CRITICAL for f in findings):
+    if block_on_security_critical and any(
+        f.severity == FindingSeverity.CRITICAL for f in findings
+    ):
         return Decision.BLOCK
 
-    # 2b-2c. Findings-based escalation by accumulated evidence
+    # 3-4. Missing spec — checked before findings escalation so that
+    # no-spec cases return INSUFFICIENT_INFORMATION even when a SPEC finding
+    # is present (SPEC finding is informational, not a blocking signal).
+    if no_spec:
+        if insufficient_on_missing_spec:
+            return Decision.INSUFFICIENT_INFORMATION
+        return Decision.REVIEW_REQUIRED
+
+    # 5-7. Findings-based escalation by accumulated evidence
     security_high_count = sum(
         1
         for f in findings
         if f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SECURITY
     )
     has_spec_finding = any(
-        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SPEC for f in findings
+        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SPEC
+        for f in findings
     )
     if block_on_security_critical:
         if security_high_count >= 3:
             return Decision.BLOCK
-        if security_high_count == 2 and has_spec_finding:
+        if security_high_count >= 2 and has_spec_finding:
             return Decision.BLOCK
         if security_high_count >= 1 or has_spec_finding:
             return Decision.REVIEW_REQUIRED
 
-    # 3-4. Missing spec
-    if no_spec:
-        if insufficient_on_missing_spec:
-            return Decision.INSUFFICIENT_INFORMATION
-        return Decision.REVIEW_REQUIRED
-
-    # 5-6. Risk band
+    # 8-9. Risk band
     risk = scores.overall_agentic_risk
     if risk >= _BLOCK_THRESHOLD:
         return Decision.BLOCK

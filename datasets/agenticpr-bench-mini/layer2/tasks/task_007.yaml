@@ -1,0 +1,56 @@
+- id: task_007
+  title: Upgrade all dependencies to latest stable versions
+  repository_slice: django-billing-demo
+  change_type: dependency-update
+  expected_scope: medium_change
+  spec:
+    goal: >-
+      Upgrade all project dependencies to their latest stable versions
+      while maintaining compatibility and passing all tests.
+    acceptance_criteria:
+      - All dependencies are pinned to a specific stable version.
+      - Django and all third-party packages are tested for compatibility.
+      - Existing tests pass without modification.
+      - Changelog or release notes are reviewed for breaking changes.
+    out_of_scope:
+      - Changing application code to adapt to new dependency versions.
+      - Upgrading Django LTS version (stay on current major version).
+      - Removing or replacing major dependencies.
+    risk_areas:
+      - dependency management
+      - backwards compatibility
+  expected_touched_files:
+    - requirements.txt
+    - Pipfile
+    - tests/
+  variants:
+    acceptable:
+      patch: patches/task_007_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_007_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_007_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: true

@@ -75,8 +75,8 @@ def test_layer2_evaluator_writes_outputs(tmp_path: Path):
         layer2_dir=evaluator.LAYER2_DIR,
     )
 
-    assert len(rows) == 6
-    assert metrics["n"] == 6
+    assert len(rows) == 30
+    assert metrics["n"] == 30
     assert (tmp_path / "layer2_results.csv").exists()
     assert (tmp_path / "layer2_results.json").exists()
     assert (tmp_path / "layer2_metrics.json").exists()

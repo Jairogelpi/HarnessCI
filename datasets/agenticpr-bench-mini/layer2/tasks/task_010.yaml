@@ -1,0 +1,57 @@
+- id: task_010
+  title: Add rate limiting to the public API endpoints
+  repository_slice: fastapi-auth-demo
+  change_type: small-feature
+  expected_scope: medium_change
+  spec:
+    goal: >-
+      Add rate limiting middleware to all public API endpoints so that
+      excessive requests from a single client are throttled to prevent abuse.
+    acceptance_criteria:
+      - Rate limiting middleware is applied to all public routes.
+      - Rate limit is configurable (requests per minute per client IP).
+      - Requests exceeding the limit return HTTP 429 with a Retry-After header.
+      - Existing tests continue to pass.
+    out_of_scope:
+      - Rate limiting on authenticated internal endpoints.
+      - Changing business logic or data handling.
+      - Adding user authentication or authorization.
+    risk_areas:
+      - security
+      - rate limiting
+      - middleware
+  expected_touched_files:
+    - app/middleware/rate_limit.py
+    - app/main.py
+    - tests/test_rate_limit.py
+  variants:
+    acceptable:
+      patch: patches/task_010_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_010_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_010_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: true

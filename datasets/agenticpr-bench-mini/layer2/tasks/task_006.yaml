@@ -1,0 +1,56 @@
+- id: task_006
+  title: Add client-side input validation for the login form
+  repository_slice: fastapi-auth-demo
+  change_type: small-feature
+  expected_scope: small_change
+  spec:
+    goal: >-
+      Add client-side validation to the login form so that empty or
+      malformed inputs are rejected before being sent to the server.
+    acceptance_criteria:
+      - Email field validates format on blur.
+      - Password field requires at least 8 characters.
+      - Submit button is disabled until all fields are valid.
+      - Server-side validation remains in place as a fallback.
+    out_of_scope:
+      - Changing server-side validation logic.
+      - Adding new API endpoints.
+      - Modifying the authentication flow.
+    risk_areas:
+      - UX
+      - input validation
+  expected_touched_files:
+    - app/frontend/forms.py
+    - app/frontend/static/js/form-validation.js
+    - tests/test_forms.py
+  variants:
+    acceptable:
+      patch: patches/task_006_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_006_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: false
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_006_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: true
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: true

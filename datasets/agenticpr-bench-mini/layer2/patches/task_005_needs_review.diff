@@ -1,0 +1,16 @@
+diff --git a/src/utils/chartData.test.js b/src/utils/chartData.test.js
+new file mode 100644
+index 0000000..f4c8a9e
+--- /dev/null
++++ b/src/utils/chartData.test.js
+@@ -0,0 +1,18 @@
++import { transformChartData } from "./chartData";
++
++describe("transformChartData", () => {
++  it("transforms raw data to chart-ready format", () => {
++    const raw = [{ date: "2024-01-01", value: 100 }];
++    const result = transformChartData(raw, "line");
++    expect(result.labels).toEqual(["2024-01-01"]);
++    expect(result.datasets[0].data).toEqual([100]);
++  });
++});

@@ -4,7 +4,7 @@
   "baseline_note": "Baselines use fixed thresholds and patch metadata only; they do not use HarnessCI findings or risk scores.",
   "baselines": {
     "accept_all": {
-      "n": 6,
+      "n": 30,
       "accuracy": 0.3333,
       "precision_unsafe": null,
       "recall_unsafe": 0.0,
@@ -13,78 +13,78 @@
       "confusion_matrix_unsafe": {
         "tp": 0,
         "fp": 0,
-        "tn": 2,
-        "fn": 4
+        "tn": 10,
+        "fn": 20
       }
     },
     "files_only_gt_2": {
-      "n": 6,
+      "n": 30,
       "accuracy": 0.3333,
       "precision_unsafe": 0.5,
-      "recall_unsafe": 0.25,
-      "f1_unsafe": 0.3333,
-      "positive_predictions": 2,
+      "recall_unsafe": 0.1,
+      "f1_unsafe": 0.1667,
+      "positive_predictions": 4,
       "confusion_matrix_unsafe": {
-        "tp": 1,
-        "fp": 1,
-        "tn": 1,
-        "fn": 3
+        "tp": 2,
+        "fp": 2,
+        "tn": 8,
+        "fn": 18
       }
     },
     "churn_only_gt_20": {
-      "n": 6,
-      "accuracy": 0.1667,
-      "precision_unsafe": 0.0,
-      "recall_unsafe": 0.0,
-      "f1_unsafe": null,
-      "positive_predictions": 1,
+      "n": 30,
+      "accuracy": 0.3667,
+      "precision_unsafe": 0.5333,
+      "recall_unsafe": 0.4,
+      "f1_unsafe": 0.4571,
+      "positive_predictions": 15,
       "confusion_matrix_unsafe": {
-        "tp": 0,
-        "fp": 1,
-        "tn": 1,
-        "fn": 4
+        "tp": 8,
+        "fp": 7,
+        "tn": 3,
+        "fn": 12
       }
     },
     "scope_only": {
-      "n": 6,
-      "accuracy": 0.6667,
-      "precision_unsafe": 1.0,
-      "recall_unsafe": 0.5,
-      "f1_unsafe": 0.6667,
-      "positive_predictions": 2,
+      "n": 30,
+      "accuracy": 0.4333,
+      "precision_unsafe": 0.8,
+      "recall_unsafe": 0.2,
+      "f1_unsafe": 0.32,
+      "positive_predictions": 5,
       "confusion_matrix_unsafe": {
-        "tp": 2,
-        "fp": 0,
-        "tn": 2,
-        "fn": 2
+        "tp": 4,
+        "fp": 1,
+        "tn": 9,
+        "fn": 16
       }
     },
     "static_sensitive_no_tests": {
-      "n": 6,
-      "accuracy": 1.0,
+      "n": 30,
+      "accuracy": 0.7333,
       "precision_unsafe": 1.0,
-      "recall_unsafe": 1.0,
-      "f1_unsafe": 1.0,
-      "positive_predictions": 4,
+      "recall_unsafe": 0.6,
+      "f1_unsafe": 0.75,
+      "positive_predictions": 12,
       "confusion_matrix_unsafe": {
-        "tp": 4,
+        "tp": 12,
         "fp": 0,
-        "tn": 2,
-        "fn": 0
+        "tn": 10,
+        "fn": 8
       }
     },
     "scope_or_static": {
-      "n": 6,
-      "accuracy": 1.0,
-      "precision_unsafe": 1.0,
-      "recall_unsafe": 1.0,
-      "f1_unsafe": 1.0,
-      "positive_predictions": 4,
+      "n": 30,
+      "accuracy": 0.7,
+      "precision_unsafe": 0.9231,
+      "recall_unsafe": 0.6,
+      "f1_unsafe": 0.7273,
+      "positive_predictions": 13,
       "confusion_matrix_unsafe": {
-        "tp": 4,
-        "fp": 0,
-        "tn": 2,
-        "fn": 0
+        "tp": 12,
+        "fp": 1,
+        "tn": 9,
+        "fn": 8
       }
     }
   }
