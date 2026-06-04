@@ -216,22 +216,21 @@ def decide(
     if block_on_security_critical and any(f.severity == FindingSeverity.CRITICAL for f in findings):
         return Decision.BLOCK
 
-    # 2b. HIGH security and spec findings escalation
-    # Escalate from findings even when overall risk is low — HIGH security or spec
-    # violations indicate insufficient review coverage regardless of score magnitude.
-    has_security_finding = any(
-        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SECURITY
+    # 2b-2c. Findings-based escalation by accumulated evidence
+    security_high_count = sum(
+        1
         for f in findings
+        if f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SECURITY
     )
     has_spec_finding = any(
         f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SPEC for f in findings
     )
     if block_on_security_critical:
-        if has_security_finding and has_spec_finding:
-            # Combined security + spec violations indicate elevated risk even
-            # if overall score stays below the block threshold.
+        if security_high_count >= 3:
             return Decision.BLOCK
-        if has_security_finding or has_spec_finding:
+        if security_high_count == 2 and has_spec_finding:
+            return Decision.BLOCK
+        if security_high_count >= 1 or has_spec_finding:
             return Decision.REVIEW_REQUIRED
 
     # 3-4. Missing spec
