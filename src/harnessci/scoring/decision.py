@@ -76,9 +76,7 @@ def build_findings(
     # If a sensitive file was changed with deletions and no tests were added,
     # flag it as HIGH risk.
     if diff.sensitive_files_touched and diff.change_type == ChangeType.SECURITY_SENSITIVE:
-        removed_auth_checks = any(
-            f.is_sensitive and f.lines_deleted > 0 for f in diff.files
-        )
+        removed_auth_checks = any(f.is_sensitive and f.lines_deleted > 0 for f in diff.files)
         if removed_auth_checks and not test_signals.new_tests_added:
             findings.append(
                 AuditFinding(
@@ -141,7 +139,7 @@ def build_findings(
                 category=FindingCategory.TESTS,
                 message="Code was modified but no new tests were added.",
                 evidence="; ".join(f.path for f in non_test_code_files[:3]),
-        )
+            )
         )
 
     # --- Database migration without tests ---
@@ -177,22 +175,32 @@ def build_findings(
             if len(non_test_files) >= 2:
                 known_domains = {
                     "fastapi-auth-demo": [
-                        "auth", "session", "login", "middleware", "redirect",
+                        "auth",
+                        "session",
+                        "login",
+                        "middleware",
+                        "redirect",
                     ],
                     "django-billing-demo": [
-                        "invoice", "billing", "webhook", "payment", "customer",
+                        "invoice",
+                        "billing",
+                        "webhook",
+                        "payment",
+                        "customer",
                     ],
                     "react-dashboard-demo": [
-                        "chart", "dashboard", "frontend", "api", "data",
+                        "chart",
+                        "dashboard",
+                        "frontend",
+                        "api",
+                        "data",
                     ],
                 }
                 matched = sum(
                     1
                     for f in non_test_files
                     if any(
-                        kw in f.path.lower()
-                        for domains in known_domains.values()
-                        for kw in domains
+                        kw in f.path.lower() for domains in known_domains.values() for kw in domains
                     )
                 )
                 if matched == 0:
@@ -276,9 +284,7 @@ def decide(
         return Decision.BLOCK
 
     # 2. Critical finding gate
-    if block_on_security_critical and any(
-        f.severity == FindingSeverity.CRITICAL for f in findings
-    ):
+    if block_on_security_critical and any(f.severity == FindingSeverity.CRITICAL for f in findings):
         return Decision.BLOCK
 
     # 3-4. Missing spec — checked before findings escalation so that
@@ -296,8 +302,7 @@ def decide(
         if f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SECURITY
     )
     has_spec_finding = any(
-        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SPEC
-        for f in findings
+        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SPEC for f in findings
     )
     if block_on_security_critical:
         if security_high_count >= 3:
