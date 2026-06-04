@@ -83,33 +83,63 @@ def main() -> None:
 
 
 def _cmd_init(args: argparse.Namespace) -> None:
-    """Initialize domain learning for the repo."""
-    from .audit import run_audit_from_diff_text
-    from .spec_inference import spec_exists
+    """Initialize domain learning for the repo with Groq spec mining."""
+    from .spec.miner import create_llm_client, mine_spec
+    from .spec_inference import harnessci_dir as get_harnessci_dir
+    from .spec_inference import save_mined_spec, save_spec_hash, spec_exists
 
     repo = Path(args.repo).resolve()
-    harnessci_dir = repo / ".harnessci"
+    hdir = get_harnessci_dir(repo)
 
     if spec_exists(repo) and not args.force:
-        print(f"HarnessCI already initialized at {harnessci_dir}")
+        print(f"HarnessCI already initialized at {hdir}")
         print("Run `harnessci init --force` to override.")
         return
 
     print(f"Initializing HarnessCI for {repo}...")
-    print("  Note: Full spec mining requires GEMINI_API_KEY env var.")
-    print("  Without it, use `harnessci audit --infer` for lightweight inference.")
+    print("  Mining spec with Groq Llama 3.1...")
 
-    # Verify harnessci works
-    try:
-        test_diff = ""
-        report = run_audit_from_diff_text(
-            test_diff, spec_text="# Test spec\nGoal: verify harnessci works\n"
-        )
-        print(f"  Test audit: {report.decision} (risk={report.overall_agentic_risk})")
-    except Exception as exc:  # noqa: BLE001
-        print(f"  Warning: test audit failed: {exc}")
+    # Try Groq spec mining
+    client = create_llm_client()
+    if client is None or not client.available:
+        print("  WARNING: GROQ_API_KEY not set. Spec mining skipped.")
+        print("  Run `harnessci init --force` with GROQ_API_KEY to mine spec.")
+    else:
+        spec, summary = mine_spec(repo, client)
+        if spec.get("domain") != "unknown":
+            save_mined_spec(spec, repo, summary_md=summary)
+            # Try semantic indexing
+            try:
+                from .semantic.indexer import index_repo
+                from .semantic.store import is_available as vec_available
 
-    print(f"\nInitialized at {harnessci_dir}")
+                if vec_available():
+                    db_path = hdir / "vectors.db"
+                    count = index_repo(repo, spec, db_path)
+                    print(f"  Indexed {count} domain patterns.")
+            except Exception:  # noqa: BLE001
+                pass
+            print(f"  Domain: {spec.get('domain')}")
+            print(f"  Entities: {len(spec.get('entities', []))}")
+            print(f"  Conventions: {list(spec.get('conventions', {}).keys())}")
+        else:
+            print("  WARNING: Spec mining failed (invalid response).")
+
+    # Save git hash
+    import subprocess
+
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=repo,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    current_hash = result.stdout.strip() if result.returncode == 0 else ""
+    if current_hash:
+        save_spec_hash(repo, current_hash)
+
+    print(f"\nInitialized at {hdir}")
     print("Run `harnessci status` to check state.")
 
 

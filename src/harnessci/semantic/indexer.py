@@ -113,7 +113,8 @@ class _NomicEmbedder:
 
 
 def embed_diff_files(
-    files: list[DiffFileChange], embedder: _NomicEmbedder | None = None,
+    files: list[DiffFileChange],
+    embedder: _NomicEmbedder | None = None,
 ) -> list[list[float]]:
     """Generate embeddings for a list of changed files."""
     if embedder is None:
