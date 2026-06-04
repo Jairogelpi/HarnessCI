@@ -79,7 +79,7 @@ def save_spec_hash(root: Path, hash_val: str) -> None:
 def _extract_changed_files(diff_text: str) -> list[str]:
     """Extract changed file paths from unified diff text."""
     prefix = "+++ b/"
-    return [ln[len(prefix):] for ln in diff_text.strip().split("\n") if ln.startswith(prefix)]
+    return [ln[len(prefix) :] for ln in diff_text.strip().split("\n") if ln.startswith(prefix)]
 
 
 def infer_spec_from_pr_context(diff_text: str, pr_title: str = "", pr_body: str = "") -> dict:

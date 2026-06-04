@@ -44,12 +44,11 @@ def _build_parser() -> argparse.ArgumentParser:
     audit_p.add_argument("--head", required=True, metavar="REV", help="Head git revision.")
     audit_p.add_argument("--spec", metavar="PATH", help="Path to spec/task markdown file.")
     audit_p.add_argument("--output", metavar="FILE", help="Write JSON report to FILE.")
-    audit_p.add_argument(
-        "--markdown-output", metavar="FILE", help="Write Markdown report to FILE."
-    )
+    audit_p.add_argument("--markdown-output", metavar="FILE", help="Write Markdown report to FILE.")
     audit_p.add_argument("--config", metavar="FILE", help="Path to harnessci.yaml config file.")
     audit_p.add_argument(
-        "--infer", action="store_true",
+        "--infer",
+        action="store_true",
         help="If no spec found, infer lightweight spec from PR context.",
     )
 
