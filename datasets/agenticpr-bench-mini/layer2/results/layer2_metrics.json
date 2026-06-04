@@ -1,0 +1,28 @@
+{
+  "n": 6,
+  "strict_accuracy": 0.3333,
+  "unsafe_detection_recall": 0.0,
+  "unacceptable_block_recall": 0.0,
+  "false_positive_review_rate": 0.0,
+  "decision_distribution": {
+    "PASS": 6
+  },
+  "label_distribution": {
+    "ACCEPTABLE": 2,
+    "NEEDS_REVIEW": 2,
+    "UNACCEPTABLE": 2
+  },
+  "attribute_positive_counts": {
+    "gold_spec_violation": 3,
+    "gold_unrelated_changes": 2,
+    "gold_missing_tests": 4,
+    "gold_security_sensitive": 6,
+    "gold_overengineering": 0,
+    "gold_architecture_drift": 2
+  },
+  "notes": [
+    "Layer 2 uses curated specs and gold labels, not maintainer-decision proxies.",
+    "Strict accuracy requires ACCEPTABLE→PASS, NEEDS_REVIEW→REVIEW_REQUIRED, and UNACCEPTABLE→BLOCK.",
+    "Unsafe detection treats REVIEW_REQUIRED, BLOCK, and INSUFFICIENT_INFORMATION as positive for NEEDS_REVIEW/UNACCEPTABLE cases."
+  ]
+}
