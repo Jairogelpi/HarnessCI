@@ -122,12 +122,14 @@ def _build_audit_report(
     # 7. Merge verification findings and drift signals into findings list
     findings.extend(spec_findings)
     for ds in drift_signals:
-        findings.append(AuditFinding(
-            severity=FindingSeverity.MEDIUM,
-            category=FindingCategory.ARCHITECTURE,
-            message=f"Semantic drift detected: {ds.evidence}",
-            evidence="; ".join(ds.changed_files[:5]),
-        ))
+        findings.append(
+            AuditFinding(
+                severity=FindingSeverity.MEDIUM,
+                category=FindingCategory.ARCHITECTURE,
+                message=f"Semantic drift detected: {ds.evidence}",
+                evidence="; ".join(ds.changed_files[:5]),
+            )
+        )
 
     # 8. Decision
     decision = decide(
@@ -212,20 +214,37 @@ def _run_spec_verifier(
     diff_features: DiffFeatures,
     spec: SpecModel,
 ) -> list[AuditFinding]:
-    """Run SpecVerifier on the diff using mined spec if available."""
+    """Run SpecVerifier on the diff using the provided or mined spec."""
     try:
         from .spec.verifier import SpecVerifier
         from .spec_inference import load_mined_spec, spec_exists
 
-        cwd = Path.cwd()
-        if spec_exists(cwd):
-            mined = load_mined_spec(cwd)
-            if mined:
-                verifier = SpecVerifier(spec=mined)
-                return verifier.verify(diff_features)
+        # Convert provided spec to dict for SpecVerifier
+        spec_dict: dict[str, object] = {
+            "domain": spec.goal or "",
+            "entities": [],
+            "conventions": {},
+            "forbidden_paths": list(spec.out_of_scope),
+            "allowed_test_patterns": [],
+            "architecture": {},
+            "security_invariants": [],
+        }
+
+        # If provided spec is weak, try mined spec
+        if not spec_dict.get("forbidden_paths") and not spec.goal:
+            cwd = Path.cwd()
+            if spec_exists(cwd):
+                mined = load_mined_spec(cwd)
+                if mined and mined.get("forbidden_paths"):
+                    spec_dict = mined
+
+        if not spec_dict.get("forbidden_paths") and not spec_dict.get("entities"):
+            return []
+
+        verifier = SpecVerifier(spec=spec_dict)
+        return verifier.verify(diff_features)
     except Exception:  # noqa: BLE001
-        pass
-    return []
+        return []
 
 
 def _run_drift_matcher(diff_features: DiffFeatures) -> list[object]:
