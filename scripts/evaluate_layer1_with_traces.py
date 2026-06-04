@@ -109,19 +109,21 @@ def evaluate_with_telemetry(
             insufficient_on_missing_spec=True,
         )
         before_risk = int(rec.get("overall_agentic_risk", 0))
-        outputs.append({
-            "dataset_id": dataset_id,
-            "human_label": rec.get("human_label"),
-            "diff_only_decision": rec.get("harnessci_decision"),
-            "telemetry_decision": decision.value,
-            "decision_changed": decision.value != rec.get("harnessci_decision"),
-            "diff_only_risk": before_risk,
-            "telemetry_risk": int(scores.overall_agentic_risk),
-            "risk_delta": int(scores.overall_agentic_risk) - before_risk,
-            "diff_only_findings": int(rec.get("finding_count", 0)),
-            "telemetry_findings": len(findings),
-            "telemetry_signals": telemetry_signals,
-        })
+        outputs.append(
+            {
+                "dataset_id": dataset_id,
+                "human_label": rec.get("human_label"),
+                "diff_only_decision": rec.get("harnessci_decision"),
+                "telemetry_decision": decision.value,
+                "decision_changed": decision.value != rec.get("harnessci_decision"),
+                "diff_only_risk": before_risk,
+                "telemetry_risk": int(scores.overall_agentic_risk),
+                "risk_delta": int(scores.overall_agentic_risk) - before_risk,
+                "diff_only_findings": int(rec.get("finding_count", 0)),
+                "telemetry_findings": len(findings),
+                "telemetry_signals": telemetry_signals,
+            }
+        )
     return outputs
 
 
@@ -132,13 +134,15 @@ def compute_comparison_metrics(
     changed = sum(1 for r in after if r["decision_changed"])
     risk_deltas = [r["risk_delta"] for r in after if r["risk_delta"] != 0]
     escalation = sum(
-        1 for r in after
+        1
+        for r in after
         if r["decision_changed"]
         and r.get("human_label") != "ACCEPTABLE"
         and r["telemetry_decision"] in ("REVIEW_REQUIRED", "BLOCK")
     )
     deescalation = sum(
-        1 for r in after
+        1
+        for r in after
         if r["decision_changed"]
         and r.get("human_label") == "ACCEPTABLE"
         and r["telemetry_decision"] == "PASS"

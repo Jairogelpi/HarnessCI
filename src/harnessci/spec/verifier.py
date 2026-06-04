@@ -233,10 +233,7 @@ class SpecVerifier:
                     violations.append(f.path)
 
         if violations:
-            msg = (
-                f"Naming convention violation: {len(violations)} "
-                f"file(s) don't follow {naming}"
-            )
+            msg = f"Naming convention violation: {len(violations)} file(s) don't follow {naming}"
             findings.append(
                 AuditFinding(
                     severity=FindingSeverity.LOW,
@@ -272,10 +269,7 @@ class SpecVerifier:
                 continue
 
             changed_paths = {f.path for f in diff.files}
-            affected = any(
-                any(ef in changed for changed in changed_paths)
-                for ef in entity_files
-            )
+            affected = any(any(ef in changed for changed in changed_paths) for ef in entity_files)
             if affected:
                 affected_entities.append(entity)
 
@@ -306,17 +300,14 @@ class SpecVerifier:
             entity_files = entity.get("files", [])
             entity_name = entity.get("name", "unknown")
 
-            changed_files = [
-                f for f in diff.files
-                if any(ef in f.path for ef in entity_files)
-            ]
+            changed_files = [f for f in diff.files if any(ef in f.path for ef in entity_files)]
 
             invariant_text = "\n".join(f"- {inv}" for inv in invariants)
             check_prompt = (
                 f"Entity '{entity_name}' has these invariants:\n"
                 f"{invariant_text}\n\n"
                 f"Modified files: {', '.join(f.path for f in changed_files)}\n"
-                f'Check if any invariant was violated. Reply JSON: '
+                f"Check if any invariant was violated. Reply JSON: "
                 f'{{"violated": true/false, "details": "explanation"}}'
             )
 
@@ -363,7 +354,6 @@ class SpecVerifier:
 
         changed_paths = {f.path for f in diff.files}
         covered = sum(
-            1 for changed in changed_paths
-            if any(ef in changed for ef in all_entity_files)
+            1 for changed in changed_paths if any(ef in changed for ef in all_entity_files)
         )
         return covered / len(changed_paths) if changed_paths else 0.0

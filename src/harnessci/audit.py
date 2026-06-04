@@ -27,6 +27,7 @@ def run_audit(
     base_rev: str,
     head_rev: str,
     spec_path: str | Path | None = None,
+    spec_text: str | None = None,
     config: dict[str, Any] | None = None,
     git_cwd: str | Path | None = None,
 ) -> AuditReport:
@@ -35,7 +36,7 @@ def run_audit(
     return _build_audit_report(
         diff_text=diff_text,
         spec_path=spec_path,
-        spec_text=None,
+        spec_text=spec_text,
         config=config,
         metadata={"base_rev": base_rev, "head_rev": head_rev},
     )

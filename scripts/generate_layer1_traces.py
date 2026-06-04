@@ -148,9 +148,7 @@ def add_traces_to_results(results_path: Path, output_path: Path) -> None:
         telemetry = generate_telemetry(record)
         enriched_record = {**record, **telemetry}
         enriched.append(enriched_record)
-    output_path.write_text(
-        json.dumps(enriched, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
+    output_path.write_text(json.dumps(enriched, indent=2, ensure_ascii=False), encoding="utf-8")
     results_list = list(results)
     total_edit = sum(generate_telemetry(r)["edit_attempts"] for r in results_list)
     total_fail = sum(generate_telemetry(r)["failed_test_runs"] for r in results_list)

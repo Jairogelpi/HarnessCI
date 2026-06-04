@@ -28,6 +28,7 @@ from harnessci.spec.verifier import SpecVerifier
 # Fixtures
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def temp_root(tmp_path: Path) -> Path:
     """Create a temporary repo root with .harnessci/ directory."""
@@ -151,6 +152,7 @@ def snake_case_spec() -> dict:
 # spec/store.py tests
 # ---------------------------------------------------------------------------
 
+
 class TestStore:
     def test_save_mined_spec_writes_json_and_md(self, temp_root, sample_spec_dict):
         path = save_mined_spec(
@@ -209,6 +211,7 @@ class TestStore:
 # ---------------------------------------------------------------------------
 # spec/loader.py tests
 # ---------------------------------------------------------------------------
+
 
 class TestSpecLoader:
     def test_load_from_text(self):
@@ -270,12 +273,14 @@ class TestSpecLoader:
 # spec/verifier.py tests
 # ---------------------------------------------------------------------------
 
+
 class TestSpecVerifier:
     def test_verify_detects_forbidden_path(self, sample_spec_dict, sample_diff_features):
         verifier = SpecVerifier(sample_spec_dict)
         findings = verifier.verify(sample_diff_features)
         security_findings = [
-            f for f in findings
+            f
+            for f in findings
             if f.category == FindingCategory.SECURITY and f.severity == FindingSeverity.HIGH
         ]
         assert len(security_findings) >= 1
@@ -301,19 +306,13 @@ class TestSpecVerifier:
         )
         verifier = SpecVerifier(spec)
         findings = verifier.verify(diff)
-        security_findings = [
-            f for f in findings
-            if f.category == FindingCategory.SECURITY
-        ]
+        security_findings = [f for f in findings if f.category == FindingCategory.SECURITY]
         assert len(security_findings) == 0
 
     def test_verify_detects_naming_violation(self, snake_case_spec, snake_case_diff):
         verifier = SpecVerifier(snake_case_spec)
         findings = verifier.verify(snake_case_diff)
-        config_findings = [
-            f for f in findings
-            if f.category == FindingCategory.CONFIG
-        ]
+        config_findings = [f for f in findings if f.category == FindingCategory.CONFIG]
         assert len(config_findings) >= 1
         assert any("naming" in f.message.lower() for f in config_findings)
 
@@ -492,6 +491,7 @@ class TestSpecVerifier:
 # ---------------------------------------------------------------------------
 # Integration tests
 # ---------------------------------------------------------------------------
+
 
 class TestSpecIntegration:
     def test_full_flow_save_load_verify(self, temp_root, sample_spec_dict, sample_diff_features):
