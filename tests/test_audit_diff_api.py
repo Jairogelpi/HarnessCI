@@ -15,6 +15,16 @@ index e69de29..9daeafb 100644
 +    return True
 """
 
+TEST_DIFF = """diff --git a/tests/test_app.py b/tests/test_app.py
+new file mode 100644
+index 0000000..9daeafb
+--- /dev/null
++++ b/tests/test_app.py
+@@ -0,0 +1,2 @@
++def test_login():
++    assert True
+"""
+
 
 def _audit_module():
     return importlib.import_module("harnessci.audit")
@@ -63,3 +73,11 @@ Fix login
     assert report.spec.usable is True
     assert report.spec.goal == "Fix login"
     assert report.metadata["source"] == "diff_text"
+
+
+def test_run_audit_from_diff_text_derives_test_signals_from_diff():
+    report = _audit_module().run_audit_from_diff_text(TEST_DIFF, spec_text="# Goal\nAdd tests")
+
+    assert report.diff.test_files_changed == 1
+    assert report.test_signals.new_tests_added is True
+    assert report.test_signals.changed_tests == 1

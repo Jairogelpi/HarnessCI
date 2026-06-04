@@ -14,7 +14,7 @@ from typing import Any
 from .config import load_config
 from .diff import build_diff_features, classify_files, parse_diff_text
 from .errors import HarnessCIError
-from .models import AuditReport, SpecModel, TelemetrySummary, TestSignals
+from .models import AuditReport, DiffFeatures, SpecModel, TelemetrySummary, TestSignals
 from .scoring import build_findings, compute_scores, decide
 from .spec import parse_spec_file, parse_spec_text
 
@@ -91,7 +91,7 @@ def _build_audit_report(
     classified = classify_files(raw_files)
     diff_features = build_diff_features(classified)
 
-    test_signals = TestSignals()
+    test_signals = _derive_test_signals(diff_features)
     telemetry = TelemetrySummary()
 
     scores = compute_scores(spec, diff_features, test_signals, telemetry)
@@ -118,6 +118,14 @@ def _build_audit_report(
         findings=findings,
         recommendation=_recommendation(decision),
         metadata=metadata,
+    )
+
+
+def _derive_test_signals(diff_features: DiffFeatures) -> TestSignals:
+    """Derive deterministic test signals from diff structure when no runner data exists."""
+    return TestSignals(
+        new_tests_added=diff_features.test_files_changed > 0,
+        changed_tests=diff_features.test_files_changed,
     )
 
 
