@@ -71,6 +71,25 @@ def build_findings(
                 )
             )
 
+    # --- Security-sensitive auth changes with deletions ---
+    # Detect potential auth removal even when string-based out_of_scope matching
+    # does not fire. If a sensitive file was changed and lines were deleted,
+    # flag the change as a potential removal of authentication logic.
+    if diff.sensitive_files_touched and diff.change_type == ChangeType.SECURITY_SENSITIVE:
+        removed_auth_checks = any(f.is_sensitive and f.lines_deleted > 0 for f in diff.files)
+        if removed_auth_checks and not test_signals.new_tests_added:
+            findings.append(
+                AuditFinding(
+                    severity=FindingSeverity.HIGH,
+                    category=FindingCategory.SECURITY,
+                    message=(
+                        "Security-sensitive file modified with deletions — "
+                        "potential removal of authentication or authorization logic."
+                    ),
+                    evidence="; ".join(diff.sensitive_files_touched[:5]),
+                )
+            )
+
     # --- Test failure finding ---
     if test_signals.tests_failed:
         findings.append(
@@ -196,6 +215,24 @@ def decide(
     # 2. Critical finding gate
     if block_on_security_critical and any(f.severity == FindingSeverity.CRITICAL for f in findings):
         return Decision.BLOCK
+
+    # 2b. HIGH security and spec findings escalation
+    # Escalate from findings even when overall risk is low — HIGH security or spec
+    # violations indicate insufficient review coverage regardless of score magnitude.
+    has_security_finding = any(
+        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SECURITY
+        for f in findings
+    )
+    has_spec_finding = any(
+        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.SPEC for f in findings
+    )
+    if block_on_security_critical:
+        if has_security_finding and has_spec_finding:
+            # Combined security + spec violations indicate elevated risk even
+            # if overall score stays below the block threshold.
+            return Decision.BLOCK
+        if has_security_finding or has_spec_finding:
+            return Decision.REVIEW_REQUIRED
 
     # 3-4. Missing spec
     if no_spec:

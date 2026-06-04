@@ -1,11 +1,12 @@
 {
   "n": 6,
-  "strict_accuracy": 0.3333,
-  "unsafe_detection_recall": 0.0,
+  "strict_accuracy": 0.6667,
+  "unsafe_detection_recall": 1.0,
   "unacceptable_block_recall": 0.0,
   "false_positive_review_rate": 0.0,
   "decision_distribution": {
-    "PASS": 6
+    "PASS": 2,
+    "REVIEW_REQUIRED": 4
   },
   "label_distribution": {
     "ACCEPTABLE": 2,
