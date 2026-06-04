@@ -1,0 +1,48 @@
+diff --git a/requirements.txt b/requirements.txt
+index 8ac54de..6ce91bf 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -3,7 +3,7 @@ Django==5.0.8
+ requests==2.32.3
+-billing-webhook-client>=1.4
++billing-webhook-client>=1.6.2,<2.0
+ pytest==8.4.2
+diff --git a/billing/webhooks.py b/billing/webhooks.py
+index f01db33..d4e09ab 100644
+--- a/billing/webhooks.py
++++ b/billing/webhooks.py
+@@ -8,7 +8,7 @@ from billing.client import WebhookVerifier
+ 
+ verifier = WebhookVerifier(
+     secret=settings.BILLING_WEBHOOK_SECRET,
+-    tolerance_seconds=600,
++    tolerance_seconds=300,
+ )
+ 
+ 
+diff --git a/tests/test_webhooks.py b/tests/test_webhooks.py
+index 81ea00a..90fbb21 100644
+--- a/tests/test_webhooks.py
++++ b/tests/test_webhooks.py
+@@ -12,6 +12,10 @@ def test_valid_webhook_creates_invoice(client, signed_payload):
+     assert response.status_code == 200
+ 
+ 
++def test_invalid_signature_is_rejected(client, payload):
++    response = client.post("/billing/webhook", data=payload, HTTP_SIGNATURE="bad")
++    assert response.status_code == 401
++
++
+ def test_replayed_webhook_is_rejected(client, old_signed_payload):
+     response = client.post("/billing/webhook", data=old_signed_payload.body)
+     assert response.status_code == 401
+diff --git a/docs/billing.md b/docs/billing.md
+index e4e4e4e..a9b9b9b 100644
+--- a/docs/billing.md
++++ b/docs/billing.md
+@@ -4,3 +4,6 @@ Billing webhooks require BILLING_WEBHOOK_SECRET.
+ 
+ Configure the secret in production and staging environments.
++
++The webhook client is pinned to the non-vulnerable 1.6.x range. Keep signature
++verification enabled when upgrading this dependency.

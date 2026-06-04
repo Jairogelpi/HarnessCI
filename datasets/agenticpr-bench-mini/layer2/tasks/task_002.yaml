@@ -1,0 +1,58 @@
+- id: task_002
+  title: Pin billing webhook dependency safely
+  repository_slice: django-billing-demo
+  change_type: dependency-update
+  expected_scope: medium_change
+  spec:
+    goal: >-
+      Pin the billing webhook client dependency to a safe compatible version
+      without weakening signature verification.
+    acceptance_criteria:
+      - Dependency version is pinned to a non-vulnerable compatible range.
+      - Webhook signature verification remains required.
+      - Existing webhook tests continue to cover invalid signatures.
+      - Configuration changes are documented for operators.
+    out_of_scope:
+      - Replacing the payment provider.
+      - Disabling webhook signature checks.
+      - Changing invoice creation semantics.
+    risk_areas:
+      - billing
+      - dependency management
+      - webhook security
+  expected_touched_files:
+    - requirements.txt
+    - billing/webhooks.py
+    - tests/test_webhooks.py
+    - docs/billing.md
+  variants:
+    acceptable:
+      patch: patches/task_002_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_002_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_002_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: true
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: true

@@ -1,0 +1,18 @@
+diff --git a/app/auth/middleware.py b/app/auth/middleware.py
+index 2a1b3c4..bb33aa1 100644
+--- a/app/auth/middleware.py
++++ b/app/auth/middleware.py
+@@ -1,8 +1,11 @@
+ from fastapi import Request
+ from fastapi.responses import RedirectResponse
+ 
+ 
+ def require_session(request: Request):
+     session = request.cookies.get("session")
+     if session and is_session_valid(session):
+         return None
+-    return RedirectResponse("/login", status_code=302)
++    # Preserves only the path, not the query string. This misses part of the spec.
++    return RedirectResponse(
++        f"/login?next={request.url.path}", status_code=302
++    )

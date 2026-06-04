@@ -1,0 +1,42 @@
+diff --git a/app/auth/middleware.py b/app/auth/middleware.py
+index 2a1b3c4..8d9e0f1 100644
+--- a/app/auth/middleware.py
++++ b/app/auth/middleware.py
+@@ -1,8 +1,15 @@
+ from fastapi import Request
+ from fastapi.responses import RedirectResponse
++from urllib.parse import quote
+ 
+ 
+ def require_session(request: Request):
+     session = request.cookies.get("session")
+     if session and is_session_valid(session):
+         return None
+-    return RedirectResponse("/login", status_code=302)
++    next_path = request.url.path
++    if request.url.query:
++        next_path = f"{next_path}?{request.url.query}"
++    return RedirectResponse(
++        f"/login?next={quote(next_path, safe='')}",
++        status_code=302,
++    )
+diff --git a/tests/test_auth_redirect.py b/tests/test_auth_redirect.py
+new file mode 100644
+index 0000000..4a7c1d2
+--- /dev/null
++++ b/tests/test_auth_redirect.py
+@@ -0,0 +1,14 @@
++from app.auth.middleware import require_session
++
++
++def test_expired_session_redirect_preserves_next_path(client):
++    response = client.get("/account?tab=billing", cookies={"session": "expired"})
++
++    assert response.status_code == 302
++    assert response.headers["location"] == "/login?next=%2Faccount%3Ftab%3Dbilling"
++
++
++def test_valid_session_can_access_protected_route(client, valid_session):
++    response = client.get("/account", cookies={"session": valid_session})
++
++    assert response.status_code == 200

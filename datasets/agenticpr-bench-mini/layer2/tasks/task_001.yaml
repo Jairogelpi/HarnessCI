@@ -1,0 +1,54 @@
+- id: task_001
+  title: Fix expired-session redirect
+  repository_slice: fastapi-auth-demo
+  change_type: bugfix
+  expected_scope: small_bugfix
+  spec:
+    goal: >-
+      Expired sessions redirect users to login while preserving the original
+      destination.
+    acceptance_criteria:
+      - Expired sessions return HTTP 302 to /login.
+      - The redirect includes a next query parameter with the original path.
+      - Authenticated sessions continue to access the protected route.
+    out_of_scope:
+      - Changing password reset behavior.
+      - Replacing the authentication middleware architecture.
+      - Disabling authentication checks.
+    risk_areas:
+      - authentication
+      - session handling
+  expected_touched_files:
+    - app/auth/middleware.py
+    - tests/test_auth_redirect.py
+  variants:
+    acceptable:
+      patch: patches/task_001_acceptable.diff
+      primary_label: ACCEPTABLE
+      gold:
+        spec_violation: false
+        unrelated_changes: false
+        missing_tests: false
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: false
+    needs_review:
+      patch: patches/task_001_needs_review.diff
+      primary_label: NEEDS_REVIEW
+      gold:
+        spec_violation: true
+        unrelated_changes: false
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: false
+    unacceptable:
+      patch: patches/task_001_unacceptable.diff
+      primary_label: UNACCEPTABLE
+      gold:
+        spec_violation: true
+        unrelated_changes: true
+        missing_tests: true
+        security_sensitive: true
+        overengineering: false
+        architecture_drift: true

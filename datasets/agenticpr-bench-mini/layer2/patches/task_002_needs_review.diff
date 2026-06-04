@@ -1,0 +1,18 @@
+diff --git a/requirements.txt b/requirements.txt
+index 8ac54de..3b41c7a 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -3,7 +3,7 @@ Django==5.0.8
+ requests==2.32.3
+-billing-webhook-client>=1.4
++billing-webhook-client>=1.6.2,<2.0
+ pytest==8.4.2
+diff --git a/docs/billing.md b/docs/billing.md
+index e4e4e4e..97dd333 100644
+--- a/docs/billing.md
++++ b/docs/billing.md
+@@ -4,3 +4,5 @@ Billing webhooks require BILLING_WEBHOOK_SECRET.
+ 
+ Configure the secret in production and staging environments.
++
++Webhook client dependency is pinned to the 1.6.x compatible range.
