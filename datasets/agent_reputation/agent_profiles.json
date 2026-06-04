@@ -1,0 +1,172 @@
+[
+  {
+    "agent": "OpenAI_Codex",
+    "sample_size": 16,
+    "reputation": {
+      "score": 88.5,
+      "badge": "safe",
+      "rank": 1
+    },
+    "subscores": {
+      "safety": 79.5,
+      "pass_rate": 93.8,
+      "focus": 98.8,
+      "consistency": 87.8,
+      "transparency": 100.0
+    },
+    "risk_stats": {
+      "avg": 20.5,
+      "median": 3,
+      "std": 6.1,
+      "min": 16,
+      "max": 40
+    },
+    "risk_breakdown": {
+      "low": 13,
+      "medium": 3,
+      "high": 0
+    },
+    "decisions": {
+      "pass": 15,
+      "review_or_block": 1,
+      "insufficient_information": 0
+    },
+    "avg_findings_per_pr": 0.1
+  },
+  {
+    "agent": "Devin",
+    "sample_size": 16,
+    "reputation": {
+      "score": 74.5,
+      "badge": "trusted",
+      "rank": 2
+    },
+    "subscores": {
+      "safety": 72,
+      "pass_rate": 62.5,
+      "focus": 96.9,
+      "consistency": 74.5,
+      "transparency": 100.0
+    },
+    "risk_stats": {
+      "avg": 28,
+      "median": 7,
+      "std": 12.8,
+      "min": 16,
+      "max": 58
+    },
+    "risk_breakdown": {
+      "low": 8,
+      "medium": 7,
+      "high": 1
+    },
+    "decisions": {
+      "pass": 10,
+      "review_or_block": 6,
+      "insufficient_information": 0
+    },
+    "avg_findings_per_pr": 0.3
+  },
+  {
+    "agent": "Claude_Code",
+    "sample_size": 16,
+    "reputation": {
+      "score": 74.1,
+      "badge": "trusted",
+      "rank": 3
+    },
+    "subscores": {
+      "safety": 70.5,
+      "pass_rate": 62.5,
+      "focus": 95.0,
+      "consistency": 78.8,
+      "transparency": 100.0
+    },
+    "risk_stats": {
+      "avg": 29.5,
+      "median": 11,
+      "std": 10.6,
+      "min": 18,
+      "max": 52
+    },
+    "risk_breakdown": {
+      "low": 4,
+      "medium": 11,
+      "high": 1
+    },
+    "decisions": {
+      "pass": 10,
+      "review_or_block": 6,
+      "insufficient_information": 0
+    },
+    "avg_findings_per_pr": 0.5
+  },
+  {
+    "agent": "Copilot",
+    "sample_size": 16,
+    "reputation": {
+      "score": 72.0,
+      "badge": "trusted",
+      "rank": 4
+    },
+    "subscores": {
+      "safety": 70.4,
+      "pass_rate": 56.2,
+      "focus": 95.0,
+      "consistency": 77.0,
+      "transparency": 100.0
+    },
+    "risk_stats": {
+      "avg": 29.6,
+      "median": 11,
+      "std": 11.5,
+      "min": 18,
+      "max": 60
+    },
+    "risk_breakdown": {
+      "low": 4,
+      "medium": 11,
+      "high": 1
+    },
+    "decisions": {
+      "pass": 9,
+      "review_or_block": 7,
+      "insufficient_information": 0
+    },
+    "avg_findings_per_pr": 0.5
+  },
+  {
+    "agent": "Cursor",
+    "sample_size": 16,
+    "reputation": {
+      "score": 62.4,
+      "badge": "neutral",
+      "rank": 5
+    },
+    "subscores": {
+      "safety": 65.4,
+      "pass_rate": 31.2,
+      "focus": 93.1,
+      "consistency": 78.7,
+      "transparency": 100.0
+    },
+    "risk_stats": {
+      "avg": 34.6,
+      "median": 14,
+      "std": 10.6,
+      "min": 18,
+      "max": 60
+    },
+    "risk_breakdown": {
+      "low": 1,
+      "medium": 14,
+      "high": 1
+    },
+    "decisions": {
+      "pass": 5,
+      "review_or_block": 11,
+      "insufficient_information": 0
+    },
+    "avg_findings_per_pr": 0.7
+  }
+]

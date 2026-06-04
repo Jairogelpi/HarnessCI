@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-06-04",
+  "data_source": "AgenticPR-Bench-mini Layer 1.1 (80 real GitHub PRs, 5 agents)",
+  "methodology": "HarnessCI deterministic audit: spec + diff + test signals",
+  "disclaimer": "Based on 80 PRs from public data. Sample sizes are small (n=16 per agent). Results are directional, not statistically significant. Larger samples needed.",
+  "rankings": [
+    {
+      "rank": 1,
+      "agent": "OpenAI_Codex",
+      "score": 88.5,
+      "badge": "safe",
+      "avg_risk": 20.5,
+      "sample_size": 16
+    },
+    {
+      "rank": 2,
+      "agent": "Devin",
+      "score": 74.5,
+      "badge": "trusted",
+      "avg_risk": 28,
+      "sample_size": 16
+    },
+    {
+      "rank": 3,
+      "agent": "Claude_Code",
+      "score": 74.1,
+      "badge": "trusted",
+      "avg_risk": 29.5,
+      "sample_size": 16
+    },
+    {
+      "rank": 4,
+      "agent": "Copilot",
+      "score": 72.0,
+      "badge": "trusted",
+      "avg_risk": 29.6,
+      "sample_size": 16
+    },
+    {
+      "rank": 5,
+      "agent": "Cursor",
+      "score": 62.4,
+      "badge": "neutral",
+      "avg_risk": 34.6,
+      "sample_size": 16
+    }
+  ]
+}
