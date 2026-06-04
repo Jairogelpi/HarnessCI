@@ -21,7 +21,7 @@ The pilot contains 2 tasks × 3 variants = 6 cases:
 - `manifest.jsonl` — generated flat evaluation manifest.
 - `results/layer2_results.csv` — HarnessCI decisions for pilot cases.
 - `results/layer2_metrics.json` — HarnessCI strict and unsafe-detection metrics.
-- `results/layer2_baseline_comparison.csv` — non-circular baseline comparison.
+- `docs/agenticpr_layer2_findings.md` — detailed pilot findings, improvement trajectory, and next steps.
 - `results/layer2_baseline_comparison.json` — JSON equivalent of baseline metrics.
 
 ## Label policy
