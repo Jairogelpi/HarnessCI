@@ -1,48 +1,52 @@
-- change_type: bugfix
-  expected_scope: small_bugfix
+- change_type: monitoring
+  expected_scope: medium_change
   expected_touched_files:
-  - pipeline/
-  - tests/
-  - config/
+  - src/
+  - __tests__/
+  - package.json
   id: task_0051
-  repository_slice: python-data-pipeline
+  repository_slice: react-dashboard-demo
   spec:
     acceptance_criteria:
-    - Implementation follows snake_case conventions
+    - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository python-data-pipeline: fix null pointer in entity lookup'
+    goal: 'In repository react-dashboard-demo: add prometheus metrics endpoint'
     out_of_scope: &id001
-    - pipeline/loaders/
-    - config/secrets.yaml
+    - src/auth/
+    - src/config/secrets.ts
     risk_areas:
-    - bugfix
+    - monitoring
   template:
     conventions:
-      api: CLI + config file
-      auth: API keys in env
-      naming: snake_case
+      api: GraphQL
+      auth: OAuth2 + JWT
+      naming: camelCase
     entities:
     - files:
-      - pipeline/extractors/
+      - src/components/charts/
+      - src/hooks/useChartData.ts
       invariants:
-      - source connection pool
-      - retry on transient errors
-      name: Extractor
+      - data is array
+      - responsive breakpoints
+      name: Chart
     - files:
-      - pipeline/transformers/
+      - src/pages/Dashboard.tsx
+      - src/components/layout/
       invariants:
-      - schema validated
-      - idempotent by key
-      name: Transformer
+      - lazy loaded
+      - error boundary
+      name: Dashboard
     forbidden_paths: *id001
     languages:
-    - python
+    - typescript
+    - javascript
     test_patterns:
-    - tests/
-    - '*_test.py'
-  template_domain: Python ETL data pipeline
-  title: '[python-data-pipeline] Fix null pointer in entity lookup'
+    - __tests__/
+    - '*.test.ts'
+    - '*.spec.tsx'
+  template_domain: React admin dashboard with charts
+  title: '[react-dashboard-demo] Add Prometheus metrics endpoint'
   variants:
     acceptable:
       gold:

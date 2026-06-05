@@ -1,51 +1,49 @@
-- change_type: refactor
-  expected_scope: large_change
+- change_type: validation
+  expected_scope: medium_change
   expected_touched_files:
-  - charts/
-  - templates/
-  - values.yaml
+  - src/
+  - tests/
+  - Cargo.toml
   id: task_0098
-  repository_slice: kubernetes-helm
+  repository_slice: rust-cli-tool
   spec:
     acceptance_criteria:
-    - Implementation follows kebab-case conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository kubernetes-helm: extract validation logic into utility'
+    goal: 'In repository rust-cli-tool: add input validation for user forms'
     out_of_scope: &id001
-    - templates/secrets.yaml
-    - values-prod.yaml
+    - src/main.rs
+    - Cargo.lock
     risk_areas:
-    - refactor
+    - validation
   template:
     conventions:
-      api: Helm CLI
-      auth: kubeconfig
-      naming: kebab-case
+      api: CLI flags
+      auth: none
+      naming: snake_case
     entities:
     - files:
-      - charts/
-      - Chart.yaml
+      - src/processor.rs
+      - src/pipeline.rs
       invariants:
-      - version follows semver
-      - all values have defaults
-      name: Chart
+      - handles SIGTERM
+      - output is deterministic
+      name: Processor
     - files:
-      - templates/
-      - values.yaml
+      - src/config.rs
       invariants:
-      - no hardcoded namespaces
-      - resource limits set
-      name: Template
+      - validated on startup
+      - defaults for all fields
+      name: Config
     forbidden_paths: *id001
     languages:
-    - yaml
-    - go
+    - rust
     test_patterns:
     - tests/
-    - '*_test.yaml'
-  template_domain: Kubernetes Helm chart library
-  title: '[kubernetes-helm] Extract validation logic into utility'
+    - '#[cfg(test)]'
+  template_domain: Rust CLI data processing tool
+  title: '[rust-cli-tool] Add input validation for user forms'
   variants:
     acceptable:
       gold:
@@ -59,12 +57,12 @@
       primary_label: ACCEPTABLE
     needs_review:
       gold:
-        architecture_drift: true
+        architecture_drift: false
         missing_tests: true
-        overengineering: true
+        overengineering: false
         security_sensitive: false
-        spec_violation: true
-        unrelated_changes: true
+        spec_violation: false
+        unrelated_changes: false
       patch: patches/task_0098_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

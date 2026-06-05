@@ -1,52 +1,47 @@
-- change_type: bugfix
-  expected_scope: small_bugfix
+- change_type: database_migration
+  expected_scope: medium_change
   expected_touched_files:
-  - src/
-  - __tests__/
-  - package.json
+  - app/
+  - tests/
+  - requirements.txt
   id: task_0011
-  repository_slice: react-dashboard-demo
+  repository_slice: fastapi-auth-demo
   spec:
     acceptance_criteria:
-    - Implementation follows camelCase conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository react-dashboard-demo: fix null pointer in entity lookup'
+    goal: 'In repository fastapi-auth-demo: add new column with migration'
     out_of_scope: &id001
-    - src/auth/
-    - src/config/secrets.ts
+    - app/auth/middleware.py
+    - app/core/secrets.py
     risk_areas:
-    - bugfix
+    - database_migration
   template:
     conventions:
-      api: GraphQL
-      auth: OAuth2 + JWT
-      naming: camelCase
+      api: REST
+      auth: JWT in Authorization header
+      naming: snake_case
     entities:
     - files:
-      - src/components/charts/
-      - src/hooks/useChartData.ts
+      - app/models/user.py
       invariants:
-      - data is array
-      - responsive breakpoints
-      name: Chart
+      - password is hashed
+      name: User
     - files:
-      - src/pages/Dashboard.tsx
-      - src/components/layout/
+      - app/auth/middleware.py
+      - app/auth/session.py
       invariants:
-      - lazy loaded
-      - error boundary
-      name: Dashboard
+      - session expires after 30min
+      name: Session
     forbidden_paths: *id001
     languages:
-    - typescript
-    - javascript
+    - python
     test_patterns:
-    - __tests__/
-    - '*.test.ts'
-    - '*.spec.tsx'
-  template_domain: React admin dashboard with charts
-  title: '[react-dashboard-demo] Fix null pointer in entity lookup'
+    - tests/
+    - '*_test.py'
+  template_domain: FastAPI authentication microservice
+  title: '[fastapi-auth-demo] Add new column with migration'
   variants:
     acceptable:
       gold:
@@ -63,7 +58,7 @@
         architecture_drift: false
         missing_tests: true
         overengineering: false
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: false
         unrelated_changes: false
       patch: patches/task_0011_needs_review.diff
@@ -73,7 +68,7 @@
         architecture_drift: true
         missing_tests: true
         overengineering: true
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: true
         unrelated_changes: true
       patch: patches/task_0011_unacceptable.diff

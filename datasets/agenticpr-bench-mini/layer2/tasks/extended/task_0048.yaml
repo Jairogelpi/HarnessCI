@@ -1,50 +1,52 @@
-- change_type: refactor
-  expected_scope: large_change
+- change_type: error_handling
+  expected_scope: medium_change
   expected_touched_files:
   - src/
   - __tests__/
   - package.json
   id: task_0048
-  repository_slice: vue-admin
+  repository_slice: react-dashboard-demo
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository vue-admin: extract validation logic into utility'
+    goal: 'In repository react-dashboard-demo: improve error messages with context'
     out_of_scope: &id001
-    - src/stores/auth.ts
-    - src/utils/crypto.ts
+    - src/auth/
+    - src/config/secrets.ts
     risk_areas:
-    - refactor
+    - error_handling
   template:
     conventions:
-      api: REST
-      auth: JWT + Pinia store
+      api: GraphQL
+      auth: OAuth2 + JWT
       naming: camelCase
     entities:
     - files:
-      - src/views/
-      - src/composables/useResource.ts
+      - src/components/charts/
+      - src/hooks/useChartData.ts
       invariants:
-      - pagination on list
-      - validation on form
-      name: Resource
+      - data is array
+      - responsive breakpoints
+      name: Chart
     - files:
-      - src/stores/auth.ts
-      - src/router/guards.ts
+      - src/pages/Dashboard.tsx
+      - src/components/layout/
       invariants:
-      - token refresh before expiry
-      - role-based access
-      name: Auth
+      - lazy loaded
+      - error boundary
+      name: Dashboard
     forbidden_paths: *id001
     languages:
     - typescript
+    - javascript
     test_patterns:
     - __tests__/
-    - '*.spec.ts'
-  template_domain: Vue 3 admin panel with CRUD
-  title: '[vue-admin] Extract validation logic into utility'
+    - '*.test.ts'
+    - '*.spec.tsx'
+  template_domain: React admin dashboard with charts
+  title: '[react-dashboard-demo] Improve error messages with context'
   variants:
     acceptable:
       gold:
@@ -58,12 +60,12 @@
       primary_label: ACCEPTABLE
     needs_review:
       gold:
-        architecture_drift: true
+        architecture_drift: false
         missing_tests: true
-        overengineering: true
+        overengineering: false
         security_sensitive: false
-        spec_violation: true
-        unrelated_changes: true
+        spec_violation: false
+        unrelated_changes: false
       patch: patches/task_0048_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

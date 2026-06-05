@@ -1,51 +1,52 @@
-- change_type: dependency_update
+- change_type: logging
   expected_scope: medium_change
   expected_touched_files:
-  - src/
+  - app/
+  - components/
+  - lib/
   - __tests__/
-  - action.yml
   id: task_0084
-  repository_slice: github-actions-workflow
+  repository_slice: nextjs-ecommerce
   spec:
     acceptance_criteria:
-    - Implementation follows kebab-case conventions
+    - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository github-actions-workflow: upgrade all dependencies to latest
-      stable'
+    goal: 'In repository nextjs-ecommerce: add structured logging with levels'
     out_of_scope: &id001
-    - .github/workflows/
-    - action.yml
+    - lib/payment.ts
+    - app/api/webhooks/
     risk_areas:
-    - dependency_update
+    - logging
   template:
     conventions:
-      api: GitHub Actions YAML
-      auth: GITHUB_TOKEN
-      naming: kebab-case
+      api: REST + Server Actions
+      auth: NextAuth.js
+      naming: camelCase
     entities:
     - files:
-      - action.yml
-      - src/
+      - app/products/
+      - components/product/
       invariants:
-      - all inputs validated
-      - outputs documented
-      name: Action
+      - price in cents
+      - inventory >= 0
+      name: Product
     - files:
-      - .github/workflows/
+      - app/cart/
+      - lib/cart.ts
       invariants:
-      - secrets never logged
-      - timeout set
-      name: Workflow
+      - total = sum(items)
+      - max 50 items
+      name: Cart
     forbidden_paths: *id001
     languages:
     - typescript
-    - yaml
     test_patterns:
     - __tests__/
     - '*.test.ts'
-  template_domain: GitHub Actions CI/CD workflow library
-  title: '[github-actions-workflow] Upgrade all dependencies to latest stable'
+    - '*.spec.tsx'
+  template_domain: Next.js e-commerce frontend
+  title: '[nextjs-ecommerce] Add structured logging with levels'
   variants:
     acceptable:
       gold:
@@ -64,7 +65,7 @@
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0084_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

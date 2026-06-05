@@ -1,49 +1,52 @@
-- change_type: feature
+- change_type: config_change
   expected_scope: medium_change
   expected_touched_files:
-  - src/main/
-  - src/test/
-  - pom.xml
+  - src/
+  - __tests__/
+  - package.json
   id: task_0042
-  repository_slice: spring-boot-microservice
+  repository_slice: react-dashboard-demo
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository spring-boot-microservice: add pagination to list endpoint'
+    goal: 'In repository react-dashboard-demo: add environment-based configuration'
     out_of_scope: &id001
-    - src/main/java/com/app/security/
-    - src/main/resources/application-prod.yml
+    - src/auth/
+    - src/config/secrets.ts
     risk_areas:
-    - feature
+    - config_change
   template:
     conventions:
-      api: REST
+      api: GraphQL
       auth: OAuth2 + JWT
       naming: camelCase
     entities:
     - files:
-      - src/main/java/com/app/order/
+      - src/components/charts/
+      - src/hooks/useChartData.ts
       invariants:
-      - has customerId
-      - total > 0
-      name: Order
+      - data is array
+      - responsive breakpoints
+      name: Chart
     - files:
-      - src/main/java/com/app/inventory/
+      - src/pages/Dashboard.tsx
+      - src/components/layout/
       invariants:
-      - quantity >= 0
-      - reserved <= available
-      name: Inventory
+      - lazy loaded
+      - error boundary
+      name: Dashboard
     forbidden_paths: *id001
     languages:
-    - java
+    - typescript
+    - javascript
     test_patterns:
-    - src/test/
-    - '*Test.java'
-    - '*Tests.java'
-  template_domain: Spring Boot order processing microservice
-  title: '[spring-boot-microservice] Add pagination to list endpoint'
+    - __tests__/
+    - '*.test.ts'
+    - '*.spec.tsx'
+  template_domain: React admin dashboard with charts
+  title: '[react-dashboard-demo] Add environment-based configuration'
   variants:
     acceptable:
       gold:

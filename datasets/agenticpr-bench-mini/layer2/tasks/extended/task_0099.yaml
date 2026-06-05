@@ -1,51 +1,49 @@
-- change_type: dependency_update
+- change_type: error_handling
   expected_scope: medium_change
   expected_touched_files:
-  - charts/
-  - templates/
-  - values.yaml
+  - src/
+  - tests/
+  - Cargo.toml
   id: task_0099
-  repository_slice: kubernetes-helm
+  repository_slice: rust-cli-tool
   spec:
     acceptance_criteria:
-    - Implementation follows kebab-case conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository kubernetes-helm: upgrade all dependencies to latest stable'
+    goal: 'In repository rust-cli-tool: improve error messages with context'
     out_of_scope: &id001
-    - templates/secrets.yaml
-    - values-prod.yaml
+    - src/main.rs
+    - Cargo.lock
     risk_areas:
-    - dependency_update
+    - error_handling
   template:
     conventions:
-      api: Helm CLI
-      auth: kubeconfig
-      naming: kebab-case
+      api: CLI flags
+      auth: none
+      naming: snake_case
     entities:
     - files:
-      - charts/
-      - Chart.yaml
+      - src/processor.rs
+      - src/pipeline.rs
       invariants:
-      - version follows semver
-      - all values have defaults
-      name: Chart
+      - handles SIGTERM
+      - output is deterministic
+      name: Processor
     - files:
-      - templates/
-      - values.yaml
+      - src/config.rs
       invariants:
-      - no hardcoded namespaces
-      - resource limits set
-      name: Template
+      - validated on startup
+      - defaults for all fields
+      name: Config
     forbidden_paths: *id001
     languages:
-    - yaml
-    - go
+    - rust
     test_patterns:
     - tests/
-    - '*_test.yaml'
-  template_domain: Kubernetes Helm chart library
-  title: '[kubernetes-helm] Upgrade all dependencies to latest stable'
+    - '#[cfg(test)]'
+  template_domain: Rust CLI data processing tool
+  title: '[rust-cli-tool] Improve error messages with context'
   variants:
     acceptable:
       gold:
@@ -64,7 +62,7 @@
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0099_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

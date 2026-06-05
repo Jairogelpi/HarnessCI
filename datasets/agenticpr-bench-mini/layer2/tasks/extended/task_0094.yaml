@@ -1,51 +1,49 @@
-- change_type: dependency_update
-  expected_scope: medium_change
+- change_type: test_only
+  expected_scope: small_bugfix
   expected_touched_files:
-  - app/
-  - config/
-  - spec/
+  - src/
+  - tests/
+  - Cargo.toml
   id: task_0094
-  repository_slice: ruby-rails-api
+  repository_slice: rust-cli-tool
   spec:
     acceptance_criteria:
     - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository ruby-rails-api: upgrade all dependencies to latest stable'
+    goal: 'In repository rust-cli-tool: add unit tests for uncovered module'
     out_of_scope: &id001
-    - config/initializers/devise.rb
-    - app/controllers/application_controller.rb
+    - src/main.rs
+    - Cargo.lock
     risk_areas:
-    - dependency_update
+    - test_only
   template:
     conventions:
-      api: REST
-      auth: Devise + JWT
+      api: CLI flags
+      auth: none
       naming: snake_case
     entities:
     - files:
-      - app/controllers/
-      - app/models/
+      - src/processor.rs
+      - src/pipeline.rs
       invariants:
-      - JSON API spec
-      - pagination headers
-      name: Resource
+      - handles SIGTERM
+      - output is deterministic
+      name: Processor
     - files:
-      - app/controllers/concerns/
-      - config/initializers/
+      - src/config.rs
       invariants:
-      - JWT expiration checked
-      - refresh token rotation
-      name: Auth
+      - validated on startup
+      - defaults for all fields
+      name: Config
     forbidden_paths: *id001
     languages:
-    - ruby
+    - rust
     test_patterns:
-    - spec/
-    - test/
-    - '*_spec.rb'
-  template_domain: Ruby on Rails JSON API
-  title: '[ruby-rails-api] Upgrade all dependencies to latest stable'
+    - tests/
+    - '#[cfg(test)]'
+  template_domain: Rust CLI data processing tool
+  title: '[rust-cli-tool] Add unit tests for uncovered module'
   variants:
     acceptable:
       gold:
@@ -60,11 +58,11 @@
     needs_review:
       gold:
         architecture_drift: false
-        missing_tests: true
+        missing_tests: false
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0094_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

@@ -1,53 +1,47 @@
-- change_type: dependency_update
+- change_type: error_handling
   expected_scope: medium_change
   expected_touched_files:
-  - src/
-  - __tests__/
-  - package.json
+  - app/
+  - tests/
+  - requirements.txt
   id: task_0014
-  repository_slice: react-dashboard-demo
+  repository_slice: fastapi-auth-demo
   spec:
     acceptance_criteria:
-    - Implementation follows camelCase conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository react-dashboard-demo: upgrade all dependencies to latest
-      stable'
+    goal: 'In repository fastapi-auth-demo: improve error messages with context'
     out_of_scope: &id001
-    - src/auth/
-    - src/config/secrets.ts
+    - app/auth/middleware.py
+    - app/core/secrets.py
     risk_areas:
-    - dependency_update
+    - error_handling
   template:
     conventions:
-      api: GraphQL
-      auth: OAuth2 + JWT
-      naming: camelCase
+      api: REST
+      auth: JWT in Authorization header
+      naming: snake_case
     entities:
     - files:
-      - src/components/charts/
-      - src/hooks/useChartData.ts
+      - app/models/user.py
       invariants:
-      - data is array
-      - responsive breakpoints
-      name: Chart
+      - password is hashed
+      name: User
     - files:
-      - src/pages/Dashboard.tsx
-      - src/components/layout/
+      - app/auth/middleware.py
+      - app/auth/session.py
       invariants:
-      - lazy loaded
-      - error boundary
-      name: Dashboard
+      - session expires after 30min
+      name: Session
     forbidden_paths: *id001
     languages:
-    - typescript
-    - javascript
+    - python
     test_patterns:
-    - __tests__/
-    - '*.test.ts'
-    - '*.spec.tsx'
-  template_domain: React admin dashboard with charts
-  title: '[react-dashboard-demo] Upgrade all dependencies to latest stable'
+    - tests/
+    - '*_test.py'
+  template_domain: FastAPI authentication microservice
+  title: '[fastapi-auth-demo] Improve error messages with context'
   variants:
     acceptable:
       gold:
@@ -66,7 +60,7 @@
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0014_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

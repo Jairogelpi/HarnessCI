@@ -1,50 +1,53 @@
-- change_type: refactor
-  expected_scope: large_change
+- change_type: dependency_update
+  expected_scope: medium_change
   expected_touched_files:
   - src/
   - __tests__/
   - package.json
   id: task_0038
-  repository_slice: express-middleware
+  repository_slice: react-dashboard-demo
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository express-middleware: extract validation logic into utility'
+    goal: 'In repository react-dashboard-demo: upgrade all dependencies to latest
+      stable'
     out_of_scope: &id001
-    - src/crypto.ts
-    - src/token.ts
+    - src/auth/
+    - src/config/secrets.ts
     risk_areas:
-    - refactor
+    - dependency_update
   template:
     conventions:
-      api: Express middleware
-      auth: Passport.js
+      api: GraphQL
+      auth: OAuth2 + JWT
       naming: camelCase
     entities:
     - files:
-      - src/middleware/
-      - src/strategies/
+      - src/components/charts/
+      - src/hooks/useChartData.ts
       invariants:
-      - all middleware is async
-      - errors have status codes
-      name: Middleware
+      - data is array
+      - responsive breakpoints
+      name: Chart
     - files:
-      - src/session.ts
-      - src/store.ts
+      - src/pages/Dashboard.tsx
+      - src/components/layout/
       invariants:
-      - TTL honored
-      - serializable
-      name: Session
+      - lazy loaded
+      - error boundary
+      name: Dashboard
     forbidden_paths: *id001
     languages:
     - typescript
+    - javascript
     test_patterns:
     - __tests__/
     - '*.test.ts'
-  template_domain: Express.js authentication middleware library
-  title: '[express-middleware] Extract validation logic into utility'
+    - '*.spec.tsx'
+  template_domain: React admin dashboard with charts
+  title: '[react-dashboard-demo] Upgrade all dependencies to latest stable'
   variants:
     acceptable:
       gold:
@@ -58,11 +61,11 @@
       primary_label: ACCEPTABLE
     needs_review:
       gold:
-        architecture_drift: true
+        architecture_drift: false
         missing_tests: true
-        overengineering: true
+        overengineering: false
         security_sensitive: false
-        spec_violation: true
+        spec_violation: false
         unrelated_changes: true
       patch: patches/task_0038_needs_review.diff
       primary_label: NEEDS_REVIEW

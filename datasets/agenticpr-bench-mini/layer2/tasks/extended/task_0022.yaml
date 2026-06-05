@@ -1,59 +1,58 @@
-- change_type: feature
+- change_type: security_fix
   expected_scope: medium_change
   expected_touched_files:
-  - app/
-  - components/
-  - lib/
-  - __tests__/
+  - billing/
+  - templates/
+  - tests/
   id: task_0022
-  repository_slice: nextjs-ecommerce
+  repository_slice: django-billing-demo
   spec:
     acceptance_criteria:
-    - Implementation follows camelCase conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository nextjs-ecommerce: add pagination to list endpoint'
+    goal: 'In repository django-billing-demo: add rate limiting to public endpoints'
     out_of_scope: &id001
-    - lib/payment.ts
-    - app/api/webhooks/
+    - billing/webhooks.py
+    - billing/payments.py
     risk_areas:
-    - feature
+    - security_fix
   template:
     conventions:
-      api: REST + Server Actions
-      auth: NextAuth.js
-      naming: camelCase
+      api: REST
+      auth: Django session + CSRF
+      naming: snake_case
     entities:
     - files:
-      - app/products/
-      - components/product/
-      invariants:
-      - price in cents
-      - inventory >= 0
-      name: Product
-    - files:
-      - app/cart/
-      - lib/cart.ts
+      - billing/models.py
+      - billing/views.py
       invariants:
       - total = sum(items)
-      - max 50 items
-      name: Cart
+      - status in [draft, sent, paid]
+      name: Invoice
+    - files:
+      - billing/webhooks.py
+      - billing/payments.py
+      invariants:
+      - amount > 0
+      - currency = USD
+      name: Payment
     forbidden_paths: *id001
     languages:
-    - typescript
+    - python
     test_patterns:
-    - __tests__/
-    - '*.test.ts'
-    - '*.spec.tsx'
-  template_domain: Next.js e-commerce frontend
-  title: '[nextjs-ecommerce] Add pagination to list endpoint'
+    - tests/
+    - '*_test.py'
+    - test_*.py
+  template_domain: Django billing and invoicing system
+  title: '[django-billing-demo] Add rate limiting to public endpoints'
   variants:
     acceptable:
       gold:
         architecture_drift: false
         missing_tests: false
         overengineering: false
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: false
         unrelated_changes: false
       patch: patches/task_0022_acceptable.diff
@@ -63,7 +62,7 @@
         architecture_drift: false
         missing_tests: true
         overengineering: false
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: false
         unrelated_changes: false
       patch: patches/task_0022_needs_review.diff
@@ -73,7 +72,7 @@
         architecture_drift: true
         missing_tests: true
         overengineering: true
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: true
         unrelated_changes: true
       patch: patches/task_0022_unacceptable.diff

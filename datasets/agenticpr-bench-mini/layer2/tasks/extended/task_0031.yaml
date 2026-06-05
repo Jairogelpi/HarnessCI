@@ -1,50 +1,51 @@
-- change_type: bugfix
-  expected_scope: small_bugfix
+- change_type: error_handling
+  expected_scope: medium_change
   expected_touched_files:
-  - app/
+  - billing/
+  - templates/
   - tests/
-  - requirements.txt
   id: task_0031
-  repository_slice: flask-api
+  repository_slice: django-billing-demo
   spec:
     acceptance_criteria:
     - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository flask-api: fix null pointer in entity lookup'
+    goal: 'In repository django-billing-demo: improve error messages with context'
     out_of_scope: &id001
-    - app/routes/auth.py
-    - app/config.py
+    - billing/webhooks.py
+    - billing/payments.py
     risk_areas:
-    - bugfix
+    - error_handling
   template:
     conventions:
       api: REST
-      auth: Flask-Login + session
+      auth: Django session + CSRF
       naming: snake_case
     entities:
     - files:
-      - app/models/task.py
-      - app/routes/tasks.py
+      - billing/models.py
+      - billing/views.py
       invariants:
-      - has owner
-      - status in [todo, doing, done]
-      name: Task
+      - total = sum(items)
+      - status in [draft, sent, paid]
+      name: Invoice
     - files:
-      - app/models/user.py
-      - app/routes/auth.py
+      - billing/webhooks.py
+      - billing/payments.py
       invariants:
-      - email is unique
-      - password is hashed
-      name: User
+      - amount > 0
+      - currency = USD
+      name: Payment
     forbidden_paths: *id001
     languages:
     - python
     test_patterns:
     - tests/
     - '*_test.py'
-  template_domain: Flask REST API for task management
-  title: '[flask-api] Fix null pointer in entity lookup'
+    - test_*.py
+  template_domain: Django billing and invoicing system
+  title: '[django-billing-demo] Improve error messages with context'
   variants:
     acceptable:
       gold:

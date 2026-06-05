@@ -1,48 +1,49 @@
 - change_type: bugfix
   expected_scope: small_bugfix
   expected_touched_files:
-  - src/app/
-  - package.json
+  - src/
+  - tests/
+  - Cargo.toml
   id: task_0086
-  repository_slice: angular-forms
+  repository_slice: rust-cli-tool
   spec:
     acceptance_criteria:
-    - Implementation follows camelCase conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository angular-forms: fix null pointer in entity lookup'
+    goal: 'In repository rust-cli-tool: fix null pointer in entity lookup'
     out_of_scope: &id001
-    - src/app/services/auth.service.ts
-    - src/environments/
+    - src/main.rs
+    - Cargo.lock
     risk_areas:
     - bugfix
   template:
     conventions:
-      api: REST
-      auth: Angular guard + interceptor
-      naming: camelCase
+      api: CLI flags
+      auth: none
+      naming: snake_case
     entities:
     - files:
-      - src/app/fields/
-      - src/app/models/
+      - src/processor.rs
+      - src/pipeline.rs
       invariants:
-      - validators compose
-      - reactive
-      name: FormField
+      - handles SIGTERM
+      - output is deterministic
+      name: Processor
     - files:
-      - src/app/builder/
-      - src/app/services/
+      - src/config.rs
       invariants:
-      - JSON schema as input
-      - accessible output
-      name: FormBuilder
+      - validated on startup
+      - defaults for all fields
+      name: Config
     forbidden_paths: *id001
     languages:
-    - typescript
+    - rust
     test_patterns:
-    - '*.spec.ts'
-  template_domain: Angular dynamic form builder
-  title: '[angular-forms] Fix null pointer in entity lookup'
+    - tests/
+    - '#[cfg(test)]'
+  template_domain: Rust CLI data processing tool
+  title: '[rust-cli-tool] Fix null pointer in entity lookup'
   variants:
     acceptable:
       gold:

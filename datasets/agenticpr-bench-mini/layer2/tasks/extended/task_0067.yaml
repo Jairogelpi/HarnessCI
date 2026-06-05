@@ -1,50 +1,50 @@
-- change_type: feature
+- change_type: logging
   expected_scope: medium_change
   expected_touched_files:
-  - src/
-  - __tests__/
-  - package.json
+  - internal/
+  - proto/
+  - cmd/
+  - go.mod
   id: task_0067
-  repository_slice: graphql-gateway
+  repository_slice: go-grpc-service
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository graphql-gateway: add pagination to list endpoint'
+    goal: 'In repository go-grpc-service: add structured logging with levels'
     out_of_scope: &id001
-    - src/gateway.ts
-    - src/auth.ts
+    - internal/auth/
+    - configs/production.yaml
     risk_areas:
-    - feature
+    - logging
   template:
     conventions:
-      api: GraphQL federation
-      auth: JWT in context
+      api: gRPC
+      auth: mTLS
       naming: camelCase
     entities:
     - files:
-      - src/schema/
-      - src/resolvers/
+      - internal/service/
+      - proto/
       invariants:
-      - all fields have resolvers
-      - no N+1 queries
-      name: Schema
+      - all RPCs have deadlines
+      - errors use status codes
+      name: Service
     - files:
-      - src/gateway.ts
-      - src/services/
+      - internal/repository/
       invariants:
-      - circuit breaker per service
-      - query depth limit
-      name: Gateway
+      - all queries have context
+      - connections are pooled
+      name: Repository
     forbidden_paths: *id001
     languages:
-    - typescript
+    - go
     test_patterns:
-    - __tests__/
-    - '*.test.ts'
-  template_domain: GraphQL API gateway with federation
-  title: '[graphql-gateway] Add pagination to list endpoint'
+    - '*_test.go'
+    - internal/*/testing/
+  template_domain: Go gRPC microservice
+  title: '[go-grpc-service] Add structured logging with levels'
   variants:
     acceptable:
       gold:

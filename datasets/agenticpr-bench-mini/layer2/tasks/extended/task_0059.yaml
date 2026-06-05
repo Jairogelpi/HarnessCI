@@ -1,50 +1,50 @@
-- change_type: dependency_update
+- change_type: config_change
   expected_scope: medium_change
   expected_touched_files:
-  - src/
-  - __tests__/
-  - package.json
+  - internal/
+  - proto/
+  - cmd/
+  - go.mod
   id: task_0059
-  repository_slice: node-worker
+  repository_slice: go-grpc-service
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository node-worker: upgrade all dependencies to latest stable'
+    goal: 'In repository go-grpc-service: add environment-based configuration'
     out_of_scope: &id001
-    - src/worker.ts
-    - src/secrets.ts
+    - internal/auth/
+    - configs/production.yaml
     risk_areas:
-    - dependency_update
+    - config_change
   template:
     conventions:
-      api: BullMQ
-      auth: Redis auth
+      api: gRPC
+      auth: mTLS
       naming: camelCase
     entities:
     - files:
-      - src/jobs/
-      - src/queue.ts
+      - internal/service/
+      - proto/
       invariants:
-      - has maxRetries
-      - timeout per job type
-      name: Job
+      - all RPCs have deadlines
+      - errors use status codes
+      name: Service
     - files:
-      - src/worker.ts
-      - src/concurrency.ts
+      - internal/repository/
       invariants:
-      - max concurrency honored
-      - graceful shutdown
-      name: Worker
+      - all queries have context
+      - connections are pooled
+      name: Repository
     forbidden_paths: *id001
     languages:
-    - typescript
+    - go
     test_patterns:
-    - __tests__/
-    - '*.test.ts'
-  template_domain: Node.js background job worker
-  title: '[node-worker] Upgrade all dependencies to latest stable'
+    - '*_test.go'
+    - internal/*/testing/
+  template_domain: Go gRPC microservice
+  title: '[go-grpc-service] Add environment-based configuration'
   variants:
     acceptable:
       gold:
@@ -63,7 +63,7 @@
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0059_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

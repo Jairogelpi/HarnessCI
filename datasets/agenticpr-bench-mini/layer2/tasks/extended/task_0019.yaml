@@ -1,50 +1,51 @@
-- change_type: dependency_update
+- change_type: feature
   expected_scope: medium_change
   expected_touched_files:
-  - internal/
-  - proto/
-  - cmd/
-  - go.mod
+  - billing/
+  - templates/
+  - tests/
   id: task_0019
-  repository_slice: go-grpc-service
+  repository_slice: django-billing-demo
   spec:
     acceptance_criteria:
-    - Implementation follows camelCase conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository go-grpc-service: upgrade all dependencies to latest stable'
+    goal: 'In repository django-billing-demo: add pagination to list endpoint'
     out_of_scope: &id001
-    - internal/auth/
-    - configs/production.yaml
+    - billing/webhooks.py
+    - billing/payments.py
     risk_areas:
-    - dependency_update
+    - feature
   template:
     conventions:
-      api: gRPC
-      auth: mTLS
-      naming: camelCase
+      api: REST
+      auth: Django session + CSRF
+      naming: snake_case
     entities:
     - files:
-      - internal/service/
-      - proto/
+      - billing/models.py
+      - billing/views.py
       invariants:
-      - all RPCs have deadlines
-      - errors use status codes
-      name: Service
+      - total = sum(items)
+      - status in [draft, sent, paid]
+      name: Invoice
     - files:
-      - internal/repository/
+      - billing/webhooks.py
+      - billing/payments.py
       invariants:
-      - all queries have context
-      - connections are pooled
-      name: Repository
+      - amount > 0
+      - currency = USD
+      name: Payment
     forbidden_paths: *id001
     languages:
-    - go
+    - python
     test_patterns:
-    - '*_test.go'
-    - internal/*/testing/
-  template_domain: Go gRPC microservice
-  title: '[go-grpc-service] Upgrade all dependencies to latest stable'
+    - tests/
+    - '*_test.py'
+    - test_*.py
+  template_domain: Django billing and invoicing system
+  title: '[django-billing-demo] Add pagination to list endpoint'
   variants:
     acceptable:
       gold:
@@ -63,7 +64,7 @@
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0019_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

@@ -1,50 +1,47 @@
-- change_type: feature
+- change_type: monitoring
   expected_scope: medium_change
   expected_touched_files:
-  - internal/
-  - proto/
-  - cmd/
-  - go.mod
+  - app/
+  - tests/
+  - requirements.txt
   id: task_0017
-  repository_slice: go-grpc-service
+  repository_slice: fastapi-auth-demo
   spec:
     acceptance_criteria:
-    - Implementation follows camelCase conventions
+    - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository go-grpc-service: add pagination to list endpoint'
+    goal: 'In repository fastapi-auth-demo: add prometheus metrics endpoint'
     out_of_scope: &id001
-    - internal/auth/
-    - configs/production.yaml
+    - app/auth/middleware.py
+    - app/core/secrets.py
     risk_areas:
-    - feature
+    - monitoring
   template:
     conventions:
-      api: gRPC
-      auth: mTLS
-      naming: camelCase
+      api: REST
+      auth: JWT in Authorization header
+      naming: snake_case
     entities:
     - files:
-      - internal/service/
-      - proto/
+      - app/models/user.py
       invariants:
-      - all RPCs have deadlines
-      - errors use status codes
-      name: Service
+      - password is hashed
+      name: User
     - files:
-      - internal/repository/
+      - app/auth/middleware.py
+      - app/auth/session.py
       invariants:
-      - all queries have context
-      - connections are pooled
-      name: Repository
+      - session expires after 30min
+      name: Session
     forbidden_paths: *id001
     languages:
-    - go
+    - python
     test_patterns:
-    - '*_test.go'
-    - internal/*/testing/
-  template_domain: Go gRPC microservice
-  title: '[go-grpc-service] Add pagination to list endpoint'
+    - tests/
+    - '*_test.py'
+  template_domain: FastAPI authentication microservice
+  title: '[fastapi-auth-demo] Add Prometheus metrics endpoint'
   variants:
     acceptable:
       gold:

@@ -1,50 +1,52 @@
-- change_type: dependency_update
-  expected_scope: medium_change
+- change_type: bugfix
+  expected_scope: small_bugfix
   expected_touched_files:
-  - src/
+  - app/
+  - components/
+  - lib/
   - __tests__/
-  - package.json
   id: task_0069
-  repository_slice: graphql-gateway
+  repository_slice: nextjs-ecommerce
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository graphql-gateway: upgrade all dependencies to latest stable'
+    goal: 'In repository nextjs-ecommerce: fix null pointer in entity lookup'
     out_of_scope: &id001
-    - src/gateway.ts
-    - src/auth.ts
+    - lib/payment.ts
+    - app/api/webhooks/
     risk_areas:
-    - dependency_update
+    - bugfix
   template:
     conventions:
-      api: GraphQL federation
-      auth: JWT in context
+      api: REST + Server Actions
+      auth: NextAuth.js
       naming: camelCase
     entities:
     - files:
-      - src/schema/
-      - src/resolvers/
+      - app/products/
+      - components/product/
       invariants:
-      - all fields have resolvers
-      - no N+1 queries
-      name: Schema
+      - price in cents
+      - inventory >= 0
+      name: Product
     - files:
-      - src/gateway.ts
-      - src/services/
+      - app/cart/
+      - lib/cart.ts
       invariants:
-      - circuit breaker per service
-      - query depth limit
-      name: Gateway
+      - total = sum(items)
+      - max 50 items
+      name: Cart
     forbidden_paths: *id001
     languages:
     - typescript
     test_patterns:
     - __tests__/
     - '*.test.ts'
-  template_domain: GraphQL API gateway with federation
-  title: '[graphql-gateway] Upgrade all dependencies to latest stable'
+    - '*.spec.tsx'
+  template_domain: Next.js e-commerce frontend
+  title: '[nextjs-ecommerce] Fix null pointer in entity lookup'
   variants:
     acceptable:
       gold:
@@ -63,7 +65,7 @@
         overengineering: false
         security_sensitive: false
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0069_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

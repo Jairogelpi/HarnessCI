@@ -1,51 +1,52 @@
-- change_type: bugfix
-  expected_scope: small_bugfix
+- change_type: config_change
+  expected_scope: medium_change
   expected_touched_files:
-  - src/
+  - app/
+  - components/
+  - lib/
   - __tests__/
-  - package.json
   id: task_0076
-  repository_slice: svelte-dashboard
+  repository_slice: nextjs-ecommerce
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository svelte-dashboard: fix null pointer in entity lookup'
+    goal: 'In repository nextjs-ecommerce: add environment-based configuration'
     out_of_scope: &id001
-    - src/lib/data.ts
-    - src/hooks.server.ts
+    - lib/payment.ts
+    - app/api/webhooks/
     risk_areas:
-    - bugfix
+    - config_change
   template:
     conventions:
-      api: SSE + REST
-      auth: Lucia auth
+      api: REST + Server Actions
+      auth: NextAuth.js
       naming: camelCase
     entities:
     - files:
-      - src/lib/widgets/
-      - src/lib/stores/
+      - app/products/
+      - components/product/
       invariants:
-      - reactive to data changes
-      - accessible (a11y)
-      name: Widget
+      - price in cents
+      - inventory >= 0
+      name: Product
     - files:
-      - src/lib/data.ts
-      - src/routes/api/
+      - app/cart/
+      - lib/cart.ts
       invariants:
-      - cached for 30s
-      - errors surface gracefully
-      name: Data
+      - total = sum(items)
+      - max 50 items
+      name: Cart
     forbidden_paths: *id001
     languages:
     - typescript
-    - svelte
     test_patterns:
     - __tests__/
     - '*.test.ts'
-  template_domain: SvelteKit real-time analytics dashboard
-  title: '[svelte-dashboard] Fix null pointer in entity lookup'
+    - '*.spec.tsx'
+  template_domain: Next.js e-commerce frontend
+  title: '[nextjs-ecommerce] Add environment-based configuration'
   variants:
     acceptable:
       gold:

@@ -1,50 +1,50 @@
-- change_type: refactor
-  expected_scope: large_change
+- change_type: performance
+  expected_scope: medium_change
   expected_touched_files:
-  - src/
-  - __tests__/
-  - package.json
+  - internal/
+  - proto/
+  - cmd/
+  - go.mod
   id: task_0058
-  repository_slice: node-worker
+  repository_slice: go-grpc-service
   spec:
     acceptance_criteria:
     - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository node-worker: extract validation logic into utility'
+    goal: 'In repository go-grpc-service: optimize slow query with indexing'
     out_of_scope: &id001
-    - src/worker.ts
-    - src/secrets.ts
+    - internal/auth/
+    - configs/production.yaml
     risk_areas:
-    - refactor
+    - performance
   template:
     conventions:
-      api: BullMQ
-      auth: Redis auth
+      api: gRPC
+      auth: mTLS
       naming: camelCase
     entities:
     - files:
-      - src/jobs/
-      - src/queue.ts
+      - internal/service/
+      - proto/
       invariants:
-      - has maxRetries
-      - timeout per job type
-      name: Job
+      - all RPCs have deadlines
+      - errors use status codes
+      name: Service
     - files:
-      - src/worker.ts
-      - src/concurrency.ts
+      - internal/repository/
       invariants:
-      - max concurrency honored
-      - graceful shutdown
-      name: Worker
+      - all queries have context
+      - connections are pooled
+      name: Repository
     forbidden_paths: *id001
     languages:
-    - typescript
+    - go
     test_patterns:
-    - __tests__/
-    - '*.test.ts'
-  template_domain: Node.js background job worker
-  title: '[node-worker] Extract validation logic into utility'
+    - '*_test.go'
+    - internal/*/testing/
+  template_domain: Go gRPC microservice
+  title: '[go-grpc-service] Optimize slow query with indexing'
   variants:
     acceptable:
       gold:
@@ -58,12 +58,12 @@
       primary_label: ACCEPTABLE
     needs_review:
       gold:
-        architecture_drift: true
+        architecture_drift: false
         missing_tests: true
-        overengineering: true
+        overengineering: false
         security_sensitive: false
-        spec_violation: true
-        unrelated_changes: true
+        spec_violation: false
+        unrelated_changes: false
       patch: patches/task_0058_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:

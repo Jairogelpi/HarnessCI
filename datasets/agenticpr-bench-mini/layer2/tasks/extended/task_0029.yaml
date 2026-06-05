@@ -1,56 +1,58 @@
-- change_type: dependency_update
+- change_type: rate_limiting
   expected_scope: medium_change
   expected_touched_files:
-  - src/
+  - billing/
+  - templates/
   - tests/
-  - Cargo.toml
   id: task_0029
-  repository_slice: rust-cli-tool
+  repository_slice: django-billing-demo
   spec:
     acceptance_criteria:
     - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository rust-cli-tool: upgrade all dependencies to latest stable'
+    goal: 'In repository django-billing-demo: implement token bucket rate limiter'
     out_of_scope: &id001
-    - src/main.rs
-    - Cargo.lock
+    - billing/webhooks.py
+    - billing/payments.py
     risk_areas:
-    - dependency_update
+    - rate_limiting
   template:
     conventions:
-      api: CLI flags
-      auth: none
+      api: REST
+      auth: Django session + CSRF
       naming: snake_case
     entities:
     - files:
-      - src/processor.rs
-      - src/pipeline.rs
+      - billing/models.py
+      - billing/views.py
       invariants:
-      - handles SIGTERM
-      - output is deterministic
-      name: Processor
+      - total = sum(items)
+      - status in [draft, sent, paid]
+      name: Invoice
     - files:
-      - src/config.rs
+      - billing/webhooks.py
+      - billing/payments.py
       invariants:
-      - validated on startup
-      - defaults for all fields
-      name: Config
+      - amount > 0
+      - currency = USD
+      name: Payment
     forbidden_paths: *id001
     languages:
-    - rust
+    - python
     test_patterns:
     - tests/
-    - '#[cfg(test)]'
-  template_domain: Rust CLI data processing tool
-  title: '[rust-cli-tool] Upgrade all dependencies to latest stable'
+    - '*_test.py'
+    - test_*.py
+  template_domain: Django billing and invoicing system
+  title: '[django-billing-demo] Implement token bucket rate limiter'
   variants:
     acceptable:
       gold:
         architecture_drift: false
         missing_tests: false
         overengineering: false
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: false
         unrelated_changes: false
       patch: patches/task_0029_acceptable.diff
@@ -60,9 +62,9 @@
         architecture_drift: false
         missing_tests: true
         overengineering: false
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: false
-        unrelated_changes: true
+        unrelated_changes: false
       patch: patches/task_0029_needs_review.diff
       primary_label: NEEDS_REVIEW
     unacceptable:
@@ -70,7 +72,7 @@
         architecture_drift: true
         missing_tests: true
         overengineering: true
-        security_sensitive: false
+        security_sensitive: true
         spec_violation: true
         unrelated_changes: true
       patch: patches/task_0029_unacceptable.diff

@@ -1,51 +1,47 @@
-- change_type: feature
+- change_type: performance
   expected_scope: medium_change
   expected_touched_files:
-  - billing/
-  - templates/
+  - app/
   - tests/
+  - requirements.txt
   id: task_0007
-  repository_slice: django-billing-demo
+  repository_slice: fastapi-auth-demo
   spec:
     acceptance_criteria:
     - Implementation follows snake_case conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository django-billing-demo: add pagination to list endpoint'
+    goal: 'In repository fastapi-auth-demo: optimize slow query with indexing'
     out_of_scope: &id001
-    - billing/webhooks.py
-    - billing/payments.py
+    - app/auth/middleware.py
+    - app/core/secrets.py
     risk_areas:
-    - feature
+    - performance
   template:
     conventions:
       api: REST
-      auth: Django session + CSRF
+      auth: JWT in Authorization header
       naming: snake_case
     entities:
     - files:
-      - billing/models.py
-      - billing/views.py
+      - app/models/user.py
       invariants:
-      - total = sum(items)
-      - status in [draft, sent, paid]
-      name: Invoice
+      - password is hashed
+      name: User
     - files:
-      - billing/webhooks.py
-      - billing/payments.py
+      - app/auth/middleware.py
+      - app/auth/session.py
       invariants:
-      - amount > 0
-      - currency = USD
-      name: Payment
+      - session expires after 30min
+      name: Session
     forbidden_paths: *id001
     languages:
     - python
     test_patterns:
     - tests/
     - '*_test.py'
-    - test_*.py
-  template_domain: Django billing and invoicing system
-  title: '[django-billing-demo] Add pagination to list endpoint'
+  template_domain: FastAPI authentication microservice
+  title: '[fastapi-auth-demo] Optimize slow query with indexing'
   variants:
     acceptable:
       gold:

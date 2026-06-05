@@ -1,48 +1,50 @@
-- change_type: feature
-  expected_scope: medium_change
+- change_type: bugfix
+  expected_scope: small_bugfix
   expected_touched_files:
-  - pipeline/
-  - tests/
-  - config/
+  - internal/
+  - proto/
+  - cmd/
+  - go.mod
   id: task_0052
-  repository_slice: python-data-pipeline
+  repository_slice: go-grpc-service
   spec:
     acceptance_criteria:
-    - Implementation follows snake_case conventions
+    - Implementation follows camelCase conventions
     - Existing tests continue to pass
     - No regression in performance
-    goal: 'In repository python-data-pipeline: add pagination to list endpoint'
+    goal: 'In repository go-grpc-service: fix null pointer in entity lookup'
     out_of_scope: &id001
-    - pipeline/loaders/
-    - config/secrets.yaml
+    - internal/auth/
+    - configs/production.yaml
     risk_areas:
-    - feature
+    - bugfix
   template:
     conventions:
-      api: CLI + config file
-      auth: API keys in env
-      naming: snake_case
+      api: gRPC
+      auth: mTLS
+      naming: camelCase
     entities:
     - files:
-      - pipeline/extractors/
+      - internal/service/
+      - proto/
       invariants:
-      - source connection pool
-      - retry on transient errors
-      name: Extractor
+      - all RPCs have deadlines
+      - errors use status codes
+      name: Service
     - files:
-      - pipeline/transformers/
+      - internal/repository/
       invariants:
-      - schema validated
-      - idempotent by key
-      name: Transformer
+      - all queries have context
+      - connections are pooled
+      name: Repository
     forbidden_paths: *id001
     languages:
-    - python
+    - go
     test_patterns:
-    - tests/
-    - '*_test.py'
-  template_domain: Python ETL data pipeline
-  title: '[python-data-pipeline] Add pagination to list endpoint'
+    - '*_test.go'
+    - internal/*/testing/
+  template_domain: Go gRPC microservice
+  title: '[go-grpc-service] Fix null pointer in entity lookup'
   variants:
     acceptable:
       gold:
