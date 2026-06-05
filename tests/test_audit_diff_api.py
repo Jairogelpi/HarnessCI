@@ -40,7 +40,11 @@ def test_run_audit_from_diff_text_returns_report_without_git(monkeypatch):
     def fail_subprocess_run(*args, **kwargs):  # noqa: ANN001, ANN002, ANN003
         raise AssertionError("run_audit_from_diff_text must not call subprocess.run")
 
+    def fail_trace_collection(*args, **kwargs):  # noqa: ANN001, ANN002, ANN003
+        raise AssertionError("run_audit_from_diff_text must not collect filesystem telemetry")
+
     monkeypatch.setattr(subprocess, "run", fail_subprocess_run)
+    monkeypatch.setattr("harnessci.audit.TraceCollector.collect", fail_trace_collection)
 
     # Disable auto-detection of mined spec (test should not depend on repo state)
     def _fake_spec_exists(_root):
@@ -87,3 +91,23 @@ def test_run_audit_from_diff_text_derives_test_signals_from_diff():
     assert report.diff.test_files_changed == 1
     assert report.test_signals.new_tests_added is True
     assert report.test_signals.changed_tests == 1
+
+
+def test_run_audit_from_diff_text_accepts_explicit_telemetry():
+    report = _audit_module().run_audit_from_diff_text(
+        SAMPLE_DIFF,
+        spec_text="# Goal\nFix login",
+        telemetry={
+            "available": True,
+            "edit_attempts": 11,
+            "test_runs": 10,
+            "failed_test_runs": 7,
+            "tokens": 47_000,
+            "latency_ms": 1_380_000,
+        },
+    )
+
+    assert report.telemetry.available is True
+    assert report.session_autopsy is not None
+    assert report.session_autopsy["efficiency_score"] < 50
+    assert "vueltas" in report.session_autopsy["headline"]

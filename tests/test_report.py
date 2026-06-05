@@ -243,3 +243,68 @@ class TestRenderMarkdown:
         report = _make_report(decision=Decision.BLOCK, overall_agentic_risk=80)
         md = render_markdown(report)
         assert "BLOCK" in md
+
+    def test_renders_session_autopsy_when_present(self):
+        from harnessci.report import render_markdown
+
+        report = _make_report(
+            session_autopsy={
+                "headline": "⚠️ Sesión problemática — El agente dio vueltas en círculos",
+                "tldr": "El agente tuvo dificultades.",
+                "efficiency_score": 38,
+                "insights": [
+                    {
+                        "icon": "🔴",
+                        "title": "El agente dio vueltas en círculos",
+                        "explanation": "Con 11 intentos de edición, no fue directo.",
+                    }
+                ],
+                "next_time": ["Da más contexto arquitectónico al inicio."],
+                "stats": {
+                    "duration_minutes": 23,
+                    "tokens_used": 47_000,
+                    "edit_attempts": 11,
+                    "lines_changed": 50,
+                    "cost_estimate": 0.705,
+                },
+            }
+        )
+
+        md = render_markdown(report)
+
+        assert "## 🔬 Autopsia de Sesión" in md
+        assert "Score de eficiencia | 38/100" in md
+        assert "Da más contexto arquitectónico" in md
+
+    def test_session_autopsy_handles_malformed_values(self):
+        from harnessci.report import render_markdown
+
+        report = _make_report(
+            session_autopsy={
+                "headline": "Bad | heading\nwith newline",
+                "tldr": "Line one\nline two",
+                "efficiency_score": "not-a-number",
+                "insights": [
+                    {
+                        "icon": "🔴\n",
+                        "title": "Title | pipe",
+                        "explanation": "Explanation\ncontinued",
+                    }
+                ],
+                "next_time": ["Recommendation\nwith newline"],
+                "stats": {
+                    "duration_minutes": "bad",
+                    "tokens_used": "bad",
+                    "edit_attempts": None,
+                    "lines_changed": "12",
+                    "cost_estimate": "bad",
+                },
+            }
+        )
+
+        md = render_markdown(report)
+
+        assert "## 🔬 Autopsia de Sesión" in md
+        assert "Bad ¦ heading with newline" in md
+        assert "Score de eficiencia | 0/100" in md
+        assert "Recommendation with newline" in md

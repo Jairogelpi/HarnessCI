@@ -5,6 +5,8 @@ Produces the canonical HarnessCI Audit comment format.
 
 from __future__ import annotations
 
+from typing import Any
+
 from harnessci.models import AuditReport
 
 # ---------------------------------------------------------------------------
@@ -85,9 +87,87 @@ def render_markdown(report: AuditReport) -> str:
             lines.append(f"{i}. {finding.message}")
         lines.append("")
 
+    # Session autopsy
+    if report.session_autopsy:
+        _append_session_autopsy(lines, report.session_autopsy)
+
     # Recommendation
     lines.append("### Recommendation")
     lines.append("")
     lines.append(report.recommendation)
 
     return "\n".join(lines)
+
+
+def _append_session_autopsy(lines: list[str], autopsy: dict) -> None:
+    """Append a concise Spanish session-autopsy section."""
+    stats = autopsy.get("stats", {}) if isinstance(autopsy.get("stats"), dict) else {}
+    insights = autopsy.get("insights", []) if isinstance(autopsy.get("insights"), list) else []
+    recommendations = autopsy.get("next_time", [])
+    if not isinstance(recommendations, list):
+        recommendations = []
+
+    lines.append("## 🔬 Autopsia de Sesión")
+    lines.append("")
+    lines.append(f"**{_safe_text(autopsy.get('headline'), 'Sesión analizada')}**")
+    lines.append("")
+    tldr = _safe_text(autopsy.get("tldr"), "")
+    if tldr:
+        lines.append(tldr)
+        lines.append("")
+
+    lines.append("| Métrica | Valor |")
+    lines.append("|---|---:|")
+    lines.append(f"| Duración | {_safe_int(stats.get('duration_minutes'))} min |")
+    lines.append(f"| Tokens usados | ~{_safe_int(stats.get('tokens_used')):,} |")
+    lines.append(f"| Intentos de edición | {_safe_int(stats.get('edit_attempts'))} |")
+    lines.append(f"| Líneas cambiadas | {_safe_int(stats.get('lines_changed'))} |")
+    lines.append(f"| Coste estimado | ${_safe_float(stats.get('cost_estimate')):.4f} |")
+    lines.append(f"| Score de eficiencia | {_safe_int(autopsy.get('efficiency_score'))}/100 |")
+    lines.append("")
+
+    for insight in insights[:3]:
+        if not isinstance(insight, dict):
+            continue
+        title = _safe_text(insight.get("title"), "")
+        explanation = _safe_text(insight.get("explanation"), "")
+        icon = _safe_text(insight.get("icon"), "ℹ️")
+        if title:
+            lines.append(f"### {icon} {title}")
+            lines.append("")
+        if explanation:
+            lines.append(explanation)
+            lines.append("")
+
+    if recommendations:
+        lines.append("### 💡 Para la próxima vez")
+        lines.append("")
+        for recommendation in recommendations[:3]:
+            text = _safe_text(recommendation, "")
+            if text:
+                lines.append(f"> {text}")
+        lines.append("")
+
+
+def _safe_int(value: Any, default: int = 0) -> int:
+    if value is None or isinstance(value, bool):
+        return default
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_float(value: Any, default: float = 0.0) -> float:
+    if value is None or isinstance(value, bool):
+        return default
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_text(value: Any, default: str) -> str:
+    if value is None:
+        return default
+    return str(value).replace("\n", " ").replace("|", "¦").strip()

@@ -154,3 +154,4 @@ class AuditReport(HarnessCIModel):
     # New: NL generation
     nl_summary: dict[str, str] | None = None  # {summary, risks, tests, security}
     bug_pattern_matches: int | None = None  # Count of generic bug patterns detected
+    session_autopsy: dict | None = None  # Human-readable telemetry interpretation

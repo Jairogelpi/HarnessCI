@@ -11,6 +11,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from .autopsy.collector import TraceCollector, normalize_telemetry
 from .config import load_config
 from .diff import build_diff_features, classify_files, parse_diff_text
 from .errors import HarnessCIError
@@ -26,8 +27,6 @@ from .models import (
 )
 from .scoring import build_findings, compute_scores, decide
 from .spec import parse_spec_file, parse_spec_text
-from .detection import BugPatternDetector
-from .nlp import NLGenerator, generate_explanations, generate_pr_summary
 
 # ---------------------------------------------------------------------------
 # Public API
@@ -41,15 +40,18 @@ def run_audit(
     spec_text: str | None = None,
     config: dict[str, Any] | None = None,
     git_cwd: str | Path | None = None,
+    telemetry: TelemetrySummary | dict[str, Any] | None = None,
 ) -> AuditReport:
     """Run a full deterministic audit from a git revision range."""
     diff_text = _git_diff(base_rev, head_rev, git_cwd)
+    audit_telemetry = _resolve_telemetry(telemetry, git_cwd)
     return _build_audit_report(
         diff_text=diff_text,
         spec_path=spec_path,
         spec_text=spec_text,
         config=config,
         metadata={"base_rev": base_rev, "head_rev": head_rev},
+        telemetry=audit_telemetry,
     )
 
 
@@ -58,6 +60,7 @@ def run_audit_from_diff_text(
     spec_path: str | Path | None = None,
     spec_text: str | None = None,
     config: dict[str, Any] | None = None,
+    telemetry: TelemetrySummary | dict[str, Any] | None = None,
 ) -> AuditReport:
     """Run a deterministic audit from already loaded unified diff text.
 
@@ -80,6 +83,7 @@ def run_audit_from_diff_text(
             "diff_bytes": len(diff_text.encode("utf-8")),
             "spec_source": "inline" if spec_text else "file" if spec_path else "none",
         },
+        telemetry=normalize_telemetry(telemetry),
     )
 
 
@@ -88,12 +92,44 @@ def run_audit_from_diff_text(
 # ---------------------------------------------------------------------------
 
 
+def _resolve_telemetry(
+    telemetry: TelemetrySummary | dict[str, Any] | None,
+    git_cwd: str | Path | None,
+) -> TelemetrySummary:
+    """Normalize explicit telemetry or collect best-effort traces for git audits."""
+    if telemetry is not None:
+        return normalize_telemetry(telemetry)
+    repo_root = Path(git_cwd) if git_cwd is not None else Path.cwd()
+    return TraceCollector().collect(repo_root)
+
+
+def _attach_session_autopsy(report: AuditReport) -> AuditReport:
+    """Attach a narrative telemetry autopsy when telemetry is available."""
+    if not report.telemetry.available:
+        return report
+    try:
+        from .autopsy.analyzer import SessionAnalyzer
+        from .autopsy.narrator import SessionNarrator
+
+        trace = report.telemetry.model_dump()
+        insights = SessionAnalyzer().analyze(trace=trace, diff_features=report.diff)
+        session_autopsy = SessionNarrator().generate_report(
+            insights=insights,
+            report=report,
+            trace=trace,
+        )
+        return report.model_copy(update={"session_autopsy": session_autopsy})
+    except Exception:  # noqa: BLE001
+        return report
+
+
 def _build_audit_report(
     diff_text: str,
     spec_path: str | Path | None,
     spec_text: str | None,
     config: dict[str, Any] | None,
     metadata: dict[str, str | int | float | bool | None],
+    telemetry: TelemetrySummary | None = None,
 ) -> AuditReport:
     """Build an AuditReport from loaded diff text and optional spec/config."""
     cfg = config if config is not None else load_config(None)
@@ -109,7 +145,7 @@ def _build_audit_report(
 
     # 3. Derive test signals
     test_signals = _derive_test_signals(diff_features)
-    telemetry = TelemetrySummary()
+    telemetry = telemetry or TelemetrySummary()
 
     # 4. Run spec verifier on mined spec if available
     spec_findings = _run_spec_verifier(diff_features, spec)
@@ -137,10 +173,10 @@ def _build_audit_report(
     bug_matches = _run_bug_detection(diff_text, diff_features)
 
     # 8b. AST-based semantic bug detection (Python-specific)
-    ast_matches = _run_ast_bug_detection(diff_text, diff_features)
+    _run_ast_bug_detection(diff_text, diff_features)
 
     # 8c. LLM refiner: validate rules output + detect semantic bugs
-    findings, refinement_stats = _run_llm_refiner(findings, diff_text, diff_features)
+    findings, _refinement_stats = _run_llm_refiner(findings, diff_text, diff_features)
 
     # 9. Decision
     decision = decide(
@@ -156,7 +192,7 @@ def _build_audit_report(
     # 10. NL generation (after decision so we have risk_score)
     nl_summary = _run_nl_generation(diff_text, decision, scores, findings)
 
-    return AuditReport.model_construct(
+    report = AuditReport.model_construct(
         decision=decision,
         overall_agentic_risk=scores.overall_agentic_risk,
         scores=scores,
@@ -170,6 +206,7 @@ def _build_audit_report(
         nl_summary=nl_summary,
         bug_pattern_matches=bug_matches,
     )
+    return _attach_session_autopsy(report)
 
 
 def _derive_test_signals(diff_features: DiffFeatures) -> TestSignals:
@@ -541,7 +578,7 @@ def _run_spec_verifier(
         return []
 
 
-def _run_drift_matcher(diff_features: DiffFeatures) -> list[object]:
+def _run_drift_matcher(diff_features: DiffFeatures) -> list[Any]:
     """Run DriftMatcher to detect architecture drift from embeddings."""
     try:
         from .semantic import DriftMatcher
