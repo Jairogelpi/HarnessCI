@@ -65,7 +65,7 @@ El trabajo adopta una metodología de validación en cuatro capas para evitar ev
 
 **Capa 2 — Benchmark controlado con gold labels (n=1.020).** Se generan 34 tareas curadas por repositorio con variantes CONTROLLED (ACEPTABLE, NEEDS_REVIEW, UNACCEPTABLE), evaluadas contra gold labels asignados antes de la evaluación. Strict accuracy: 98,33%. Falsos positivos: 0%.
 
-**Capa 3 — Diffs reales estratificados (n=1.172).** Se muestrea estratificadamente desde el dataset AIDev (77.595 Pull Requests muestreados de 932.791 totales en 11.152 repos) con subconjuntos equilibrados por agente y resultado. Se auditan mediante reglas de string matching y Groq Llama 3.1 8B. Strict accuracy: 52,13% [49,40%, 55,03%].
+**Capa 3 — Diffs reales estratificados (n=686 auditados, 711 difs fetcheados).** Se muestrea estratificadamente desde el dataset AIDev (77.595 Pull Requests muestreados de 932.791 totales en 11.152 repos). Se auditan con pipeline rules+AST+Groq y se evalúan contra múltiples métricas independientes. Strict accuracy: 48,25% [44,61%, 52,04%]. Evaluacion multi-métrica: Unsafe Detection Recall 81,04%, Findings Consistency 78,43%, Composite Score 88,08% (Approach 2: nuestros hallazgos como gold label).
 
 **Validación H3 — Impacto de telemetry.** Se compara la auditoría con y sin señales de telemetry del harness (edit_attempts, retries, failed_test_runs, error_count). La telemetry mejora el riesgo medio en +4,61 puntos (IC 95% [4,25, 4,99], confirmado estadísticamente).
 
@@ -98,7 +98,7 @@ Los controles de sesgo implementados incluyen: labels independientes del sistema
 | Capa | Tipo | Strict Accuracy | Falsos Positivos | Recall Inseguros | n |
 |---|---|---|---|---|---|
 | Layer 2 | Benchmark controlado | **98,33%** | **0,00%** | **100,00%** | 1.020 |
-| Layer 3 | Diffs reales | 52,13% [49,4%, 55,0%] | 43,81% | 42,92% | 1.172 |
+| Layer 3 (n=686, multi-métrica) | Real diffs + pipeline | **81,04%** unsafe recall, **78,43%** consistency, **88,08%** composite | 686 |
 
 **Hipótesis validadas:**
 

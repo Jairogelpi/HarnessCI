@@ -1,0 +1,28 @@
+{
+  "n": 686,
+  "elapsed_s": 22.67534852027893,
+  "metrics": {
+    "strict_acc": 0.48250728862973763,
+    "strict_ci95": [
+      0.44314868804664725,
+      0.5189504373177842
+    ],
+    "our_std_acc": 0.4970845481049563,
+    "our_std_ci95": [
+      0.4606413994169096,
+      0.532069970845481
+    ],
+    "safe_pass_rate": 0.1282798833819242,
+    "esc_correct_rate": 0.7002881844380403,
+    "false_block_rate": 0.027696793002915453,
+    "decision_dist": {
+      "PASS": 192,
+      "REVIEW_REQUIRED": 459,
+      "BLOCK": 35
+    },
+    "label_dist": {
+      "NEEDS_REVIEW": 347,
+      "ACCEPTABLE": 339
+    }
+  }
+}

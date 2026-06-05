@@ -1,0 +1,112 @@
+{
+  "n": 1172,
+  "iterations": 1000,
+  "strict_accuracy": {
+    "mean": 0.5366,
+    "ci95": [
+      0.5051,
+      0.5657
+    ]
+  },
+  "unsafe_detection_recall": {
+    "mean": 0.416,
+    "ci95": [
+      0.3874,
+      0.4437
+    ]
+  },
+  "false_positive_rate": {
+    "mean": 0.5817,
+    "ci95": [
+      0.5493,
+      0.6135
+    ]
+  },
+  "per_agent": {
+    "Devin": {
+      "n": 180,
+      "strict_accuracy": {
+        "mean": 0.4994,
+        "ci95": [
+          0.4333,
+          0.5722
+        ]
+      },
+      "unsafe_recall": {
+        "mean": 0.4128,
+        "ci95": [
+          0.35,
+          0.4889
+        ]
+      }
+    },
+    "OpenAI_Codex": {
+      "n": 130,
+      "strict_accuracy": {
+        "mean": 0.523,
+        "ci95": [
+          0.4385,
+          0.6077
+        ]
+      },
+      "unsafe_recall": {
+        "mean": 0.2462,
+        "ci95": [
+          0.1769,
+          0.3231
+        ]
+      }
+    },
+    "Cursor": {
+      "n": 140,
+      "strict_accuracy": {
+        "mean": 0.5363,
+        "ci95": [
+          0.45,
+          0.6143
+        ]
+      },
+      "unsafe_recall": {
+        "mean": 0.5622,
+        "ci95": [
+          0.4786,
+          0.6429
+        ]
+      }
+    },
+    "Copilot": {
+      "n": 150,
+      "strict_accuracy": {
+        "mean": 0.4942,
+        "ci95": [
+          0.42,
+          0.5733
+        ]
+      },
+      "unsafe_recall": {
+        "mean": 0.3469,
+        "ci95": [
+          0.2733,
+          0.42
+        ]
+      }
+    },
+    "Claude_Code": {
+      "n": 572,
+      "strict_accuracy": {
+        "mean": 0.5623,
+        "ci95": [
+          0.5245,
+          0.6049
+        ]
+      },
+      "unsafe_recall": {
+        "mean": 0.4374,
+        "ci95": [
+          0.3986,
+          0.4773
+        ]
+      }
+    }
+  }
+}

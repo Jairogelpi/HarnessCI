@@ -1,0 +1,158 @@
+{
+  "total": 100000,
+  "overall_accuracy": 0.1993,
+  "overall_ci": {
+    "mean": 0.1993,
+    "ci_low": 0.1968,
+    "ci_high": 0.2018
+  },
+  "per_agent": {
+    "Claude_Code": {
+      "n": 4734,
+      "accuracy": 0.1667,
+      "precision": 0.1667,
+      "recall": 1.0,
+      "f1": 0.2857,
+      "fpr": 1.0,
+      "mean_risk": 22,
+      "median_risk": 22.0,
+      "std_risk": 0.0,
+      "false_positives": 3945,
+      "false_negatives": 0,
+      "decisions": {
+        "PASS": 0,
+        "REVIEW_REQUIRED": 4734,
+        "BLOCK": 0
+      },
+      "ci_accuracy": {
+        "mean": 0.1667,
+        "ci_low": 0.1559,
+        "ci_high": 0.177
+      },
+      "ci_f1": {
+        "mean": 0.1667,
+        "ci_low": 0.1559,
+        "ci_high": 0.177
+      }
+    },
+    "Copilot": {
+      "n": 35266,
+      "accuracy": 0.2697,
+      "precision": 0.2697,
+      "recall": 1.0,
+      "f1": 0.4248,
+      "fpr": 1.0,
+      "mean_risk": 22.0,
+      "median_risk": 22.0,
+      "std_risk": 0.02,
+      "false_positives": 25756,
+      "false_negatives": 0,
+      "decisions": {
+        "PASS": 0,
+        "REVIEW_REQUIRED": 35266,
+        "BLOCK": 0
+      },
+      "ci_accuracy": {
+        "mean": 0.2697,
+        "ci_low": 0.265,
+        "ci_high": 0.2742
+      },
+      "ci_f1": {
+        "mean": 0.2697,
+        "ci_low": 0.265,
+        "ci_high": 0.2742
+      }
+    },
+    "Cursor": {
+      "n": 20000,
+      "accuracy": 0.1024,
+      "precision": 0.1024,
+      "recall": 1.0,
+      "f1": 0.1859,
+      "fpr": 1.0,
+      "mean_risk": 22.0,
+      "median_risk": 22.0,
+      "std_risk": 0.04,
+      "false_positives": 17951,
+      "false_negatives": 0,
+      "decisions": {
+        "PASS": 0,
+        "REVIEW_REQUIRED": 20000,
+        "BLOCK": 0
+      },
+      "ci_accuracy": {
+        "mean": 0.1024,
+        "ci_low": 0.098,
+        "ci_high": 0.1065
+      },
+      "ci_f1": {
+        "mean": 0.1024,
+        "ci_low": 0.098,
+        "ci_high": 0.1065
+      }
+    },
+    "Devin": {
+      "n": 20000,
+      "accuracy": 0.317,
+      "precision": 0.317,
+      "recall": 1.0,
+      "f1": 0.4814,
+      "fpr": 1.0,
+      "mean_risk": 22.0,
+      "median_risk": 22.0,
+      "std_risk": 0.01,
+      "false_positives": 13660,
+      "false_negatives": 0,
+      "decisions": {
+        "PASS": 0,
+        "REVIEW_REQUIRED": 20000,
+        "BLOCK": 0
+      },
+      "ci_accuracy": {
+        "mean": 0.317,
+        "ci_low": 0.3108,
+        "ci_high": 0.3232
+      },
+      "ci_f1": {
+        "mean": 0.317,
+        "ci_low": 0.3108,
+        "ci_high": 0.3232
+      }
+    },
+    "OpenAI_Codex": {
+      "n": 20000,
+      "accuracy": 0.0619,
+      "precision": 0.0619,
+      "recall": 1.0,
+      "f1": 0.1165,
+      "fpr": 1.0,
+      "mean_risk": 22.0,
+      "median_risk": 22.0,
+      "std_risk": 0.05,
+      "false_positives": 18763,
+      "false_negatives": 0,
+      "decisions": {
+        "PASS": 0,
+        "REVIEW_REQUIRED": 20000,
+        "BLOCK": 0
+      },
+      "ci_accuracy": {
+        "mean": 0.0619,
+        "ci_low": 0.0585,
+        "ci_high": 0.0654
+      },
+      "ci_f1": {
+        "mean": 0.0619,
+        "ci_low": 0.0585,
+        "ci_high": 0.0654
+      }
+    }
+  },
+  "n_repos": 27673,
+  "methodology": "Metadata-based (title+body as spec, synthetic diff). Zero-bias sample: natural label ratios, max 20 PR/repo, no forced splits.",
+  "limitations": [
+    "Metadata-only \u2014 no actual diff content",
+    "Synthetic diff = title text only \u2014 minimal code-change signals",
+    "Maintains AIDev label noise (bot detection, merge decision proxy)"
+  ]
+}

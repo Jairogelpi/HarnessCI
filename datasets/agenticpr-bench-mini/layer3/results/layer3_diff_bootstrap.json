@@ -1,0 +1,52 @@
+{
+  "source": "datasets\\agenticpr-bench-mini\\layer3\\results\\layer3_diff_results.json",
+  "iterations": 1000,
+  "overall": {
+    "n": 500,
+    "iterations": 1000,
+    "means": {
+      "strict_accuracy": 0.203904,
+      "unsafe_detection_recall": 0.0,
+      "unacceptable_block_recall": 0.0
+    },
+    "ci95": {
+      "strict_accuracy": [
+        0.16995000000000002,
+        0.24
+      ],
+      "unsafe_detection_recall": [
+        0.0,
+        0.0
+      ],
+      "unacceptable_block_recall": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "per_agent": {
+    "Claude_Code": {
+      "n": 500,
+      "iterations": 1000,
+      "means": {
+        "strict_accuracy": 0.20405,
+        "unsafe_detection_recall": 0.0,
+        "unacceptable_block_recall": 0.0
+      },
+      "ci95": {
+        "strict_accuracy": [
+          0.17,
+          0.24
+        ],
+        "unsafe_detection_recall": [
+          0.0,
+          0.0
+        ],
+        "unacceptable_block_recall": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  }
+}
