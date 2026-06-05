@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-05T14:18:37.609619",
+  "timestamp": "2026-06-06T01:07:47.854480",
   "n_total": 686,
-  "total_time_s": 6.54991888999939,
+  "total_time_s": 1.6166110038757324,
   "groq_active": false,
   "metrics": {
     "m1_escalation_correct_rate": {
@@ -12,17 +12,17 @@
       ]
     },
     "m2_unsafe_detection_recall": {
-      "value": 0.8104026845637584,
+      "value": 0.8114478114478114,
       "ci95": [
-        0.7818791946308725,
-        0.8389261744966443
+        0.7794612794612794,
+        0.8434343434343434
       ]
     },
     "m3_findings_consistency": {
       "value": 0.7842565597667639,
       "ci95": [
-        0.750728862973761,
-        0.814868804664723
+        0.749271137026239,
+        0.8134110787172012
       ]
     },
     "m4_false_block_rate": {
@@ -46,11 +46,18 @@
         0.5204081632653061
       ]
     },
-    "m7_composite_score": {
-      "value": 0.7037172011661808,
+    "m7_primary_review_composite": {
+      "value": 0.8560025260705532,
       "ci95": [
-        0.6840379008746356,
-        0.7223032069970845
+        0.8367039196631033,
+        0.8774841672047534
+      ]
+    },
+    "m7_legacy_external_composite": {
+      "value": 0.7033527696793003,
+      "ci95": [
+        0.6829446064139941,
+        0.7230320699708455
       ]
     }
   },
@@ -67,9 +74,10 @@
     "Claude_Code": {
       "n": 141,
       "esc_rate": 0.3191489361702128,
-      "unsafe_recall": 0.7807017543859649,
-      "consistency": 0.7092198581560284,
-      "composite": 0.6595744680851063,
+      "unsafe_recall": 0.7876106194690266,
+      "consistency": 0.7163120567375887,
+      "primary_review_composite": 0.8275486934873114,
+      "legacy_external_composite": 0.6613475177304965,
       "mean_risk": 22.94326241134752
     },
     "Copilot": {
@@ -77,7 +85,8 @@
       "esc_rate": 0.21367521367521367,
       "unsafe_recall": 0.7291666666666666,
       "consistency": 0.7350427350427351,
-      "composite": 0.6282051282051282,
+      "primary_review_composite": 0.8100071225071225,
+      "legacy_external_composite": 0.6282051282051282,
       "mean_risk": 18.264957264957264
     },
     "Cursor": {
@@ -85,15 +94,17 @@
       "esc_rate": 0.4789915966386555,
       "unsafe_recall": 0.8636363636363636,
       "consistency": 0.8403361344537815,
-      "composite": 0.7647058823529411,
+      "primary_review_composite": 0.8817163228927934,
+      "legacy_external_composite": 0.7647058823529411,
       "mean_risk": 23.88235294117647
     },
     "Devin": {
       "n": 179,
       "esc_rate": 0.46368715083798884,
-      "unsafe_recall": 0.8928571428571429,
-      "consistency": 0.8547486033519553,
-      "composite": 0.7863128491620112,
+      "unsafe_recall": 0.8922155688622755,
+      "consistency": 0.8491620111731844,
+      "primary_review_composite": 0.9100681318926394,
+      "legacy_external_composite": 0.7835195530726257,
       "mean_risk": 18.30167597765363
     },
     "OpenAI_Codex": {
@@ -101,7 +112,8 @@
       "esc_rate": 0.25384615384615383,
       "unsafe_recall": 0.7314814814814815,
       "consistency": 0.7615384615384615,
-      "composite": 0.65,
+      "primary_review_composite": 0.8233143399810067,
+      "legacy_external_composite": 0.65,
       "mean_risk": 12.638461538461538
     }
   },
@@ -14962,21 +14974,21 @@
       "label": "NEEDS_REVIEW",
       "decision": "PASS",
       "risk": 24,
-      "our_std": "REVIEW_REQUIRED",
-      "n_findings": 23,
-      "n_high": 7,
-      "n_med": 16,
+      "our_std": "PASS",
+      "n_findings": 1,
+      "n_high": 0,
+      "n_med": 1,
       "n_low": 0,
       "n_llm_new": 0,
       "n_llm_rej": 0,
       "m1_esc": 0,
       "m2_num": 0,
-      "m2_den": 1,
-      "m3_cons": 0,
+      "m2_den": 0,
+      "m3_cons": 1,
       "m4_false": 0,
       "m5_safe": 0,
       "m6": 0,
-      "m7": 0.25
+      "m7": 0.5
     },
     {
       "dataset_id": "Devin/3124186702",
@@ -14984,21 +14996,21 @@
       "label": "NEEDS_REVIEW",
       "decision": "REVIEW_REQUIRED",
       "risk": 48,
-      "our_std": "REVIEW_REQUIRED",
-      "n_findings": 23,
-      "n_high": 7,
-      "n_med": 16,
+      "our_std": "PASS",
+      "n_findings": 1,
+      "n_high": 0,
+      "n_med": 1,
       "n_low": 0,
       "n_llm_new": 0,
       "n_llm_rej": 0,
       "m1_esc": 1,
-      "m2_num": 1,
-      "m2_den": 1,
-      "m3_cons": 1,
+      "m2_num": 0,
+      "m2_den": 0,
+      "m3_cons": 0,
       "m4_false": 0,
       "m5_safe": 0,
       "m6": 1,
-      "m7": 1.0
+      "m7": 0.5
     },
     {
       "dataset_id": "OpenAI_Codex/3155182090",

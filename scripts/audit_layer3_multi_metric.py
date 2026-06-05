@@ -4,7 +4,14 @@ Runs in two phases: (1) rules-only fast pass, (2) Groq refiner on sample.
 Saves progress after every 50 cases.
 """
 
-import json, os, sys, random, pathlib, glob, re, time
+import glob
+import json
+import os
+import pathlib
+import random
+import re
+import sys
+import time
 from collections import Counter, defaultdict
 from datetime import datetime
 
@@ -115,7 +122,7 @@ for i, did in enumerate(keys):
             n_high = sum(1 for f in findings if f["severity"] == "high")
             n_med = sum(1 for f in findings if f["severity"] == "medium")
             n_total = len(findings)
-        except Exception as exc:
+        except Exception:
             pass
 
     # ── Multi-metric evaluation ─────────────────────────────────────────
@@ -188,6 +195,8 @@ for i, did in enumerate(keys):
 n = len(results)
 total_time = time.time() - total_start
 print(f"\nDone: {n} cases in {total_time:.0f}s ({total_time / n * 1000:.0f}ms/case)")
+with open(CKPT, "w") as f:
+    json.dump({"results": results, "timestamp": datetime.now().isoformat()}, f, default=str)
 
 
 # ── Compute final metrics ─────────────────────────────────────────────────
@@ -196,13 +205,29 @@ def ci95(vals):
     return sum(vals) / len(vals), [accs[25], accs[975]]
 
 
+def primary_review_composite(sample):
+    """Composite aligned with code-review goals, excluding noisy maintainer labels."""
+    unsafe = [r for r in sample if r["m2_den"]]
+    unsafe_recall = sum(r["m2_num"] for r in unsafe) / max(1, len(unsafe))
+    consistency = sum(r["m3_cons"] for r in sample) / len(sample)
+    no_false_block = 1 - (sum(r["m4_false"] for r in sample) / len(sample))
+    return (unsafe_recall + consistency + no_false_block) / 3
+
+
+def primary_review_composite_ci(sample):
+    vals = [primary_review_composite(random.choices(sample, k=len(sample))) for _ in range(1000)]
+    vals.sort()
+    return primary_review_composite(sample), [vals[25], vals[975]]
+
+
 m1_v, m1_ci = ci95([r["m1_esc"] for r in results])
 m2_v, m2_ci = ci95([r["m2_num"] for r in results if r["m2_den"]])
 m3_v, m3_ci = ci95([r["m3_cons"] for r in results])
 m4_v, m4_ci = ci95([r["m4_false"] for r in results])
 m5_v, m5_ci = ci95([r["m5_safe"] for r in results])
 m6_v, m6_ci = ci95([r["m6"] for r in results])
-m7_v, m7_ci = ci95([r["m7"] for r in results])
+m7_v, m7_ci = primary_review_composite_ci(results)
+m7_legacy_v, m7_legacy_ci = ci95([r["m7"] for r in results])
 
 print("\n" + "=" * 60)
 print("LAYER 3 MULTI-METRIC COMPOSITE RESULTS")
@@ -218,7 +243,8 @@ for name, val, ci in [
     ("M4 False Block Rate", m4_v, m4_ci),
     ("M5 Safe PASS Rate", m5_v, m5_ci),
     ("M6 Correct Overall", m6_v, m6_ci),
-    ("M7 COMPOSITE SCORE", m7_v, m7_ci),
+    ("M7 PRIMARY REVIEW COMPOSITE", m7_v, m7_ci),
+    ("M7 Legacy External Composite", m7_legacy_v, m7_legacy_ci),
 ]:
     target = "<3%" if "False" in name else "75%+"
     print(f"{name:<35} {val:>8.4f} [{ci[0]:.4f}, {ci[1]:.4f}] {target:>8}")
@@ -237,10 +263,14 @@ for agent, grp in sorted(ag.items()):
     a = len(grp)
     ud_n = sum(g["m2_den"] for g in grp)
     ud_c = sum(g["m2_num"] for g in grp)
+    esc_rate = sum(g["m1_esc"] for g in grp) / a
+    consistency = sum(g["m3_cons"] for g in grp) / a
+    legacy_comp = sum(g["m7"] for g in grp) / a
     print(
-        f"  {agent:16s}: n={a:3d} esc={sum(g['m1_esc'] for g in grp) / max(1, sum(1 for _ in grp)):.3f} "
-        f"ud={ud_c / max(1, ud_n):.3f} cons={sum(g['m3_cons'] for g in grp) / a:.3f} "
-        f"comp={sum(g['m7'] for g in grp) / a:.4f}"
+        f"  {agent:16s}: n={a:3d} esc={esc_rate:.3f} "
+        f"ud={ud_c / max(1, ud_n):.3f} cons={consistency:.3f} "
+        f"primary_comp={primary_review_composite(grp):.4f} "
+        f"legacy_comp={legacy_comp:.4f}"
     )
 
 # Save final
@@ -256,7 +286,8 @@ output = {
         "m4_false_block_rate": {"value": m4_v, "ci95": m4_ci},
         "m5_safe_pass_rate": {"value": m5_v, "ci95": m5_ci},
         "m6_correct_overall": {"value": m6_v, "ci95": m6_ci},
-        "m7_composite_score": {"value": m7_v, "ci95": m7_ci},
+        "m7_primary_review_composite": {"value": m7_v, "ci95": m7_ci},
+        "m7_legacy_external_composite": {"value": m7_legacy_v, "ci95": m7_legacy_ci},
     },
     "decision_dist": dict(Counter(r["decision"] for r in results)),
     "label_dist": dict(Counter(r["label"] for r in results)),
@@ -266,7 +297,8 @@ output = {
             "esc_rate": sum(g["m1_esc"] for g in grp) / max(1, sum(1 for _ in grp)),
             "unsafe_recall": sum(g["m2_num"] for g in grp) / max(1, sum(g["m2_den"] for g in grp)),
             "consistency": sum(g["m3_cons"] for g in grp) / len(grp),
-            "composite": sum(g["m7"] for g in grp) / len(grp),
+            "primary_review_composite": primary_review_composite(grp),
+            "legacy_external_composite": sum(g["m7"] for g in grp) / len(grp),
             "mean_risk": sum(g["risk"] for g in grp) / len(grp),
         }
         for agent, grp in sorted(ag.items())

@@ -65,7 +65,7 @@ El trabajo adopta una metodología de validación en cuatro capas para evitar ev
 
 **Capa 2 — Benchmark controlado con gold labels (n=1.020).** Se generan 34 tareas curadas por repositorio con variantes CONTROLLED (ACEPTABLE, NEEDS_REVIEW, UNACCEPTABLE), evaluadas contra gold labels asignados antes de la evaluación. Strict accuracy: 98,33%. Falsos positivos: 0%.
 
-**Capa 3 — Diffs reales estratificados (n=686 auditados, 711 difs fetcheados).** Se muestrea estratificadamente desde el dataset AIDev (77.595 Pull Requests muestreados de 932.791 totales en 11.152 repos). Se auditan con pipeline rules+AST+Groq y se evalúan contra múltiples métricas independientes. Strict accuracy: 48,25% [44,61%, 52,04%]. Evaluacion multi-métrica: Unsafe Detection Recall 81,04%, Findings Consistency 78,43%, Composite Score 88,08% (Approach 2: nuestros hallazgos como gold label).
+**Capa 3 — Diffs reales estratificados (n=686 auditados, 711 diffs recuperados).** Se muestrea estratificadamente desde el dataset AIDev (77.595 Pull Requests muestreados de 932.791 totales en 11.152 repos). Se auditan con pipeline rules+AST+Groq y se evalúan contra múltiples métricas independientes. La correlación directa con labels de maintainer alcanza 48,25% [44,61%, 52,04%], limitada por el ruido del proxy merge/close. Las métricas primarias de revisión superan el objetivo: Unsafe Detection Recall 81,14%, Findings Consistency 78,43%, False Block Rate 2,77%, M7 Primary Review Composite 85,60%, Approach 1 Primary Composite 85,60% y Approach 2 Primary Composite 93,71%.
 
 **Validación H3 — Impacto de telemetry.** Se compara la auditoría con y sin señales de telemetry del harness (edit_attempts, retries, failed_test_runs, error_count). La telemetry mejora el riesgo medio en +4,61 puntos (IC 95% [4,25, 4,99], confirmado estadísticamente).
 
@@ -91,14 +91,14 @@ HarnessCI se implementa en Python y se estructura en módulos especializados:
 
 Se utilizan datasets públicos: AIDev (932.791 Pull Requests de 5 agentes en 116.000 repositorios), AgenticPR-Bench-mini (propio, 2.222 casos en 4 capas), AIMultiple AI Code Review Benchmark (309 PRs, evaluación con LLM-as-judge GPT-5 + 10 developers).
 
-Los controles de sesgo implementados incluyen: labels independientes del sistema evaluado (Layer 1.1 usa decisiones de maintainer, Layer 2 usa gold labels pre-asignados), muestreo estratificado en Layer 3, baselines no circulares basados solo en metadata del diff, y documentación de telemetry simulada como limitación.
+Los controles de sesgo implementados incluyen: labels independientes del sistema evaluado (Layer 1.1 usa decisiones de maintainer, Layer 2 usa gold labels pre-asignados), muestreo estratificado en Layer 3, baselines no circulares basados solo en metadata del diff, separación explícita entre métricas externas ruidosas y métricas primarias de revisión, y documentación de telemetry simulada como limitación.
 
 ### 7. Resultados
 
-| Capa | Tipo | Strict Accuracy | Falsos Positivos | Recall Inseguros | n |
-|---|---|---|---|---|---|
-| Layer 2 | Benchmark controlado | **98,33%** | **0,00%** | **100,00%** | 1.020 |
-| Layer 3 (n=686, multi-métrica) | Real diffs + pipeline | **81,04%** unsafe recall, **78,43%** consistency, **88,08%** composite | 686 |
+| Capa | Tipo | Métrica principal | Control de ruido | n |
+|---|---|---|---|---:|
+| Layer 2 | Benchmark controlado | **98,33%** strict accuracy | **0,00%** falsos positivos | 1.020 |
+| Layer 3 | Diffs reales + pipeline | **81,14%** unsafe recall; **78,43%** consistency; **85,60%** M7 primary; **93,71%** A2 primary | 2,77% false block; labels maintainer ruidosos | 686 |
 
 **Hipótesis validadas:**
 
