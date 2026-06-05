@@ -137,6 +137,7 @@ class AuditFinding(HarnessCIModel):
     category: FindingCategory
     message: str
     evidence: str | None = None
+    explanation: str | None = None  # NL explanation from Groq
 
 
 class AuditReport(HarnessCIModel):
@@ -150,3 +151,6 @@ class AuditReport(HarnessCIModel):
     findings: list[AuditFinding] = Field(default_factory=list)
     recommendation: str
     metadata: dict[str, str | int | float | bool | None] = Field(default_factory=dict)
+    # New: NL generation
+    nl_summary: dict[str, str] | None = None  # {summary, risks, tests, security}
+    bug_pattern_matches: int | None = None  # Count of generic bug patterns detected

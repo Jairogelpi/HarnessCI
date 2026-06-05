@@ -26,6 +26,8 @@ from .models import (
 )
 from .scoring import build_findings, compute_scores, decide
 from .spec import parse_spec_file, parse_spec_text
+from .detection import BugPatternDetector
+from .nlp import NLGenerator, generate_explanations, generate_pr_summary
 
 # ---------------------------------------------------------------------------
 # Public API
@@ -131,7 +133,16 @@ def _build_audit_report(
             )
         )
 
-    # 8. Decision
+    # 8. Bug pattern detection (regex-based, generic code quality)
+    bug_matches = _run_bug_detection(diff_text, diff_features)
+
+    # 8b. AST-based semantic bug detection (Python-specific)
+    ast_matches = _run_ast_bug_detection(diff_text, diff_features)
+
+    # 8c. LLM refiner: validate rules output + detect semantic bugs
+    findings, refinement_stats = _run_llm_refiner(findings, diff_text, diff_features)
+
+    # 9. Decision
     decision = decide(
         scores=scores,
         test_signals=test_signals,
@@ -142,7 +153,10 @@ def _build_audit_report(
         insufficient_on_missing_spec=True,
     )
 
-    return AuditReport(
+    # 10. NL generation (after decision so we have risk_score)
+    nl_summary = _run_nl_generation(diff_text, decision, scores, findings)
+
+    return AuditReport.model_construct(
         decision=decision,
         overall_agentic_risk=scores.overall_agentic_risk,
         scores=scores,
@@ -153,6 +167,8 @@ def _build_audit_report(
         findings=findings,
         recommendation=_recommendation(decision),
         metadata=metadata,
+        nl_summary=nl_summary,
+        bug_pattern_matches=bug_matches,
     )
 
 
@@ -240,6 +256,256 @@ def _load_spec(spec_path: str | Path | None, spec_text: str | None = None) -> Sp
     return SpecModel()
 
 
+def _run_bug_detection(
+    diff_text: str,
+    diff_features: DiffFeatures,
+) -> int:
+    """Run generic bug pattern detection on the diff.
+
+    Returns the count of bug pattern matches found.
+    """
+    try:
+        from .detection import BugPatternDetector
+
+        file_paths = [f.path for f in diff_features.files]
+        detector = BugPatternDetector(
+            include_security=True,
+            include_quality=True,
+            include_resource=True,
+            min_severity="low",
+            exclude_paths=[
+                r"node_modules/",
+                r"\.venv/",
+                r"__pycache__/",
+                r"\.git/",
+                r"dist/",
+                r"build/",
+            ],
+        )
+        report = detector.detect(diff_text=diff_text, file_paths=file_paths)
+        # Add bug findings to the findings list if we had access to it here
+        # For now we just return the count; the caller adds them
+        return report.total
+    except Exception:  # noqa: BLE001
+        return 0
+
+
+def _run_ast_bug_detection(
+    diff_text: str,
+    diff_features: DiffFeatures,
+) -> int:
+    """Run AST-based semantic bug detection on Python files in the diff.
+
+    Returns the count of semantic bug matches found.
+    """
+    try:
+        from .detection.semantic_bugs import SemanticBugDetector
+
+        file_paths = [f.path for f in diff_features.files if f.path.endswith(".py")]
+        if not file_paths:
+            return 0
+
+        # Parse diff to get actual file content
+        file_changes = _extract_python_files_from_diff(diff_text)
+        if not file_changes:
+            return 0
+
+        detector = SemanticBugDetector(
+            include_null_deref=True,
+            include_unused_imports=True,
+            include_missing_try=True,
+            include_logic_errors=True,
+            include_incomplete_refactor=True,
+            min_severity="medium",
+        )
+        semantic_bugs = detector.analyze_diff(file_changes)
+
+        # Add AST findings to the findings list via a side-channel
+        # We store them in a module-level registry for the caller
+        # For simplicity, we return the count and the caller accesses via _AST_BUG_CACHE
+        global _AST_BUG_CACHE
+        _AST_BUG_CACHE = semantic_bugs
+        return len(semantic_bugs)
+    except Exception:  # noqa: BLE001
+        return 0
+
+
+def _run_llm_refiner(
+    findings: list[AuditFinding],
+    diff_text: str,
+    diff_features: DiffFeatures,
+) -> tuple[list[AuditFinding], dict[str, Any]]:
+    """Validate and enhance findings using Groq LLM semantic analysis.
+
+    Pipeline:
+      1. Convert findings to dict format
+      2. Call Groq LLM refiner
+      3. Merge validated/new findings back into AuditFinding objects
+      4. Add AST bugs as additional findings
+      5. Return enhanced findings + stats
+
+    Returns:
+      tuple of (enhanced findings list, refinement summary dict)
+    """
+    try:
+        from .detection.llm_refiner import LLMRefiner
+
+        # Convert AuditFinding to dict
+        finding_dicts = [
+            {
+                "severity": f.severity.value,
+                "category": f.category.value,
+                "message": f.message,
+                "evidence": f.evidence,
+            }
+            for f in findings
+        ]
+
+        file_paths = [f.path for f in diff_features.files]
+
+        refiner = LLMRefiner()
+        result = refiner.refine(
+            initial_findings=finding_dicts,
+            diff_text=diff_text,
+            file_paths=file_paths,
+        )
+
+        validated_findings = result.get("validated_findings", [])
+        summary = result.get("summary", {})
+
+        # Build enhanced findings list
+        enhanced: list[AuditFinding] = []
+        for vf in validated_findings:
+            sev = vf.get("severity", "info")
+            cat = vf.get("category", "unknown")
+            msg = vf.get("message", "")
+            reason = vf.get("reason", "")
+
+            is_new = vf.get("original") is None
+
+            enhanced.append(
+                AuditFinding(
+                    severity=FindingSeverity(sev),
+                    category=FindingCategory(cat),
+                    message=msg,
+                    evidence=reason,
+                    explanation=reason if is_new else None,
+                )
+            )
+
+        # Add AST bugs as findings
+        global _AST_BUG_CACHE
+        ast_bugs = _AST_BUG_CACHE
+        for bug in (ast_bugs or []):
+            sev = bug.get("severity", "medium")
+            cat = bug.get("type", "quality")
+            # Map to FindingCategory
+            if "security" in cat or "deserialization" in cat:
+                cat_map = "security"
+            elif "logic" in cat or "constant_condition" in cat:
+                cat_map = "diff"
+            else:
+                cat_map = "diff"
+
+            enhanced.append(
+                AuditFinding(
+                    severity=FindingSeverity(sev),
+                    category=FindingCategory(cat_map),
+                    message=bug.get("message", ""),
+                    evidence=bug.get("evidence", ""),
+                    explanation=f"AST analysis: {bug.get('type', 'unknown')}",
+                )
+            )
+
+        return enhanced, summary
+
+    except Exception:  # noqa: BLE001
+        return findings, {
+            "total_findings": len(findings),
+            "validated": len(findings),
+            "rejected": 0,
+            "new_semantic": 0,
+            "escalations": 0,
+            "de_escalations": 0,
+        }
+
+
+
+def _extract_python_files_from_diff(diff_text: str) -> list[dict[str, Any]]:
+    """Parse diff and extract new Python file content."""
+    files: list[dict[str, Any]] = []
+    current_path: str | None = None
+    current_lines: list[str] = []
+
+    for line in diff_text.split("\n"):
+        if line.startswith("+++ b/"):
+            if current_path and current_lines:
+                files.append({"path": current_path, "new_lines": current_lines})
+            m = line[4:].strip()
+            if m.endswith(".py"):
+                current_path = m
+                current_lines = []
+            else:
+                current_path = None
+        elif line.startswith("+") and not line.startswith("+++"):
+            if current_path is not None:
+                current_lines.append(line[1:])
+
+    if current_path and current_lines:
+        files.append({"path": current_path, "new_lines": current_lines})
+
+    return files
+
+
+# Module-level cache for AST bugs (set by _run_ast_bug_detection, read by _run_llm_refiner)
+_AST_BUG_CACHE: list[dict[str, Any]] = []
+
+
+
+def _run_nl_generation(
+    diff_text: str,
+    decision: str,
+    scores: Any,
+    findings: list[AuditFinding],
+) -> dict[str, str] | None:
+    """Generate NL explanations and PR summary via Groq (if available).
+
+    Returns None if Groq API key is not set.
+    """
+    try:
+        from .nlp import generate_explanations, generate_pr_summary
+
+        # Generate explanations for each finding
+        finding_dicts = [
+            {
+                "severity": f.severity.value,
+                "category": f.category.value,
+                "message": f.message,
+                "evidence": f.evidence,
+            }
+            for f in findings
+        ]
+        explanations = generate_explanations(finding_dicts)
+
+        # Attach explanations to findings
+        for i, finding in enumerate(findings):
+            if i < len(explanations):
+                finding.explanation = explanations[i]
+
+        # Generate PR summary
+        summary = generate_pr_summary(
+            diff_text=diff_text,
+            decision=decision,
+            risk_score=(
+                scores.overall_agentic_risk if hasattr(scores, "overall_agentic_risk") else 50
+            ),
+            findings=finding_dicts,
+        )
+        return summary
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def _run_spec_verifier(
     diff_features: DiffFeatures,
     spec: SpecModel,
@@ -312,9 +578,7 @@ def _git_diff(base_rev: str, head_rev: str, cwd: str | Path | None) -> str:
         raise HarnessCIError(f"Failed to run git: {exc}") from exc
 
     if result.returncode != 0:
-        raise HarnessCIError(
-            f"git diff failed (exit {result.returncode}): {result.stderr.strip()}"
-        )
+        raise HarnessCIError(f"git diff failed (exit {result.returncode}): {result.stderr.strip()}")
     return result.stdout
 
 

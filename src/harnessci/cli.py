@@ -56,6 +56,27 @@ def _build_parser() -> argparse.ArgumentParser:
     status_p = sub.add_parser("status", help="Show HarnessCI domain learning status.")
     status_p.add_argument("--repo", default=".", help="Repo root (default: current directory).")
 
+    # feedback
+    feedback_p = sub.add_parser("feedback", help="Record feedback on audit findings.")
+    feedback_p.add_argument(
+        "--pr", required=True, help="PR identifier (e.g. #123 or owner/repo#123)."
+    )
+    feedback_p.add_argument(
+        "--dismiss",
+        metavar="FINDING_KEY",
+        nargs="+",
+        help="Dismiss finding keys (e.g. 'security:high:sql_injection').",
+    )
+    feedback_p.add_argument(
+        "--accept", metavar="FINDING_KEY", nargs="+", help="Accept finding keys as valid."
+    )
+    feedback_p.add_argument("--repo", default=".", help="Repo root (default: current directory).")
+    feedback_p.add_argument("--reason", help="Reason for dismissal.")
+    feedback_p.add_argument("--reviewer", help="Reviewer identifier.")
+    feedback_p.add_argument(
+        "--summary", action="store_true", help="Show feedback summary for repo."
+    )
+
     return parser
 
 
@@ -80,6 +101,8 @@ def main() -> None:
         _cmd_audit(args)
     elif args.command == "status":
         _cmd_status(args)
+    elif args.command == "feedback":
+        _cmd_feedback(args)
 
 
 def _cmd_init(args: argparse.Namespace) -> None:
@@ -204,9 +227,22 @@ def _cmd_audit(args: argparse.Namespace) -> None:
 
     # stdout summary
     print(f"Decision: {report.decision}  Risk: {report.overall_agentic_risk}/100")
+    if report.nl_summary:
+        print(f"  Summary: {report.nl_summary.get('summary', '')}")
+        print(f"  Tests: {report.nl_summary.get('tests', 'unknown')}")
+        if report.nl_summary.get("security") and report.nl_summary["security"] != "None":
+            print(f"  Security: {report.nl_summary['security']}")
+    if report.bug_pattern_matches is not None and report.bug_pattern_matches > 0:
+        print(f"  Bug patterns detected: {report.bug_pattern_matches}")
     if report.findings:
-        for finding in report.findings:
-            print(f"  [{finding.severity.value}] {finding.message}")
+        for i, finding in enumerate(report.findings):
+            sev = finding.severity.value.upper()
+            msg = finding.message
+            if finding.explanation:
+                print(f"  {i + 1}. [{sev}] {msg}")
+                print(f"     → {finding.explanation}")
+            else:
+                print(f"  {i + 1}. [{sev}] {msg}")
 
     # JSON output
     if args.output:
@@ -257,3 +293,44 @@ def _cmd_status(args: argparse.Namespace) -> None:
     if inited:
         for f in sorted(harnessci_dir.iterdir()):
             print(f"    {f.name}")
+
+
+def _cmd_feedback(args: argparse.Namespace) -> None:
+    """Record or show feedback on audit findings."""
+    from .feedback import FeedbackTracker
+
+    repo = Path(args.repo).resolve()
+    tracker = FeedbackTracker(repo=str(repo))
+
+    if args.summary:
+        summary = tracker.get_summary()
+        print(f"Feedback summary for {summary['repo']}")
+        print(f"  Total events: {summary['total_events']}")
+        print(f"  Dismissed: {summary['total_dismissed']}")
+        print(f"  Dismiss rate: {summary['dismiss_rate']:.1%}")
+        print(f"  Adapted threshold: {summary['adapted_threshold']}")
+        if summary.get("top_dismissed_patterns"):
+            print("  Top dismissed patterns:")
+            for p in summary["top_dismissed_patterns"]:
+                print(f"    {p['finding_key']}: {p['dismissed']} dismissed ({p['rate']:.0%})")
+        return
+
+    pr_id = args.pr
+    reason = args.reason or ""
+    reviewer = args.reviewer
+
+    if args.dismiss:
+        for key in args.dismiss:
+            tracker.record_dismiss(pr_id=pr_id, finding_key=key, reason=reason, reviewer=reviewer)
+            print(f"Dismissed: {key}")
+        print("Feedback recorded.")
+
+    if args.accept:
+        for key in args.accept:
+            tracker.record_accepted(pr_id=pr_id, finding_key=key, reviewer=reviewer)
+            print(f"Accepted: {key}")
+        print("Feedback recorded.")
+
+    # Adapt threshold based on accumulated feedback
+    new_threshold = tracker.adapt_threshold()
+    print(f"Adapted risk threshold: {new_threshold}")
