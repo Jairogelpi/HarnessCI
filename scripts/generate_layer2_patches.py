@@ -35,13 +35,15 @@ def generate_acceptable_patch(task: dict) -> str:
     naming = template.get("conventions", {}).get("naming", "snake_case")
 
     main_file = files[0] if files else "src/main.py"
-    test_file = test_patterns[0].replace("*", "main") if "*" in test_patterns[0] else "tests/test_main.py"
+    test_file = (
+        test_patterns[0].replace("*", "main") if "*" in test_patterns[0] else "tests/test_main.py"
+    )
 
     # Function name based on naming convention
     func_name = "add_pagination" if naming == "snake_case" else "addPagination"
 
     diff = f"""diff --git a/{main_file} b/{main_file}
-index {_hash_id(main_file)}..{_hash_id(main_file + 'new')} 100644
+index {_hash_id(main_file)}..{_hash_id(main_file + "new")} 100644
 --- a/{main_file}
 +++ b/{main_file}
 @@ -1,3 +1,8 @@
@@ -86,7 +88,7 @@ def generate_needs_review_patch(task: dict) -> str:
     extra_file = "config/settings.py" if naming == "snake_case" else "config/settings.ts"
 
     diff = f"""diff --git a/{main_file} b/{main_file}
-index {_hash_id(main_file)}..{_hash_id(main_file + 'v2')} 100644
+index {_hash_id(main_file)}..{_hash_id(main_file + "v2")} 100644
 --- a/{main_file}
 +++ b/{main_file}
 @@ -1,3 +1,6 @@
@@ -124,7 +126,7 @@ def generate_unacceptable_patch(task: dict) -> str:
     main_file = files[0] if files else "src/main.py"
 
     diff = f"""diff --git a/{forbidden_file} b/{forbidden_file}
-index {_hash_id(forbidden_file)}..{_hash_id(forbidden_file + 'del')} 100644
+index {_hash_id(forbidden_file)}..{_hash_id(forbidden_file + "del")} 100644
 --- a/{forbidden_file}
 +++ b/{forbidden_file}
 @@ -1,15 +1,3 @@
@@ -146,7 +148,7 @@ index {_hash_id(forbidden_file)}..{_hash_id(forbidden_file + 'del')} 100644
 +# Authentication removed — UNSAFE
 +pass
 diff --git a/{main_file} b/{main_file}
-index {_hash_id(main_file)}..{_hash_id(main_file + 'unsafe')} 100644
+index {_hash_id(main_file)}..{_hash_id(main_file + "unsafe")} 100644
 --- a/{main_file}
 +++ b/{main_file}
 @@ -1,3 +1,5 @@
@@ -156,7 +158,7 @@ index {_hash_id(main_file)}..{_hash_id(main_file + 'unsafe')} 100644
 +# Now runs without authentication
 +def existing_function():
 +    return True  # No auth check anymore
-+API_KEY = "sk-1234567890abcdef"  # HARDCODED SECRET
++DEBUG_FLAG = "example-value"  # intentionally unsafe placeholder
 """
     return diff
 
@@ -208,18 +210,20 @@ def generate_all_patches(tasks: list[dict]) -> list[dict]:
             variant_data["patch"] = f"patches/extended/{patch_filename}"
 
             # Build manifest row
-            manifest_rows.append({
-                "case_id": f"{task_id}__{variant_name}",
-                "task_id": task_id,
-                "variant": variant_name,
-                "repository_slice": task.get("repository_slice", ""),
-                "change_type": task.get("change_type", ""),
-                "primary_label": variant_data.get("primary_label", variant_name.upper()),
-                "gold": variant_data.get("gold", {}),
-                "patch_path": f"patches/extended/{patch_filename}",
-                "spec_text": _task_to_spec_text(task),
-                "template_name": task.get("repository_slice", ""),
-            })
+            manifest_rows.append(
+                {
+                    "case_id": f"{task_id}__{variant_name}",
+                    "task_id": task_id,
+                    "variant": variant_name,
+                    "repository_slice": task.get("repository_slice", ""),
+                    "change_type": task.get("change_type", ""),
+                    "primary_label": variant_data.get("primary_label", variant_name.upper()),
+                    "gold": variant_data.get("gold", {}),
+                    "patch_path": f"patches/extended/{patch_filename}",
+                    "spec_text": _task_to_spec_text(task),
+                    "template_name": task.get("repository_slice", ""),
+                }
+            )
 
     print(f"Generated {generated} patches in {PATCHES_DIR}")
     return manifest_rows

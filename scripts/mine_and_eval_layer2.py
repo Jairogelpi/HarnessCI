@@ -58,7 +58,7 @@ def mined_spec_to_markdown(spec: dict) -> str:
 
     arch = spec.get("architecture", {})
     if arch.get("layers"):
-        parts.append(f"## Expected Scope\nmedium_change")
+        parts.append("## Expected Scope\nmedium_change")
 
     return "\n".join(parts).strip() + "\n"
 
@@ -75,14 +75,14 @@ def build_mining_prompt(task: dict, acceptable_patch: str) -> str:
 
     return f"""Analyze this code change and extract a structured specification.
 
-Task: {task.get('title', '')}
-Repository: {task.get('repository_slice', '')}
-Goal: {spec.get('goal', '')}
+Task: {task.get("title", "")}
+Repository: {task.get("repository_slice", "")}
+Goal: {spec.get("goal", "")}
 Acceptance Criteria: {criteria_str}
 Out of Scope: {oos_str}
 Expected files: {ef_str}
-Change type: {task.get('change_type', '')}
-Expected scope: {task.get('expected_scope', '')}
+Change type: {task.get("change_type", "")}
+Expected scope: {task.get("expected_scope", "")}
 
 Acceptable patch:
 {acceptable_patch[:3000]}
@@ -116,7 +116,7 @@ def mine_task_spec(task: dict, client) -> tuple[dict, str]:
         if text.startswith("```"):
             for marker in ["```json", "```"]:
                 if text.startswith(marker):
-                    text = text[len(marker):]
+                    text = text[len(marker) :]
                     text = text.rstrip("`").strip()
         spec = json.loads(text)
         summary = spec.pop("summary_md", "")
@@ -208,19 +208,21 @@ def main() -> int:
             decision in ("REVIEW_REQUIRED", "BLOCK") and primary_label == "UNACCEPTABLE"
         )
 
-        results.append({
-            "case_id": case_id,
-            "task_id": task_id,
-            "variant": case.get("variant", ""),
-            "primary_label": primary_label,
-            "harnessci_decision": decision,
-            "strict_correct": strict_correct,
-            "unsafe_detected": unsafe_detected,
-            "unacceptable_block": unacceptable_block,
-            "overall_agentic_risk": report.overall_agentic_risk,
-            "finding_count": len(report.findings),
-            "top_findings": [f.message for f in report.findings[:3]],
-        })
+        results.append(
+            {
+                "case_id": case_id,
+                "task_id": task_id,
+                "variant": case.get("variant", ""),
+                "primary_label": primary_label,
+                "harnessci_decision": decision,
+                "strict_correct": strict_correct,
+                "unsafe_detected": unsafe_detected,
+                "unacceptable_block": unacceptable_block,
+                "overall_agentic_risk": report.overall_agentic_risk,
+                "finding_count": len(report.findings),
+                "top_findings": [f.message for f in report.findings[:3]],
+            }
+        )
 
     # Compute metrics
     total = len(results)
@@ -232,12 +234,20 @@ def main() -> int:
 
     decision_counts: dict[str, int] = {}
     for r in results:
-        decision_counts[r["harnessci_decision"]] = decision_counts.get(r["harnessci_decision"], 0) + 1
+        decision_counts[r["harnessci_decision"]] = (
+            decision_counts.get(r["harnessci_decision"], 0) + 1
+        )
 
     print(f"\nMetrics ({total} cases with Groq-mined specs):")
-    print(f"  strict_accuracy={strict/total:.4f}")
-    print(f"  unsafe_detection_recall={unsafe_detected}/{len(unsafe)}={unsafe_detected/len(unsafe):.4f}")
-    print(f"  unacceptable_block_recall={unacc_block}/{len(unacceptable)}={unacc_block/len(unacceptable):.4f}")
+    print(f"  strict_accuracy={strict / total:.4f}")
+    print(
+        f"  unsafe_detection_recall={unsafe_detected}/{len(unsafe)}="
+        f"{unsafe_detected / len(unsafe):.4f}"
+    )
+    print(
+        f"  unacceptable_block_recall={unacc_block}/{len(unacceptable)}="
+        f"{unacc_block / len(unacceptable):.4f}"
+    )
     print(f"  decision_distribution={decision_counts}")
 
     # Compare with old
@@ -245,24 +255,33 @@ def main() -> int:
     change = strict - old_strict
     print("\nVs old (diff-only):")
     print(
-        f"  strict_accuracy: {old_strict}/{total}={old_strict/total:.4f}"
-        f" -> {strict}/{total}={strict/total:.4f} (delta={change:+d})"
+        f"  strict_accuracy: {old_strict}/{total}={old_strict / total:.4f}"
+        f" -> {strict}/{total}={strict / total:.4f} (delta={change:+d})"
     )
     if change > 0:
         print(f"  Improved by {change} cases!")
 
     # Save results
     out_path = LAYER2_DIR / "results/layer2_groq_results.json"
-    out_path.write_text(json.dumps({
-        "metrics": {
-            "total_cases": total,
-            "strict_accuracy": strict / total if total else 0,
-            "unsafe_detection_recall": unsafe_detected / len(unsafe) if unsafe else 0,
-            "unacceptable_block_recall": unacc_block / len(unacceptable) if unacceptable else 0,
-            "decision_distribution": decision_counts,
-        },
-        "cases": results,
-    }, indent=2, ensure_ascii=False), encoding="utf-8")
+    out_path.write_text(
+        json.dumps(
+            {
+                "metrics": {
+                    "total_cases": total,
+                    "strict_accuracy": strict / total if total else 0,
+                    "unsafe_detection_recall": unsafe_detected / len(unsafe) if unsafe else 0,
+                    "unacceptable_block_recall": unacc_block / len(unacceptable)
+                    if unacceptable
+                    else 0,
+                    "decision_distribution": decision_counts,
+                },
+                "cases": results,
+            },
+            indent=2,
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
     print(f"Results saved to {out_path}")
 
     return 0

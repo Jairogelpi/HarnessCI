@@ -1,0 +1,79 @@
+{
+  "metrics": {
+    "total": 1172,
+    "strict_accuracy": 0.5367,
+    "unsafe_detection_recall": 0.4155,
+    "unacceptable_block_recall": 0.02,
+    "false_positive_review_rate": 0.4186,
+    "decision_distribution": {
+      "PASS": 685,
+      "REVIEW_REQUIRED": 461,
+      "BLOCK": 26
+    },
+    "per_agent": {
+      "Devin": {
+        "total": 180,
+        "strict_accuracy": 0.5,
+        "unsafe_detection_recall": 0.4111,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.4,
+        "decision_distribution": {
+          "PASS": 106,
+          "REVIEW_REQUIRED": 74
+        },
+        "per_agent": {}
+      },
+      "OpenAI_Codex": {
+        "total": 130,
+        "strict_accuracy": 0.5231,
+        "unsafe_detection_recall": 0.2462,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.2429,
+        "decision_distribution": {
+          "PASS": 98,
+          "REVIEW_REQUIRED": 32
+        },
+        "per_agent": {}
+      },
+      "Cursor": {
+        "total": 140,
+        "strict_accuracy": 0.5357,
+        "unsafe_detection_recall": 0.5643,
+        "unacceptable_block_recall": 0.0857,
+        "false_positive_review_rate": 0.5286,
+        "decision_distribution": {
+          "REVIEW_REQUIRED": 66,
+          "PASS": 61,
+          "BLOCK": 13
+        },
+        "per_agent": {}
+      },
+      "Copilot": {
+        "total": 150,
+        "strict_accuracy": 0.4933,
+        "unsafe_detection_recall": 0.3467,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.3625,
+        "decision_distribution": {
+          "PASS": 98,
+          "REVIEW_REQUIRED": 52
+        },
+        "per_agent": {}
+      },
+      "Claude_Code": {
+        "total": 572,
+        "strict_accuracy": 0.5629,
+        "unsafe_detection_recall": 0.4371,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.4371,
+        "decision_distribution": {
+          "PASS": 322,
+          "REVIEW_REQUIRED": 237,
+          "BLOCK": 13
+        },
+        "per_agent": {}
+      }
+    }
+  },
+  "groq_errors": 0
+}

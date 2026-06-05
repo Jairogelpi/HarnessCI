@@ -396,7 +396,7 @@ def _run_llm_refiner(
         # Add AST bugs as findings
         global _AST_BUG_CACHE
         ast_bugs = _AST_BUG_CACHE
-        for bug in (ast_bugs or []):
+        for bug in ast_bugs or []:
             sev = bug.get("severity", "medium")
             cat = bug.get("type", "quality")
             # Map to FindingCategory
@@ -430,7 +430,6 @@ def _run_llm_refiner(
         }
 
 
-
 def _extract_python_files_from_diff(diff_text: str) -> list[dict[str, Any]]:
     """Parse diff and extract new Python file content."""
     files: list[dict[str, Any]] = []
@@ -459,7 +458,6 @@ def _extract_python_files_from_diff(diff_text: str) -> list[dict[str, Any]]:
 
 # Module-level cache for AST bugs (set by _run_ast_bug_detection, read by _run_llm_refiner)
 _AST_BUG_CACHE: list[dict[str, Any]] = []
-
 
 
 def _run_nl_generation(

@@ -79,8 +79,8 @@ class SemanticBugDetector:
 
         if self.include_unused_imports:
             matches.extend(
-            self._check_unused_imports(tree, file_path, imported_names, defined_names)
-        )
+                self._check_unused_imports(tree, file_path, imported_names, defined_names)
+            )
 
         if self.include_missing_try:
             matches.extend(self._check_missing_try(tree, file_path))
@@ -94,10 +94,7 @@ class SemanticBugDetector:
         # Filter by severity
         severity_order = {"critical": 0, "high": 1, "medium": 2, "low": 3, "info": 4}
         min_level = severity_order.get(self.min_severity, 2)
-        matches = [
-            m for m in matches
-            if severity_order.get(m.severity, 4) <= min_level
-        ]
+        matches = [m for m in matches if severity_order.get(m.severity, 4) <= min_level]
 
         return matches
 
@@ -116,9 +113,21 @@ class SemanticBugDetector:
                     name = node.value.id.lower()
                     # Common null-susceptible patterns
                     null_indicators = [
-                        "result", "data", "response", "user", "config",
-                        "item", "obj", "entry", "value", "ret", "out",
-                        "resp", "info", "ctx", "context",
+                        "result",
+                        "data",
+                        "response",
+                        "user",
+                        "config",
+                        "item",
+                        "obj",
+                        "entry",
+                        "value",
+                        "ret",
+                        "out",
+                        "resp",
+                        "info",
+                        "ctx",
+                        "context",
                     ]
                     if any(ind in name for ind in null_indicators):
                         # Check if there's a None check nearby
@@ -210,8 +219,10 @@ class SemanticBugDetector:
         matches: list[SemanticBugMatch] = []
 
         dangerous_calls = [
-            (r"(?:json\.loads|yaml\.load|marshal\.loads|pickle\.load)\s*\(",
-             "deserialization_risk"),
+            (
+                r"(?:json\.loads|yaml\.load|marshal\.loads|pickle\.load)\s*\(",
+                "deserialization_risk",
+            ),
             (r"subprocess\.(?:run|call|Popen)\s*\(", "subprocess_without_error_handling"),
             (r"requests\.(?:get|post|put|delete)\s*\(", "http_call_without_error_handling"),
             (r"open\s*\([^)]*\)\s*(?!\s*(?:as|with))", "file_handle_no_context_manager"),

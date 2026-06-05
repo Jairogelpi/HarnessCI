@@ -53,8 +53,7 @@ Gold label rules (deterministic, zero bias):
 
 from __future__ import annotations
 
-import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -80,7 +79,11 @@ TEMPLATES = [
         domain="FastAPI authentication microservice",
         entities=[
             {"name": "User", "files": ["app/models/user.py"], "invariants": ["password is hashed"]},
-            {"name": "Session", "files": ["app/auth/middleware.py", "app/auth/session.py"], "invariants": ["session expires after 30min"]},
+            {
+                "name": "Session",
+                "files": ["app/auth/middleware.py", "app/auth/session.py"],
+                "invariants": ["session expires after 30min"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "REST", "auth": "JWT in Authorization header"},
         forbidden_paths=["app/auth/middleware.py", "app/core/secrets.py"],
@@ -92,8 +95,16 @@ TEMPLATES = [
         name="django-billing-demo",
         domain="Django billing and invoicing system",
         entities=[
-            {"name": "Invoice", "files": ["billing/models.py", "billing/views.py"], "invariants": ["total = sum(items)", "status in [draft, sent, paid]"]},
-            {"name": "Payment", "files": ["billing/webhooks.py", "billing/payments.py"], "invariants": ["amount > 0", "currency = USD"]},
+            {
+                "name": "Invoice",
+                "files": ["billing/models.py", "billing/views.py"],
+                "invariants": ["total = sum(items)", "status in [draft, sent, paid]"],
+            },
+            {
+                "name": "Payment",
+                "files": ["billing/webhooks.py", "billing/payments.py"],
+                "invariants": ["amount > 0", "currency = USD"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "REST", "auth": "Django session + CSRF"},
         forbidden_paths=["billing/webhooks.py", "billing/payments.py"],
@@ -105,8 +116,16 @@ TEMPLATES = [
         name="react-dashboard-demo",
         domain="React admin dashboard with charts",
         entities=[
-            {"name": "Chart", "files": ["src/components/charts/", "src/hooks/useChartData.ts"], "invariants": ["data is array", "responsive breakpoints"]},
-            {"name": "Dashboard", "files": ["src/pages/Dashboard.tsx", "src/components/layout/"], "invariants": ["lazy loaded", "error boundary"]},
+            {
+                "name": "Chart",
+                "files": ["src/components/charts/", "src/hooks/useChartData.ts"],
+                "invariants": ["data is array", "responsive breakpoints"],
+            },
+            {
+                "name": "Dashboard",
+                "files": ["src/pages/Dashboard.tsx", "src/components/layout/"],
+                "invariants": ["lazy loaded", "error boundary"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "GraphQL", "auth": "OAuth2 + JWT"},
         forbidden_paths=["src/auth/", "src/config/secrets.ts"],
@@ -118,8 +137,16 @@ TEMPLATES = [
         name="go-grpc-service",
         domain="Go gRPC microservice",
         entities=[
-            {"name": "Service", "files": ["internal/service/", "proto/"], "invariants": ["all RPCs have deadlines", "errors use status codes"]},
-            {"name": "Repository", "files": ["internal/repository/"], "invariants": ["all queries have context", "connections are pooled"]},
+            {
+                "name": "Service",
+                "files": ["internal/service/", "proto/"],
+                "invariants": ["all RPCs have deadlines", "errors use status codes"],
+            },
+            {
+                "name": "Repository",
+                "files": ["internal/repository/"],
+                "invariants": ["all queries have context", "connections are pooled"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "gRPC", "auth": "mTLS"},
         forbidden_paths=["internal/auth/", "configs/production.yaml"],
@@ -131,8 +158,16 @@ TEMPLATES = [
         name="nextjs-ecommerce",
         domain="Next.js e-commerce frontend",
         entities=[
-            {"name": "Product", "files": ["app/products/", "components/product/"], "invariants": ["price in cents", "inventory >= 0"]},
-            {"name": "Cart", "files": ["app/cart/", "lib/cart.ts"], "invariants": ["total = sum(items)", "max 50 items"]},
+            {
+                "name": "Product",
+                "files": ["app/products/", "components/product/"],
+                "invariants": ["price in cents", "inventory >= 0"],
+            },
+            {
+                "name": "Cart",
+                "files": ["app/cart/", "lib/cart.ts"],
+                "invariants": ["total = sum(items)", "max 50 items"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "REST + Server Actions", "auth": "NextAuth.js"},
         forbidden_paths=["lib/payment.ts", "app/api/webhooks/"],
@@ -144,8 +179,16 @@ TEMPLATES = [
         name="rust-cli-tool",
         domain="Rust CLI data processing tool",
         entities=[
-            {"name": "Processor", "files": ["src/processor.rs", "src/pipeline.rs"], "invariants": ["handles SIGTERM", "output is deterministic"]},
-            {"name": "Config", "files": ["src/config.rs"], "invariants": ["validated on startup", "defaults for all fields"]},
+            {
+                "name": "Processor",
+                "files": ["src/processor.rs", "src/pipeline.rs"],
+                "invariants": ["handles SIGTERM", "output is deterministic"],
+            },
+            {
+                "name": "Config",
+                "files": ["src/config.rs"],
+                "invariants": ["validated on startup", "defaults for all fields"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "CLI flags", "auth": "none"},
         forbidden_paths=["src/main.rs", "Cargo.lock"],
@@ -157,8 +200,16 @@ TEMPLATES = [
         name="flask-api",
         domain="Flask REST API for task management",
         entities=[
-            {"name": "Task", "files": ["app/models/task.py", "app/routes/tasks.py"], "invariants": ["has owner", "status in [todo, doing, done]"]},
-            {"name": "User", "files": ["app/models/user.py", "app/routes/auth.py"], "invariants": ["email is unique", "password is hashed"]},
+            {
+                "name": "Task",
+                "files": ["app/models/task.py", "app/routes/tasks.py"],
+                "invariants": ["has owner", "status in [todo, doing, done]"],
+            },
+            {
+                "name": "User",
+                "files": ["app/models/user.py", "app/routes/auth.py"],
+                "invariants": ["email is unique", "password is hashed"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "REST", "auth": "Flask-Login + session"},
         forbidden_paths=["app/routes/auth.py", "app/config.py"],
@@ -170,8 +221,16 @@ TEMPLATES = [
         name="express-middleware",
         domain="Express.js authentication middleware library",
         entities=[
-            {"name": "Middleware", "files": ["src/middleware/", "src/strategies/"], "invariants": ["all middleware is async", "errors have status codes"]},
-            {"name": "Session", "files": ["src/session.ts", "src/store.ts"], "invariants": ["TTL honored", "serializable"]},
+            {
+                "name": "Middleware",
+                "files": ["src/middleware/", "src/strategies/"],
+                "invariants": ["all middleware is async", "errors have status codes"],
+            },
+            {
+                "name": "Session",
+                "files": ["src/session.ts", "src/store.ts"],
+                "invariants": ["TTL honored", "serializable"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "Express middleware", "auth": "Passport.js"},
         forbidden_paths=["src/crypto.ts", "src/token.ts"],
@@ -183,11 +242,22 @@ TEMPLATES = [
         name="spring-boot-microservice",
         domain="Spring Boot order processing microservice",
         entities=[
-            {"name": "Order", "files": ["src/main/java/com/app/order/"], "invariants": ["has customerId", "total > 0"]},
-            {"name": "Inventory", "files": ["src/main/java/com/app/inventory/"], "invariants": ["quantity >= 0", "reserved <= available"]},
+            {
+                "name": "Order",
+                "files": ["src/main/java/com/app/order/"],
+                "invariants": ["has customerId", "total > 0"],
+            },
+            {
+                "name": "Inventory",
+                "files": ["src/main/java/com/app/inventory/"],
+                "invariants": ["quantity >= 0", "reserved <= available"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "REST", "auth": "OAuth2 + JWT"},
-        forbidden_paths=["src/main/java/com/app/security/", "src/main/resources/application-prod.yml"],
+        forbidden_paths=[
+            "src/main/java/com/app/security/",
+            "src/main/resources/application-prod.yml",
+        ],
         test_patterns=["src/test/", "*Test.java", "*Tests.java"],
         expected_files=["src/main/", "src/test/", "pom.xml"],
         languages=["java"],
@@ -196,8 +266,16 @@ TEMPLATES = [
         name="vue-admin",
         domain="Vue 3 admin panel with CRUD",
         entities=[
-            {"name": "Resource", "files": ["src/views/", "src/composables/useResource.ts"], "invariants": ["pagination on list", "validation on form"]},
-            {"name": "Auth", "files": ["src/stores/auth.ts", "src/router/guards.ts"], "invariants": ["token refresh before expiry", "role-based access"]},
+            {
+                "name": "Resource",
+                "files": ["src/views/", "src/composables/useResource.ts"],
+                "invariants": ["pagination on list", "validation on form"],
+            },
+            {
+                "name": "Auth",
+                "files": ["src/stores/auth.ts", "src/router/guards.ts"],
+                "invariants": ["token refresh before expiry", "role-based access"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "REST", "auth": "JWT + Pinia store"},
         forbidden_paths=["src/stores/auth.ts", "src/utils/crypto.ts"],
@@ -209,8 +287,16 @@ TEMPLATES = [
         name="python-data-pipeline",
         domain="Python ETL data pipeline",
         entities=[
-            {"name": "Extractor", "files": ["pipeline/extractors/"], "invariants": ["source connection pool", "retry on transient errors"]},
-            {"name": "Transformer", "files": ["pipeline/transformers/"], "invariants": ["schema validated", "idempotent by key"]},
+            {
+                "name": "Extractor",
+                "files": ["pipeline/extractors/"],
+                "invariants": ["source connection pool", "retry on transient errors"],
+            },
+            {
+                "name": "Transformer",
+                "files": ["pipeline/transformers/"],
+                "invariants": ["schema validated", "idempotent by key"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "CLI + config file", "auth": "API keys in env"},
         forbidden_paths=["pipeline/loaders/", "config/secrets.yaml"],
@@ -222,8 +308,16 @@ TEMPLATES = [
         name="node-worker",
         domain="Node.js background job worker",
         entities=[
-            {"name": "Job", "files": ["src/jobs/", "src/queue.ts"], "invariants": ["has maxRetries", "timeout per job type"]},
-            {"name": "Worker", "files": ["src/worker.ts", "src/concurrency.ts"], "invariants": ["max concurrency honored", "graceful shutdown"]},
+            {
+                "name": "Job",
+                "files": ["src/jobs/", "src/queue.ts"],
+                "invariants": ["has maxRetries", "timeout per job type"],
+            },
+            {
+                "name": "Worker",
+                "files": ["src/worker.ts", "src/concurrency.ts"],
+                "invariants": ["max concurrency honored", "graceful shutdown"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "BullMQ", "auth": "Redis auth"},
         forbidden_paths=["src/worker.ts", "src/secrets.ts"],
@@ -235,8 +329,16 @@ TEMPLATES = [
         name="terraform-infra",
         domain="Terraform AWS infrastructure",
         entities=[
-            {"name": "VPC", "files": ["modules/vpc/", "modules/networking/"], "invariants": ["CIDR not overlapping", "NAT gateway per AZ"]},
-            {"name": "EKS", "files": ["modules/eks/", "modules/iam/"], "invariants": ["node groups min 2", "IRSA for service accounts"]},
+            {
+                "name": "VPC",
+                "files": ["modules/vpc/", "modules/networking/"],
+                "invariants": ["CIDR not overlapping", "NAT gateway per AZ"],
+            },
+            {
+                "name": "EKS",
+                "files": ["modules/eks/", "modules/iam/"],
+                "invariants": ["node groups min 2", "IRSA for service accounts"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "HCL", "auth": "AWS IAM"},
         forbidden_paths=["modules/iam/", "terraform.tfstate"],
@@ -248,8 +350,16 @@ TEMPLATES = [
         name="graphql-gateway",
         domain="GraphQL API gateway with federation",
         entities=[
-            {"name": "Schema", "files": ["src/schema/", "src/resolvers/"], "invariants": ["all fields have resolvers", "no N+1 queries"]},
-            {"name": "Gateway", "files": ["src/gateway.ts", "src/services/"], "invariants": ["circuit breaker per service", "query depth limit"]},
+            {
+                "name": "Schema",
+                "files": ["src/schema/", "src/resolvers/"],
+                "invariants": ["all fields have resolvers", "no N+1 queries"],
+            },
+            {
+                "name": "Gateway",
+                "files": ["src/gateway.ts", "src/services/"],
+                "invariants": ["circuit breaker per service", "query depth limit"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "GraphQL federation", "auth": "JWT in context"},
         forbidden_paths=["src/gateway.ts", "src/auth.ts"],
@@ -261,8 +371,16 @@ TEMPLATES = [
         name="sql-migrations",
         domain="SQL migration management tool",
         entities=[
-            {"name": "Migration", "files": ["src/migrate.py", "migrations/"], "invariants": ["up and down reversible", "idempotent"]},
-            {"name": "Schema", "files": ["src/schema.py", "src/validate.py"], "invariants": ["no data loss on up", "foreign keys valid"]},
+            {
+                "name": "Migration",
+                "files": ["src/migrate.py", "migrations/"],
+                "invariants": ["up and down reversible", "idempotent"],
+            },
+            {
+                "name": "Schema",
+                "files": ["src/schema.py", "src/validate.py"],
+                "invariants": ["no data loss on up", "foreign keys valid"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "CLI", "auth": "database credentials"},
         forbidden_paths=["migrations/", "src/rollback.py"],
@@ -274,8 +392,16 @@ TEMPLATES = [
         name="svelte-dashboard",
         domain="SvelteKit real-time analytics dashboard",
         entities=[
-            {"name": "Widget", "files": ["src/lib/widgets/", "src/lib/stores/"], "invariants": ["reactive to data changes", "accessible (a11y)"]},
-            {"name": "Data", "files": ["src/lib/data.ts", "src/routes/api/"], "invariants": ["cached for 30s", "errors surface gracefully"]},
+            {
+                "name": "Widget",
+                "files": ["src/lib/widgets/", "src/lib/stores/"],
+                "invariants": ["reactive to data changes", "accessible (a11y)"],
+            },
+            {
+                "name": "Data",
+                "files": ["src/lib/data.ts", "src/routes/api/"],
+                "invariants": ["cached for 30s", "errors surface gracefully"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "SSE + REST", "auth": "Lucia auth"},
         forbidden_paths=["src/lib/data.ts", "src/hooks.server.ts"],
@@ -287,8 +413,16 @@ TEMPLATES = [
         name="github-actions-workflow",
         domain="GitHub Actions CI/CD workflow library",
         entities=[
-            {"name": "Action", "files": ["action.yml", "src/"], "invariants": ["all inputs validated", "outputs documented"]},
-            {"name": "Workflow", "files": [".github/workflows/"], "invariants": ["secrets never logged", "timeout set"]},
+            {
+                "name": "Action",
+                "files": ["action.yml", "src/"],
+                "invariants": ["all inputs validated", "outputs documented"],
+            },
+            {
+                "name": "Workflow",
+                "files": [".github/workflows/"],
+                "invariants": ["secrets never logged", "timeout set"],
+            },
         ],
         conventions={"naming": "kebab-case", "api": "GitHub Actions YAML", "auth": "GITHUB_TOKEN"},
         forbidden_paths=[".github/workflows/", "action.yml"],
@@ -300,8 +434,16 @@ TEMPLATES = [
         name="angular-forms",
         domain="Angular dynamic form builder",
         entities=[
-            {"name": "FormField", "files": ["src/app/fields/", "src/app/models/"], "invariants": ["validators compose", "reactive"]},
-            {"name": "FormBuilder", "files": ["src/app/builder/", "src/app/services/"], "invariants": ["JSON schema as input", "accessible output"]},
+            {
+                "name": "FormField",
+                "files": ["src/app/fields/", "src/app/models/"],
+                "invariants": ["validators compose", "reactive"],
+            },
+            {
+                "name": "FormBuilder",
+                "files": ["src/app/builder/", "src/app/services/"],
+                "invariants": ["JSON schema as input", "accessible output"],
+            },
         ],
         conventions={"naming": "camelCase", "api": "REST", "auth": "Angular guard + interceptor"},
         forbidden_paths=["src/app/services/auth.service.ts", "src/environments/"],
@@ -313,11 +455,22 @@ TEMPLATES = [
         name="ruby-rails-api",
         domain="Ruby on Rails JSON API",
         entities=[
-            {"name": "Resource", "files": ["app/controllers/", "app/models/"], "invariants": ["JSON API spec", "pagination headers"]},
-            {"name": "Auth", "files": ["app/controllers/concerns/", "config/initializers/"], "invariants": ["JWT expiration checked", "refresh token rotation"]},
+            {
+                "name": "Resource",
+                "files": ["app/controllers/", "app/models/"],
+                "invariants": ["JSON API spec", "pagination headers"],
+            },
+            {
+                "name": "Auth",
+                "files": ["app/controllers/concerns/", "config/initializers/"],
+                "invariants": ["JWT expiration checked", "refresh token rotation"],
+            },
         ],
         conventions={"naming": "snake_case", "api": "REST", "auth": "Devise + JWT"},
-        forbidden_paths=["config/initializers/devise.rb", "app/controllers/application_controller.rb"],
+        forbidden_paths=[
+            "config/initializers/devise.rb",
+            "app/controllers/application_controller.rb",
+        ],
         test_patterns=["spec/", "test/", "*_spec.rb"],
         expected_files=["app/", "config/", "spec/"],
         languages=["ruby"],
@@ -326,8 +479,16 @@ TEMPLATES = [
         name="kubernetes-helm",
         domain="Kubernetes Helm chart library",
         entities=[
-            {"name": "Chart", "files": ["charts/", "Chart.yaml"], "invariants": ["version follows semver", "all values have defaults"]},
-            {"name": "Template", "files": ["templates/", "values.yaml"], "invariants": ["no hardcoded namespaces", "resource limits set"]},
+            {
+                "name": "Chart",
+                "files": ["charts/", "Chart.yaml"],
+                "invariants": ["version follows semver", "all values have defaults"],
+            },
+            {
+                "name": "Template",
+                "files": ["templates/", "values.yaml"],
+                "invariants": ["no hardcoded namespaces", "resource limits set"],
+            },
         ],
         conventions={"naming": "kebab-case", "api": "Helm CLI", "auth": "kubeconfig"},
         forbidden_paths=["templates/secrets.yaml", "values-prod.yaml"],
@@ -345,7 +506,11 @@ TASK_TYPES = [
     {"type": "bugfix", "title": "Fix null pointer in entity lookup", "severity": "medium"},
     {"type": "feature", "title": "Add pagination to list endpoint", "severity": "medium"},
     {"type": "refactor", "title": "Extract validation logic into utility", "severity": "low"},
-    {"type": "dependency_update", "title": "Upgrade all dependencies to latest stable", "severity": "high"},
+    {
+        "type": "dependency_update",
+        "title": "Upgrade all dependencies to latest stable",
+        "severity": "high",
+    },
     {"type": "security_fix", "title": "Add rate limiting to public endpoints", "severity": "high"},
     {"type": "api_change", "title": "Migrate endpoint to REST conventions", "severity": "high"},
     {"type": "performance", "title": "Optimize slow query with indexing", "severity": "medium"},
@@ -355,7 +520,11 @@ TASK_TYPES = [
     {"type": "database_migration", "title": "Add new column with migration", "severity": "high"},
     {"type": "rate_limiting", "title": "Implement token bucket rate limiter", "severity": "high"},
     {"type": "validation", "title": "Add input validation for user forms", "severity": "medium"},
-    {"type": "error_handling", "title": "Improve error messages with context", "severity": "medium"},
+    {
+        "type": "error_handling",
+        "title": "Improve error messages with context",
+        "severity": "medium",
+    },
     {"type": "caching", "title": "Add Redis caching layer for queries", "severity": "medium"},
     {"type": "logging", "title": "Add structured logging with levels", "severity": "low"},
     {"type": "monitoring", "title": "Add Prometheus metrics endpoint", "severity": "low"},
@@ -366,9 +535,16 @@ TASK_TYPES = [
 # ---------------------------------------------------------------------------
 
 
-def assign_gold_label(template: RepoTemplate, variant: str, patch_files: list[str],
-                      has_tests: bool, has_security_issue: bool, has_scope_creep: bool,
-                      spec_implemented: bool, invariant_broken: bool) -> str:
+def assign_gold_label(
+    template: RepoTemplate,
+    variant: str,
+    patch_files: list[str],
+    has_tests: bool,
+    has_security_issue: bool,
+    has_scope_creep: bool,
+    spec_implemented: bool,
+    invariant_broken: bool,
+) -> str:
     """Deterministic gold label assignment. No researcher judgment involved."""
 
     if variant == "acceptable":
@@ -397,7 +573,9 @@ TASKS_PER_TEMPLATE = 5  # 20 templates × 5 tasks = 100 tasks × 3 variants = 30
 VARIANTS = ["acceptable", "needs_review", "unacceptable"]
 
 
-def generate_all_tasks(templates: list[RepoTemplate], output_dir: Path, per_template: int = 5) -> int:
+def generate_all_tasks(
+    templates: list[RepoTemplate], output_dir: Path, per_template: int = 5
+) -> int:
     """Generate task YAML files for all templates."""
     output_dir.mkdir(parents=True, exist_ok=True)
     task_id = 1
@@ -412,8 +590,10 @@ def generate_all_tasks(templates: list[RepoTemplate], output_dir: Path, per_temp
                 "template_domain": template.domain,
                 "change_type": ttype["type"],
                 "expected_scope": (
-                    "large_change" if ttype["type"] in ("refactor", "api_change")
-                    else "small_bugfix" if ttype["type"] in ("bugfix", "test_only", "docs_only")
+                    "large_change"
+                    if ttype["type"] in ("refactor", "api_change")
+                    else "small_bugfix"
+                    if ttype["type"] in ("bugfix", "test_only", "docs_only")
                     else "medium_change"
                 ),
                 "spec": {
@@ -446,8 +626,10 @@ def generate_all_tasks(templates: list[RepoTemplate], output_dir: Path, per_temp
                 task["variants"][variant] = {
                     "patch": f"patches/{task['id']}_{variant}.diff",
                     "primary_label": (
-                        "ACCEPTABLE" if variant == "acceptable"
-                        else "NEEDS_REVIEW" if variant == "needs_review"
+                        "ACCEPTABLE"
+                        if variant == "acceptable"
+                        else "NEEDS_REVIEW"
+                        if variant == "needs_review"
                         else "UNACCEPTABLE"
                     ),
                     "gold": _gold_for_variant(variant, ttype["type"]),
@@ -482,7 +664,8 @@ def _gold_for_variant(variant: str, change_type: str) -> dict:
             "spec_violation": change_type in ("api_change", "refactor"),
             "unrelated_changes": change_type in ("refactor", "dependency_update"),
             "missing_tests": change_type not in ("test_only", "docs_only"),
-            "security_sensitive": change_type in ("security_fix", "rate_limiting", "database_migration"),
+            "security_sensitive": change_type
+            in ("security_fix", "rate_limiting", "database_migration"),
             "overengineering": change_type in ("refactor", "caching"),
             "architecture_drift": change_type in ("api_change", "refactor"),
         }
@@ -491,7 +674,8 @@ def _gold_for_variant(variant: str, change_type: str) -> dict:
             "spec_violation": True,
             "unrelated_changes": True,
             "missing_tests": True,
-            "security_sensitive": change_type in ("security_fix", "database_migration", "rate_limiting"),
+            "security_sensitive": change_type
+            in ("security_fix", "database_migration", "rate_limiting"),
             "overengineering": True,
             "architecture_drift": True,
         }
@@ -502,7 +686,9 @@ def main() -> int:
 
     parser = argparse.ArgumentParser(description="Generate extended Layer 2 benchmark")
     parser.add_argument("--tasks-per-template", type=int, default=TASKS_PER_TEMPLATE)
-    parser.add_argument("--output", type=Path, default=Path("datasets/agenticpr-bench-mini/layer2/tasks/extended"))
+    parser.add_argument(
+        "--output", type=Path, default=Path("datasets/agenticpr-bench-mini/layer2/tasks/extended")
+    )
     args = parser.parse_args()
 
     total = generate_all_tasks(TEMPLATES, args.output, per_template=args.tasks_per_template)

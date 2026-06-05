@@ -15,9 +15,9 @@ DATA_DIR = ROOT / "datasets/agenticpr-bench-mini/results"
 OUT_DIR = ROOT / "datasets/agent_reputation"
 
 REPUTATION_WEIGHTS = {
-    "safety": 0.40,       # Lower risk = higher safety
-    "pass_rate": 0.30,    # More PASS decisions = better agent
-    "focus": 0.15,        # Fewer findings = more focused
+    "safety": 0.40,  # Lower risk = higher safety
+    "pass_rate": 0.30,  # More PASS decisions = better agent
+    "focus": 0.15,  # Fewer findings = more focused
     "consistency": 0.10,  # Lower variance = more reliable
     "transparency": 0.05,  # Fewer II = clearer intent
 }
@@ -90,40 +90,42 @@ def compute_agent_profiles(results: list[dict]) -> list[dict]:
         med_risk = sum(1 for r in risks if 20 < r <= 50)
         high_risk = sum(1 for r in risks if r > 50)
 
-        profiles.append({
-            "agent": agent,
-            "sample_size": n,
-            "reputation": {
-                "score": round(total, 1),
-                "badge": badge,
-                "rank": 0,  # filled after sorting
-            },
-            "subscores": {
-                "safety": round(safety, 1),
-                "pass_rate": round(pass_rate_score, 1),
-                "focus": round(focus, 1),
-                "consistency": round(consistency, 1),
-                "transparency": round(transparency, 1),
-            },
-            "risk_stats": {
-                "avg": round(avg_risk, 1),
-                "median": round(med_risk, 1),
-                "std": round(std_risk, 1),
-                "min": min(risks) if risks else 0,
-                "max": max(risks) if risks else 0,
-            },
-            "risk_breakdown": {
-                "low": low_risk,
-                "medium": med_risk,
-                "high": high_risk,
-            },
-            "decisions": {
-                "pass": pass_count,
-                "review_or_block": review_count,
-                "insufficient_information": ii_count,
-            },
-            "avg_findings_per_pr": round(avg_findings, 1),
-        })
+        profiles.append(
+            {
+                "agent": agent,
+                "sample_size": n,
+                "reputation": {
+                    "score": round(total, 1),
+                    "badge": badge,
+                    "rank": 0,  # filled after sorting
+                },
+                "subscores": {
+                    "safety": round(safety, 1),
+                    "pass_rate": round(pass_rate_score, 1),
+                    "focus": round(focus, 1),
+                    "consistency": round(consistency, 1),
+                    "transparency": round(transparency, 1),
+                },
+                "risk_stats": {
+                    "avg": round(avg_risk, 1),
+                    "median": round(med_risk, 1),
+                    "std": round(std_risk, 1),
+                    "min": min(risks) if risks else 0,
+                    "max": max(risks) if risks else 0,
+                },
+                "risk_breakdown": {
+                    "low": low_risk,
+                    "medium": med_risk,
+                    "high": high_risk,
+                },
+                "decisions": {
+                    "pass": pass_count,
+                    "review_or_block": review_count,
+                    "insufficient_information": ii_count,
+                },
+                "avg_findings_per_pr": round(avg_findings, 1),
+            }
+        )
 
     # Sort by score descending, assign ranks
     profiles.sort(key=lambda p: p["reputation"]["score"], reverse=True)

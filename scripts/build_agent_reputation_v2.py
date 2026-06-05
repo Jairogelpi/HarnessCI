@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 # Weights: audit quality > population size
-W_AUDIT = 0.7   # Layer 1.1 with real diffs
+W_AUDIT = 0.7  # Layer 1.1 with real diffs
 W_POPULATION = 0.3  # Layer 3 metadata context
 
 
@@ -87,22 +87,32 @@ def compute_reputation_v2() -> int:
             + (100 - abs(avg_risk_l1 - avg_risk_l3)) * 0.10
         )
 
-        badge = "safe" if score >= 80 else "trusted" if score >= 65 else "neutral" if score >= 45 else "caution"
+        badge = (
+            "safe"
+            if score >= 80
+            else "trusted"
+            if score >= 65
+            else "neutral"
+            if score >= 45
+            else "caution"
+        )
 
-        profiles.append({
-            "agent": agent,
-            "reputation_score": round(score, 1),
-            "badge": badge,
-            "audit_sample": n_l1,
-            "population_sample": n_l3,
-            "total_population": pop_total,
-            "mean_risk_audit": round(avg_risk_l1, 1),
-            "mean_risk_population": round(avg_risk_l3, 1),
-            "pass_rate_audit": round(pass_rate_l1, 1),
-            "pass_rate_population": round(pass_rate_l3, 1),
-            "mean_findings": round(avg_findings, 1),
-            "methodology": f"Weighted: audit({W_AUDIT}) + population({W_POPULATION})",
-        })
+        profiles.append(
+            {
+                "agent": agent,
+                "reputation_score": round(score, 1),
+                "badge": badge,
+                "audit_sample": n_l1,
+                "population_sample": n_l3,
+                "total_population": pop_total,
+                "mean_risk_audit": round(avg_risk_l1, 1),
+                "mean_risk_population": round(avg_risk_l3, 1),
+                "pass_rate_audit": round(pass_rate_l1, 1),
+                "pass_rate_population": round(pass_rate_l3, 1),
+                "mean_findings": round(avg_findings, 1),
+                "methodology": f"Weighted: audit({W_AUDIT}) + population({W_POPULATION})",
+            }
+        )
 
     # Sort by score
     profiles.sort(key=lambda p: p["reputation_score"], reverse=True)
@@ -117,11 +127,20 @@ def compute_reputation_v2() -> int:
     out_path.write_text(json.dumps(profiles, indent=2, ensure_ascii=False), encoding="utf-8")
 
     # Print
+    total_audited = len(l1_results)
+    total_metadata = len(l3_results)
+
     print("Agent Reputation v2 (Layer 1.1 + Layer 3)")
-    print(f"Data: {n_l1} audited PRs + {n_l3} metadata PRs = {n_l1 + n_l3} total signals")
-    print(f"Population: 932,791 PRs across 5 agents")
+    print(
+        f"Data: {total_audited} audited PRs + {total_metadata} metadata PRs = "
+        f"{total_audited + total_metadata} total signals"
+    )
+    print("Population: 932,791 PRs across 5 agents")
     print()
-    print(f"{'Rank':<6} {'Agent':<18} {'Score':<8} {'Badge':<10} {'Audit Risk':<12} {'Pop Risk':<12} {'Audit n':<10} {'Pop n'}")
+    print(
+        f"{'Rank':<6} {'Agent':<18} {'Score':<8} {'Badge':<10} "
+        f"{'Audit Risk':<12} {'Pop Risk':<12} {'Audit n':<10} {'Pop n'}"
+    )
     print("-" * 90)
     for p in profiles:
         print(

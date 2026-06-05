@@ -19,11 +19,33 @@ MANIFEST_PATH = LAYER3_DIR / "manifest.json"
 RESULTS_DIR = LAYER3_DIR / "results"
 
 SECURITY_KEYWORDS = [
-    "auth", "session", "token", "password", "credential", "secret",
-    "permission", "role", "access", "billing", "payment", "invoice",
-    "subscription", "encrypt", "decrypt", "hash", "jwt", "oauth",
-    "security", "vulnerability", "injection", "xss", "csrf", "cors",
-    "sql", "database", "migration",
+    "auth",
+    "session",
+    "token",
+    "password",
+    "credential",
+    "secret",
+    "permission",
+    "role",
+    "access",
+    "billing",
+    "payment",
+    "invoice",
+    "subscription",
+    "encrypt",
+    "decrypt",
+    "hash",
+    "jwt",
+    "oauth",
+    "security",
+    "vulnerability",
+    "injection",
+    "xss",
+    "csrf",
+    "cors",
+    "sql",
+    "database",
+    "migration",
 ]
 
 
@@ -58,24 +80,31 @@ def estimate_diff_from_metadata(pr: dict) -> dict:
         "security_keywords": sec_count,
         "security_matches": sec_matches,
         "estimated_change_type": (
-            "security_sensitive" if sec_count >= 3
-            else "dependency_update" if any(w in title.lower() for w in ["update", "upgrade", "bump"])
-            else "feature" if len(title.split()) > 8
+            "security_sensitive"
+            if sec_count >= 3
+            else "dependency_update"
+            if any(w in title.lower() for w in ["update", "upgrade", "bump"])
+            else "feature"
+            if len(title.split()) > 8
             else "bugfix"
         ),
     }
 
 
 def evaluate_case(pr: dict) -> dict:
-    from harnessci.audit import run_audit_from_diff_text
+    import importlib
+
+    run_audit_from_diff_text = importlib.import_module("harnessci.audit").run_audit_from_diff_text
 
     # Build spec
     spec_text = build_spec_from_metadata(pr)
 
     # Build proxy diff (minimal — just enough for scoring)
     title = str(pr.get("title", ""))
-    body = str(pr.get("body_excerpt", pr.get("body", "")))
-    diff_text = f"diff --git a/main.py b/main.py\n--- a/main.py\n+++ b/main.py\n@@ -0,0 +1,{len(title.split())} @@\n{title[:200]}"
+    diff_text = (
+        f"diff --git a/main.py b/main.py\n--- a/main.py\n+++ a/main.py\n"
+        f"@@ -0,0 +1,{len(title.split())} @@\n{title[:200]}"
+    )
 
     # Run audit
     report = run_audit_from_diff_text(diff_text, spec_text=spec_text)
@@ -88,7 +117,9 @@ def evaluate_case(pr: dict) -> dict:
         or (label == "NEEDS_REVIEW" and decision == "REVIEW_REQUIRED")
         or (label == "NEEDS_REVIEW" and decision == "BLOCK")
     )
-    unsafe = decision in ("REVIEW_REQUIRED", "BLOCK") if label == "NEEDS_REVIEW" else decision == "PASS"
+    unsafe = (
+        decision in ("REVIEW_REQUIRED", "BLOCK") if label == "NEEDS_REVIEW" else decision == "PASS"
+    )
 
     return {
         "dataset_id": pr["dataset_id"],
@@ -188,9 +219,9 @@ def main() -> int:
     print(f"Metrics: {metrics_path}")
 
     # Print summary
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"Layer 3: {len(results)} PRs evaluated (metadata-based)")
-    print(f"{'='*70}")
+    print(f"{'=' * 70}")
     for agent, m in sorted(metrics["agent_metrics"].items()):
         print(
             f"  {agent:20s} n={m['sample_size']:4d}"

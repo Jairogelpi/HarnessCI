@@ -1,0 +1,207 @@
+{
+  "metrics": {
+    "total": 1172,
+    "strict_accuracy": 0.5213,
+    "unsafe_detection_recall": 0.4292,
+    "unacceptable_block_recall": 0.02,
+    "false_positive_review_rate": 0.4381,
+    "decision_distribution": {
+      "PASS": 669,
+      "REVIEW_REQUIRED": 477,
+      "BLOCK": 26
+    },
+    "per_agent": {
+      "OpenAI_Codex": {
+        "total": 130,
+        "strict_accuracy": 0.5231,
+        "unsafe_detection_recall": 0.2308,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.2286,
+        "decision_distribution": {
+          "PASS": 100,
+          "REVIEW_REQUIRED": 30
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Claude_Code": {
+        "total": 572,
+        "strict_accuracy": 0.5315,
+        "unsafe_detection_recall": 0.4685,
+        "unacceptable_block_recall": 0,
+        "false_positive_review_rate": 0.4685,
+        "decision_distribution": {
+          "PASS": 304,
+          "REVIEW_REQUIRED": 255,
+          "BLOCK": 13
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Cursor": {
+        "total": 140,
+        "strict_accuracy": 0.5357,
+        "unsafe_detection_recall": 0.5643,
+        "unacceptable_block_recall": 0.0857,
+        "false_positive_review_rate": 0.5286,
+        "decision_distribution": {
+          "REVIEW_REQUIRED": 66,
+          "PASS": 61,
+          "BLOCK": 13
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Copilot": {
+        "total": 150,
+        "strict_accuracy": 0.4933,
+        "unsafe_detection_recall": 0.3467,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.3625,
+        "decision_distribution": {
+          "PASS": 98,
+          "REVIEW_REQUIRED": 52
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Devin": {
+        "total": 180,
+        "strict_accuracy": 0.5,
+        "unsafe_detection_recall": 0.4111,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0.4,
+        "decision_distribution": {
+          "PASS": 106,
+          "REVIEW_REQUIRED": 74
+        },
+        "per_agent": {},
+        "per_group": {}
+      }
+    },
+    "per_group": {
+      "Claude_Code/ACCEPTABLE": {
+        "total": 572,
+        "strict_accuracy": 0.5315,
+        "unsafe_detection_recall": 0.4685,
+        "unacceptable_block_recall": 0,
+        "false_positive_review_rate": 0.4685,
+        "decision_distribution": {
+          "PASS": 304,
+          "REVIEW_REQUIRED": 255,
+          "BLOCK": 13
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Copilot/ACCEPTABLE": {
+        "total": 80,
+        "strict_accuracy": 0.6375,
+        "unsafe_detection_recall": 0.3625,
+        "unacceptable_block_recall": 0,
+        "false_positive_review_rate": 0.3625,
+        "decision_distribution": {
+          "PASS": 51,
+          "REVIEW_REQUIRED": 29
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Copilot/NEEDS_REVIEW": {
+        "total": 70,
+        "strict_accuracy": 0.3286,
+        "unsafe_detection_recall": 0.3286,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0,
+        "decision_distribution": {
+          "PASS": 47,
+          "REVIEW_REQUIRED": 23
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Cursor/ACCEPTABLE": {
+        "total": 70,
+        "strict_accuracy": 0.4714,
+        "unsafe_detection_recall": 0.5286,
+        "unacceptable_block_recall": 0,
+        "false_positive_review_rate": 0.5286,
+        "decision_distribution": {
+          "REVIEW_REQUIRED": 30,
+          "PASS": 33,
+          "BLOCK": 7
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Cursor/NEEDS_REVIEW": {
+        "total": 70,
+        "strict_accuracy": 0.6,
+        "unsafe_detection_recall": 0.6,
+        "unacceptable_block_recall": 0.0857,
+        "false_positive_review_rate": 0,
+        "decision_distribution": {
+          "REVIEW_REQUIRED": 36,
+          "PASS": 28,
+          "BLOCK": 6
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Devin/ACCEPTABLE": {
+        "total": 80,
+        "strict_accuracy": 0.6,
+        "unsafe_detection_recall": 0.4,
+        "unacceptable_block_recall": 0,
+        "false_positive_review_rate": 0.4,
+        "decision_distribution": {
+          "PASS": 48,
+          "REVIEW_REQUIRED": 32
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "Devin/NEEDS_REVIEW": {
+        "total": 100,
+        "strict_accuracy": 0.42,
+        "unsafe_detection_recall": 0.42,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0,
+        "decision_distribution": {
+          "PASS": 58,
+          "REVIEW_REQUIRED": 42
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "OpenAI_Codex/ACCEPTABLE": {
+        "total": 70,
+        "strict_accuracy": 0.7714,
+        "unsafe_detection_recall": 0.2286,
+        "unacceptable_block_recall": 0,
+        "false_positive_review_rate": 0.2286,
+        "decision_distribution": {
+          "PASS": 54,
+          "REVIEW_REQUIRED": 16
+        },
+        "per_agent": {},
+        "per_group": {}
+      },
+      "OpenAI_Codex/NEEDS_REVIEW": {
+        "total": 60,
+        "strict_accuracy": 0.2333,
+        "unsafe_detection_recall": 0.2333,
+        "unacceptable_block_recall": 0.0,
+        "false_positive_review_rate": 0,
+        "decision_distribution": {
+          "PASS": 46,
+          "REVIEW_REQUIRED": 14
+        },
+        "per_agent": {},
+        "per_group": {}
+      }
+    }
+  },
+  "errors": 0,
+  "sample_size": 1172
+}
