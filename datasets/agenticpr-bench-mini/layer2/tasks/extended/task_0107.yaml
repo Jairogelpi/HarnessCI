@@ -1,0 +1,78 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - app/
+  - tests/
+  - requirements.txt
+  id: task_0107
+  repository_slice: flask-api
+  spec:
+    acceptance_criteria:
+    - Implementation follows snake_case conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository flask-api: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - app/routes/auth.py
+    - app/config.py
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: REST
+      auth: Flask-Login + session
+      naming: snake_case
+    entities:
+    - files:
+      - app/models/task.py
+      - app/routes/tasks.py
+      invariants:
+      - has owner
+      - status in [todo, doing, done]
+      name: Task
+    - files:
+      - app/models/user.py
+      - app/routes/auth.py
+      invariants:
+      - email is unique
+      - password is hashed
+      name: User
+    forbidden_paths: *id001
+    languages:
+    - python
+    test_patterns:
+    - tests/
+    - '*_test.py'
+  template_domain: Flask REST API for task management
+  title: '[flask-api] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0107_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0107_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0107_unacceptable.diff
+      primary_label: UNACCEPTABLE

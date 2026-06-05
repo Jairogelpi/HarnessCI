@@ -1,0 +1,78 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - src/
+  - __tests__/
+  - action.yml
+  id: task_0277
+  repository_slice: github-actions-workflow
+  spec:
+    acceptance_criteria:
+    - Implementation follows kebab-case conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository github-actions-workflow: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - .github/workflows/
+    - action.yml
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: GitHub Actions YAML
+      auth: GITHUB_TOKEN
+      naming: kebab-case
+    entities:
+    - files:
+      - action.yml
+      - src/
+      invariants:
+      - all inputs validated
+      - outputs documented
+      name: Action
+    - files:
+      - .github/workflows/
+      invariants:
+      - secrets never logged
+      - timeout set
+      name: Workflow
+    forbidden_paths: *id001
+    languages:
+    - typescript
+    - yaml
+    test_patterns:
+    - __tests__/
+    - '*.test.ts'
+  template_domain: GitHub Actions CI/CD workflow library
+  title: '[github-actions-workflow] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0277_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0277_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0277_unacceptable.diff
+      primary_label: UNACCEPTABLE

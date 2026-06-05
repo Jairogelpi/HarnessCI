@@ -103,6 +103,7 @@ def create_llm_client(provider: str = "groq") -> GroqClient | None:
 # Spec mining
 # ---------------------------------------------------------------------------
 
+
 def _scan_structure(root: Path) -> dict:
     """Scan repository structure and extract key metadata."""
     structure: dict = {
@@ -182,11 +183,13 @@ def _select_key_files(root: Path, n: int = 20) -> list[dict]:
                     if match.is_file() and match.stat().st_size < 50000:
                         text = match.read_text(encoding="utf-8", errors="replace")
                         content = text[:800]
-                    key_files.append({
-                        "path": str(rel),
-                        "priority": priority,
-                        "content": content,
-                    })
+                    key_files.append(
+                        {
+                            "path": str(rel),
+                            "priority": priority,
+                            "content": content,
+                        }
+                    )
                     seen.add(match.name)
                 except Exception:  # noqa: BLE001
                     pass
@@ -255,7 +258,7 @@ def mine_spec(
             if text.startswith("```"):
                 for marker in ["```json", "```"]:
                     if text.startswith(marker):
-                        text = text[len(marker):]
+                        text = text[len(marker) :]
                         text = text.rstrip("`").strip()
 
             spec = json.loads(text)

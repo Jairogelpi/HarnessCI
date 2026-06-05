@@ -308,6 +308,67 @@ class TestDecide:
             == Decision.BLOCK
         )
 
+    def test_high_test_finding_triggers_review(self):
+        sb = ScoreBreakdown(
+            spec_compliance_score=90,
+            diff_minimality_score=90,
+            test_adequacy_score=40,
+            security_risk_score=5,
+            architecture_drift_score=5,
+            harness_efficiency_score=90,
+            overall_agentic_risk=12,
+        )
+        findings = [
+            AuditFinding(
+                severity=FindingSeverity.HIGH,
+                category=FindingCategory.TESTS,
+                message="Code changed without new tests",
+            )
+        ]
+        assert (
+            decide(
+                sb,
+                TestSignals(new_tests_added=False),
+                findings,
+                block_on_failed_tests=False,
+                block_on_security_critical=False,
+            )
+            == Decision.REVIEW_REQUIRED
+        )
+
+    def test_block_on_high_security_and_spec_finding(self):
+        sb = ScoreBreakdown(
+            spec_compliance_score=20,
+            diff_minimality_score=80,
+            test_adequacy_score=40,
+            security_risk_score=70,
+            architecture_drift_score=10,
+            harness_efficiency_score=90,
+            overall_agentic_risk=25,
+        )
+        findings = [
+            AuditFinding(
+                severity=FindingSeverity.HIGH,
+                category=FindingCategory.SECURITY,
+                message="Sensitive file modified without tests",
+            ),
+            AuditFinding(
+                severity=FindingSeverity.HIGH,
+                category=FindingCategory.SPEC,
+                message="Out of scope path touched",
+            ),
+        ]
+        assert (
+            decide(
+                sb,
+                TestSignals(new_tests_added=False),
+                findings,
+                block_on_failed_tests=False,
+                block_on_security_critical=True,
+            )
+            == Decision.BLOCK
+        )
+
     def test_insufficient_information_when_no_spec(self):
         sb = ScoreBreakdown(
             spec_compliance_score=0,

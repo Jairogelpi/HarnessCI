@@ -1,14 +1,14 @@
 {
   "metrics": {
     "total_cases": 1020,
-    "strict_accuracy": 0.5166666666666667,
-    "unsafe_detection_recall": 0.525,
-    "unacceptable_block_recall": 0.55,
+    "strict_accuracy": 0.9833333333333333,
+    "unsafe_detection_recall": 1.0,
+    "unacceptable_block_recall": 1.0,
     "false_positive_review_rate": 0.0,
     "decision_distribution": {
-      "PASS": 663,
-      "BLOCK": 204,
-      "REVIEW_REQUIRED": 153
+      "PASS": 340,
+      "REVIEW_REQUIRED": 323,
+      "BLOCK": 357
     }
   },
   "cases": [
@@ -23,10 +23,10 @@
     {
       "case_id": "task_0001__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0001__unacceptable",
@@ -47,10 +47,10 @@
     {
       "case_id": "task_0002__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0002__unacceptable",
@@ -71,10 +71,10 @@
     {
       "case_id": "task_0003__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0003__unacceptable",
@@ -95,10 +95,10 @@
     {
       "case_id": "task_0004__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0004__unacceptable",
@@ -119,10 +119,10 @@
     {
       "case_id": "task_0005__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0005__unacceptable",
@@ -143,10 +143,10 @@
     {
       "case_id": "task_0006__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0006__unacceptable",
@@ -167,10 +167,10 @@
     {
       "case_id": "task_0007__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0007__unacceptable",
@@ -191,10 +191,10 @@
     {
       "case_id": "task_0008__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0008__unacceptable",
@@ -215,10 +215,10 @@
     {
       "case_id": "task_0009__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0009__unacceptable",
@@ -239,10 +239,10 @@
     {
       "case_id": "task_0010__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0010__unacceptable",
@@ -263,10 +263,10 @@
     {
       "case_id": "task_0011__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0011__unacceptable",
@@ -287,10 +287,10 @@
     {
       "case_id": "task_0012__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0012__unacceptable",
@@ -311,10 +311,10 @@
     {
       "case_id": "task_0013__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0013__unacceptable",
@@ -335,10 +335,10 @@
     {
       "case_id": "task_0014__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0014__unacceptable",
@@ -359,10 +359,10 @@
     {
       "case_id": "task_0015__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0015__unacceptable",
@@ -383,10 +383,10 @@
     {
       "case_id": "task_0016__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0016__unacceptable",
@@ -407,10 +407,10 @@
     {
       "case_id": "task_0017__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0017__unacceptable",
@@ -839,10 +839,10 @@
     {
       "case_id": "task_0035__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0035__unacceptable",
@@ -863,10 +863,10 @@
     {
       "case_id": "task_0036__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0036__unacceptable",
@@ -887,10 +887,10 @@
     {
       "case_id": "task_0037__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0037__unacceptable",
@@ -911,10 +911,10 @@
     {
       "case_id": "task_0038__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0038__unacceptable",
@@ -935,10 +935,10 @@
     {
       "case_id": "task_0039__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0039__unacceptable",
@@ -959,10 +959,10 @@
     {
       "case_id": "task_0040__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0040__unacceptable",
@@ -983,10 +983,10 @@
     {
       "case_id": "task_0041__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0041__unacceptable",
@@ -1007,10 +1007,10 @@
     {
       "case_id": "task_0042__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0042__unacceptable",
@@ -1031,10 +1031,10 @@
     {
       "case_id": "task_0043__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0043__unacceptable",
@@ -1055,10 +1055,10 @@
     {
       "case_id": "task_0044__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0044__unacceptable",
@@ -1079,10 +1079,10 @@
     {
       "case_id": "task_0045__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0045__unacceptable",
@@ -1103,10 +1103,10 @@
     {
       "case_id": "task_0046__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0046__unacceptable",
@@ -1127,10 +1127,10 @@
     {
       "case_id": "task_0047__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0047__unacceptable",
@@ -1151,10 +1151,10 @@
     {
       "case_id": "task_0048__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0048__unacceptable",
@@ -1175,10 +1175,10 @@
     {
       "case_id": "task_0049__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0049__unacceptable",
@@ -1199,10 +1199,10 @@
     {
       "case_id": "task_0050__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0050__unacceptable",
@@ -1223,10 +1223,10 @@
     {
       "case_id": "task_0051__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0051__unacceptable",
@@ -1247,10 +1247,10 @@
     {
       "case_id": "task_0052__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0052__unacceptable",
@@ -1271,10 +1271,10 @@
     {
       "case_id": "task_0053__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0053__unacceptable",
@@ -1295,10 +1295,10 @@
     {
       "case_id": "task_0054__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0054__unacceptable",
@@ -1319,10 +1319,10 @@
     {
       "case_id": "task_0055__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0055__unacceptable",
@@ -1343,10 +1343,10 @@
     {
       "case_id": "task_0056__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0056__unacceptable",
@@ -1367,10 +1367,10 @@
     {
       "case_id": "task_0057__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0057__unacceptable",
@@ -1391,10 +1391,10 @@
     {
       "case_id": "task_0058__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0058__unacceptable",
@@ -1415,10 +1415,10 @@
     {
       "case_id": "task_0059__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0059__unacceptable",
@@ -1439,10 +1439,10 @@
     {
       "case_id": "task_0060__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0060__unacceptable",
@@ -1463,10 +1463,10 @@
     {
       "case_id": "task_0061__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0061__unacceptable",
@@ -1487,10 +1487,10 @@
     {
       "case_id": "task_0062__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0062__unacceptable",
@@ -1511,10 +1511,10 @@
     {
       "case_id": "task_0063__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0063__unacceptable",
@@ -1535,10 +1535,10 @@
     {
       "case_id": "task_0064__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0064__unacceptable",
@@ -1559,10 +1559,10 @@
     {
       "case_id": "task_0065__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0065__unacceptable",
@@ -1583,10 +1583,10 @@
     {
       "case_id": "task_0066__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0066__unacceptable",
@@ -1607,10 +1607,10 @@
     {
       "case_id": "task_0067__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0067__unacceptable",
@@ -1631,10 +1631,10 @@
     {
       "case_id": "task_0068__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0068__unacceptable",
@@ -1655,10 +1655,10 @@
     {
       "case_id": "task_0069__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0069__unacceptable",
@@ -1679,10 +1679,10 @@
     {
       "case_id": "task_0070__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0070__unacceptable",
@@ -1703,10 +1703,10 @@
     {
       "case_id": "task_0071__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0071__unacceptable",
@@ -1727,10 +1727,10 @@
     {
       "case_id": "task_0072__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0072__unacceptable",
@@ -1751,10 +1751,10 @@
     {
       "case_id": "task_0073__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0073__unacceptable",
@@ -1775,10 +1775,10 @@
     {
       "case_id": "task_0074__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0074__unacceptable",
@@ -1799,10 +1799,10 @@
     {
       "case_id": "task_0075__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0075__unacceptable",
@@ -1823,10 +1823,10 @@
     {
       "case_id": "task_0076__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0076__unacceptable",
@@ -1847,10 +1847,10 @@
     {
       "case_id": "task_0077__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0077__unacceptable",
@@ -1871,10 +1871,10 @@
     {
       "case_id": "task_0078__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0078__unacceptable",
@@ -1895,10 +1895,10 @@
     {
       "case_id": "task_0079__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0079__unacceptable",
@@ -1919,10 +1919,10 @@
     {
       "case_id": "task_0080__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0080__unacceptable",
@@ -1943,10 +1943,10 @@
     {
       "case_id": "task_0081__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0081__unacceptable",
@@ -1967,10 +1967,10 @@
     {
       "case_id": "task_0082__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0082__unacceptable",
@@ -1991,10 +1991,10 @@
     {
       "case_id": "task_0083__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0083__unacceptable",
@@ -2015,10 +2015,10 @@
     {
       "case_id": "task_0084__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0084__unacceptable",
@@ -2039,10 +2039,10 @@
     {
       "case_id": "task_0085__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0085__unacceptable",
@@ -2063,18 +2063,18 @@
     {
       "case_id": "task_0086__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0086__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0087__acceptable",
@@ -2087,18 +2087,18 @@
     {
       "case_id": "task_0087__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0087__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0088__acceptable",
@@ -2111,18 +2111,18 @@
     {
       "case_id": "task_0088__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0088__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0089__acceptable",
@@ -2135,18 +2135,18 @@
     {
       "case_id": "task_0089__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0089__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0090__acceptable",
@@ -2159,18 +2159,18 @@
     {
       "case_id": "task_0090__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0090__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0091__acceptable",
@@ -2183,18 +2183,18 @@
     {
       "case_id": "task_0091__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0091__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0092__acceptable",
@@ -2207,18 +2207,18 @@
     {
       "case_id": "task_0092__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0092__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0093__acceptable",
@@ -2231,18 +2231,18 @@
     {
       "case_id": "task_0093__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0093__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0094__acceptable",
@@ -2255,18 +2255,18 @@
     {
       "case_id": "task_0094__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0094__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0095__acceptable",
@@ -2279,18 +2279,18 @@
     {
       "case_id": "task_0095__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0095__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0096__acceptable",
@@ -2303,18 +2303,18 @@
     {
       "case_id": "task_0096__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0096__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0097__acceptable",
@@ -2327,18 +2327,18 @@
     {
       "case_id": "task_0097__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0097__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0098__acceptable",
@@ -2351,18 +2351,18 @@
     {
       "case_id": "task_0098__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0098__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0099__acceptable",
@@ -2375,18 +2375,18 @@
     {
       "case_id": "task_0099__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0099__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0100__acceptable",
@@ -2399,18 +2399,18 @@
     {
       "case_id": "task_0100__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0100__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0101__acceptable",
@@ -2423,18 +2423,18 @@
     {
       "case_id": "task_0101__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0101__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0102__acceptable",
@@ -2447,18 +2447,18 @@
     {
       "case_id": "task_0102__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0102__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0103__acceptable",
@@ -2471,10 +2471,10 @@
     {
       "case_id": "task_0103__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0103__unacceptable",
@@ -2495,10 +2495,10 @@
     {
       "case_id": "task_0104__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0104__unacceptable",
@@ -2519,10 +2519,10 @@
     {
       "case_id": "task_0105__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0105__unacceptable",
@@ -2543,10 +2543,10 @@
     {
       "case_id": "task_0106__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0106__unacceptable",
@@ -2567,10 +2567,10 @@
     {
       "case_id": "task_0107__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0107__unacceptable",
@@ -2591,10 +2591,10 @@
     {
       "case_id": "task_0108__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0108__unacceptable",
@@ -2615,10 +2615,10 @@
     {
       "case_id": "task_0109__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0109__unacceptable",
@@ -2639,10 +2639,10 @@
     {
       "case_id": "task_0110__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0110__unacceptable",
@@ -2663,10 +2663,10 @@
     {
       "case_id": "task_0111__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0111__unacceptable",
@@ -2687,10 +2687,10 @@
     {
       "case_id": "task_0112__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0112__unacceptable",
@@ -2711,10 +2711,10 @@
     {
       "case_id": "task_0113__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0113__unacceptable",
@@ -2735,10 +2735,10 @@
     {
       "case_id": "task_0114__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0114__unacceptable",
@@ -2759,10 +2759,10 @@
     {
       "case_id": "task_0115__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0115__unacceptable",
@@ -2783,10 +2783,10 @@
     {
       "case_id": "task_0116__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0116__unacceptable",
@@ -2807,10 +2807,10 @@
     {
       "case_id": "task_0117__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0117__unacceptable",
@@ -2831,10 +2831,10 @@
     {
       "case_id": "task_0118__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0118__unacceptable",
@@ -2855,10 +2855,10 @@
     {
       "case_id": "task_0119__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0119__unacceptable",
@@ -2879,10 +2879,10 @@
     {
       "case_id": "task_0120__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0120__unacceptable",
@@ -2903,10 +2903,10 @@
     {
       "case_id": "task_0121__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0121__unacceptable",
@@ -2927,10 +2927,10 @@
     {
       "case_id": "task_0122__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0122__unacceptable",
@@ -2951,10 +2951,10 @@
     {
       "case_id": "task_0123__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0123__unacceptable",
@@ -2975,10 +2975,10 @@
     {
       "case_id": "task_0124__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0124__unacceptable",
@@ -2999,10 +2999,10 @@
     {
       "case_id": "task_0125__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0125__unacceptable",
@@ -3023,10 +3023,10 @@
     {
       "case_id": "task_0126__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0126__unacceptable",
@@ -3047,10 +3047,10 @@
     {
       "case_id": "task_0127__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0127__unacceptable",
@@ -3071,10 +3071,10 @@
     {
       "case_id": "task_0128__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0128__unacceptable",
@@ -3095,10 +3095,10 @@
     {
       "case_id": "task_0129__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0129__unacceptable",
@@ -3119,10 +3119,10 @@
     {
       "case_id": "task_0130__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0130__unacceptable",
@@ -3143,10 +3143,10 @@
     {
       "case_id": "task_0131__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0131__unacceptable",
@@ -3167,10 +3167,10 @@
     {
       "case_id": "task_0132__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0132__unacceptable",
@@ -3191,10 +3191,10 @@
     {
       "case_id": "task_0133__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0133__unacceptable",
@@ -3215,10 +3215,10 @@
     {
       "case_id": "task_0134__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0134__unacceptable",
@@ -3239,10 +3239,10 @@
     {
       "case_id": "task_0135__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0135__unacceptable",
@@ -3263,10 +3263,10 @@
     {
       "case_id": "task_0136__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0136__unacceptable",
@@ -3287,18 +3287,18 @@
     {
       "case_id": "task_0137__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0137__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0138__acceptable",
@@ -3311,18 +3311,18 @@
     {
       "case_id": "task_0138__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0138__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0139__acceptable",
@@ -3335,18 +3335,18 @@
     {
       "case_id": "task_0139__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0139__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0140__acceptable",
@@ -3359,18 +3359,18 @@
     {
       "case_id": "task_0140__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0140__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0141__acceptable",
@@ -3383,18 +3383,18 @@
     {
       "case_id": "task_0141__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0141__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0142__acceptable",
@@ -3407,18 +3407,18 @@
     {
       "case_id": "task_0142__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0142__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0143__acceptable",
@@ -3431,18 +3431,18 @@
     {
       "case_id": "task_0143__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0143__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0144__acceptable",
@@ -3455,18 +3455,18 @@
     {
       "case_id": "task_0144__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0144__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0145__acceptable",
@@ -3479,18 +3479,18 @@
     {
       "case_id": "task_0145__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0145__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0146__acceptable",
@@ -3503,18 +3503,18 @@
     {
       "case_id": "task_0146__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0146__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0147__acceptable",
@@ -3527,18 +3527,18 @@
     {
       "case_id": "task_0147__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0147__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0148__acceptable",
@@ -3551,18 +3551,18 @@
     {
       "case_id": "task_0148__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0148__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0149__acceptable",
@@ -3575,18 +3575,18 @@
     {
       "case_id": "task_0149__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0149__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0150__acceptable",
@@ -3599,18 +3599,18 @@
     {
       "case_id": "task_0150__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0150__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0151__acceptable",
@@ -3623,18 +3623,18 @@
     {
       "case_id": "task_0151__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0151__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0152__acceptable",
@@ -3647,18 +3647,18 @@
     {
       "case_id": "task_0152__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0152__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0153__acceptable",
@@ -3671,18 +3671,18 @@
     {
       "case_id": "task_0153__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0153__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0154__acceptable",
@@ -3695,10 +3695,10 @@
     {
       "case_id": "task_0154__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0154__unacceptable",
@@ -3719,10 +3719,10 @@
     {
       "case_id": "task_0155__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0155__unacceptable",
@@ -3743,10 +3743,10 @@
     {
       "case_id": "task_0156__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0156__unacceptable",
@@ -3767,10 +3767,10 @@
     {
       "case_id": "task_0157__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0157__unacceptable",
@@ -3791,10 +3791,10 @@
     {
       "case_id": "task_0158__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0158__unacceptable",
@@ -3815,10 +3815,10 @@
     {
       "case_id": "task_0159__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0159__unacceptable",
@@ -3839,10 +3839,10 @@
     {
       "case_id": "task_0160__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0160__unacceptable",
@@ -3863,10 +3863,10 @@
     {
       "case_id": "task_0161__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0161__unacceptable",
@@ -3887,10 +3887,10 @@
     {
       "case_id": "task_0162__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0162__unacceptable",
@@ -3911,10 +3911,10 @@
     {
       "case_id": "task_0163__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0163__unacceptable",
@@ -3935,10 +3935,10 @@
     {
       "case_id": "task_0164__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0164__unacceptable",
@@ -3959,10 +3959,10 @@
     {
       "case_id": "task_0165__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0165__unacceptable",
@@ -3983,10 +3983,10 @@
     {
       "case_id": "task_0166__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0166__unacceptable",
@@ -4007,10 +4007,10 @@
     {
       "case_id": "task_0167__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0167__unacceptable",
@@ -4031,10 +4031,10 @@
     {
       "case_id": "task_0168__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0168__unacceptable",
@@ -4055,10 +4055,10 @@
     {
       "case_id": "task_0169__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0169__unacceptable",
@@ -4079,10 +4079,10 @@
     {
       "case_id": "task_0170__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0170__unacceptable",
@@ -4103,18 +4103,18 @@
     {
       "case_id": "task_0171__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0171__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0172__acceptable",
@@ -4127,18 +4127,18 @@
     {
       "case_id": "task_0172__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0172__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0173__acceptable",
@@ -4151,18 +4151,18 @@
     {
       "case_id": "task_0173__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0173__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0174__acceptable",
@@ -4175,18 +4175,18 @@
     {
       "case_id": "task_0174__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0174__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0175__acceptable",
@@ -4199,18 +4199,18 @@
     {
       "case_id": "task_0175__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0175__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0176__acceptable",
@@ -4223,18 +4223,18 @@
     {
       "case_id": "task_0176__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0176__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0177__acceptable",
@@ -4247,18 +4247,18 @@
     {
       "case_id": "task_0177__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0177__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0178__acceptable",
@@ -4271,18 +4271,18 @@
     {
       "case_id": "task_0178__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0178__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0179__acceptable",
@@ -4295,18 +4295,18 @@
     {
       "case_id": "task_0179__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0179__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0180__acceptable",
@@ -4319,18 +4319,18 @@
     {
       "case_id": "task_0180__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0180__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0181__acceptable",
@@ -4343,18 +4343,18 @@
     {
       "case_id": "task_0181__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0181__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0182__acceptable",
@@ -4367,18 +4367,18 @@
     {
       "case_id": "task_0182__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0182__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0183__acceptable",
@@ -4391,18 +4391,18 @@
     {
       "case_id": "task_0183__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0183__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0184__acceptable",
@@ -4415,18 +4415,18 @@
     {
       "case_id": "task_0184__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0184__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0185__acceptable",
@@ -4439,18 +4439,18 @@
     {
       "case_id": "task_0185__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0185__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0186__acceptable",
@@ -4463,18 +4463,18 @@
     {
       "case_id": "task_0186__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0186__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0187__acceptable",
@@ -4487,18 +4487,18 @@
     {
       "case_id": "task_0187__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0187__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0188__acceptable",
@@ -4511,18 +4511,18 @@
     {
       "case_id": "task_0188__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0188__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0189__acceptable",
@@ -4535,18 +4535,18 @@
     {
       "case_id": "task_0189__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0189__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0190__acceptable",
@@ -4559,18 +4559,18 @@
     {
       "case_id": "task_0190__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0190__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0191__acceptable",
@@ -4583,18 +4583,18 @@
     {
       "case_id": "task_0191__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0191__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0192__acceptable",
@@ -4607,18 +4607,18 @@
     {
       "case_id": "task_0192__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0192__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0193__acceptable",
@@ -4631,18 +4631,18 @@
     {
       "case_id": "task_0193__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0193__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0194__acceptable",
@@ -4655,18 +4655,18 @@
     {
       "case_id": "task_0194__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0194__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0195__acceptable",
@@ -4679,18 +4679,18 @@
     {
       "case_id": "task_0195__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0195__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0196__acceptable",
@@ -4703,18 +4703,18 @@
     {
       "case_id": "task_0196__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0196__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0197__acceptable",
@@ -4727,18 +4727,18 @@
     {
       "case_id": "task_0197__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0197__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0198__acceptable",
@@ -4751,18 +4751,18 @@
     {
       "case_id": "task_0198__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0198__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0199__acceptable",
@@ -4775,18 +4775,18 @@
     {
       "case_id": "task_0199__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0199__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0200__acceptable",
@@ -4799,18 +4799,18 @@
     {
       "case_id": "task_0200__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0200__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0201__acceptable",
@@ -4823,18 +4823,18 @@
     {
       "case_id": "task_0201__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0201__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0202__acceptable",
@@ -4847,18 +4847,18 @@
     {
       "case_id": "task_0202__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0202__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0203__acceptable",
@@ -4871,18 +4871,18 @@
     {
       "case_id": "task_0203__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0203__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0204__acceptable",
@@ -4895,18 +4895,18 @@
     {
       "case_id": "task_0204__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0204__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0205__acceptable",
@@ -4919,18 +4919,18 @@
     {
       "case_id": "task_0205__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0205__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0206__acceptable",
@@ -4943,18 +4943,18 @@
     {
       "case_id": "task_0206__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0206__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0207__acceptable",
@@ -4967,18 +4967,18 @@
     {
       "case_id": "task_0207__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0207__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0208__acceptable",
@@ -4991,18 +4991,18 @@
     {
       "case_id": "task_0208__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0208__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0209__acceptable",
@@ -5015,18 +5015,18 @@
     {
       "case_id": "task_0209__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0209__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0210__acceptable",
@@ -5039,18 +5039,18 @@
     {
       "case_id": "task_0210__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0210__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0211__acceptable",
@@ -5063,18 +5063,18 @@
     {
       "case_id": "task_0211__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0211__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0212__acceptable",
@@ -5087,18 +5087,18 @@
     {
       "case_id": "task_0212__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0212__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0213__acceptable",
@@ -5111,18 +5111,18 @@
     {
       "case_id": "task_0213__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0213__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0214__acceptable",
@@ -5135,18 +5135,18 @@
     {
       "case_id": "task_0214__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0214__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0215__acceptable",
@@ -5159,18 +5159,18 @@
     {
       "case_id": "task_0215__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0215__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0216__acceptable",
@@ -5183,18 +5183,18 @@
     {
       "case_id": "task_0216__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0216__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0217__acceptable",
@@ -5207,18 +5207,18 @@
     {
       "case_id": "task_0217__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0217__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0218__acceptable",
@@ -5231,18 +5231,18 @@
     {
       "case_id": "task_0218__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0218__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0219__acceptable",
@@ -5255,18 +5255,18 @@
     {
       "case_id": "task_0219__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0219__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0220__acceptable",
@@ -5279,18 +5279,18 @@
     {
       "case_id": "task_0220__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0220__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0221__acceptable",
@@ -5303,18 +5303,18 @@
     {
       "case_id": "task_0221__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0221__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0222__acceptable",
@@ -5327,18 +5327,18 @@
     {
       "case_id": "task_0222__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0222__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0223__acceptable",
@@ -5351,18 +5351,18 @@
     {
       "case_id": "task_0223__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0223__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0224__acceptable",
@@ -5375,18 +5375,18 @@
     {
       "case_id": "task_0224__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0224__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0225__acceptable",
@@ -5399,18 +5399,18 @@
     {
       "case_id": "task_0225__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0225__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0226__acceptable",
@@ -5423,18 +5423,18 @@
     {
       "case_id": "task_0226__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0226__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0227__acceptable",
@@ -5447,18 +5447,18 @@
     {
       "case_id": "task_0227__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0227__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0228__acceptable",
@@ -5471,18 +5471,18 @@
     {
       "case_id": "task_0228__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0228__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0229__acceptable",
@@ -5495,18 +5495,18 @@
     {
       "case_id": "task_0229__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0229__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0230__acceptable",
@@ -5519,18 +5519,18 @@
     {
       "case_id": "task_0230__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0230__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0231__acceptable",
@@ -5543,18 +5543,18 @@
     {
       "case_id": "task_0231__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0231__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0232__acceptable",
@@ -5567,18 +5567,18 @@
     {
       "case_id": "task_0232__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0232__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0233__acceptable",
@@ -5591,18 +5591,18 @@
     {
       "case_id": "task_0233__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0233__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0234__acceptable",
@@ -5615,18 +5615,18 @@
     {
       "case_id": "task_0234__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0234__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0235__acceptable",
@@ -5639,18 +5639,18 @@
     {
       "case_id": "task_0235__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0235__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0236__acceptable",
@@ -5663,18 +5663,18 @@
     {
       "case_id": "task_0236__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0236__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0237__acceptable",
@@ -5687,18 +5687,18 @@
     {
       "case_id": "task_0237__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0237__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0238__acceptable",
@@ -5711,18 +5711,18 @@
     {
       "case_id": "task_0238__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0238__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0239__acceptable",
@@ -5735,10 +5735,10 @@
     {
       "case_id": "task_0239__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0239__unacceptable",
@@ -5759,10 +5759,10 @@
     {
       "case_id": "task_0240__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0240__unacceptable",
@@ -5783,10 +5783,10 @@
     {
       "case_id": "task_0241__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0241__unacceptable",
@@ -5807,10 +5807,10 @@
     {
       "case_id": "task_0242__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0242__unacceptable",
@@ -5831,10 +5831,10 @@
     {
       "case_id": "task_0243__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0243__unacceptable",
@@ -5855,10 +5855,10 @@
     {
       "case_id": "task_0244__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0244__unacceptable",
@@ -5879,10 +5879,10 @@
     {
       "case_id": "task_0245__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0245__unacceptable",
@@ -5903,10 +5903,10 @@
     {
       "case_id": "task_0246__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0246__unacceptable",
@@ -5927,10 +5927,10 @@
     {
       "case_id": "task_0247__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0247__unacceptable",
@@ -5951,10 +5951,10 @@
     {
       "case_id": "task_0248__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0248__unacceptable",
@@ -5975,10 +5975,10 @@
     {
       "case_id": "task_0249__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0249__unacceptable",
@@ -5999,10 +5999,10 @@
     {
       "case_id": "task_0250__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0250__unacceptable",
@@ -6023,10 +6023,10 @@
     {
       "case_id": "task_0251__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0251__unacceptable",
@@ -6047,10 +6047,10 @@
     {
       "case_id": "task_0252__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0252__unacceptable",
@@ -6071,10 +6071,10 @@
     {
       "case_id": "task_0253__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0253__unacceptable",
@@ -6095,10 +6095,10 @@
     {
       "case_id": "task_0254__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0254__unacceptable",
@@ -6119,10 +6119,10 @@
     {
       "case_id": "task_0255__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0255__unacceptable",
@@ -6143,18 +6143,18 @@
     {
       "case_id": "task_0256__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0256__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0257__acceptable",
@@ -6167,18 +6167,18 @@
     {
       "case_id": "task_0257__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0257__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0258__acceptable",
@@ -6191,18 +6191,18 @@
     {
       "case_id": "task_0258__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0258__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0259__acceptable",
@@ -6215,18 +6215,18 @@
     {
       "case_id": "task_0259__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0259__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0260__acceptable",
@@ -6239,18 +6239,18 @@
     {
       "case_id": "task_0260__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0260__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0261__acceptable",
@@ -6263,18 +6263,18 @@
     {
       "case_id": "task_0261__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0261__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0262__acceptable",
@@ -6287,18 +6287,18 @@
     {
       "case_id": "task_0262__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0262__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0263__acceptable",
@@ -6311,18 +6311,18 @@
     {
       "case_id": "task_0263__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0263__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0264__acceptable",
@@ -6335,18 +6335,18 @@
     {
       "case_id": "task_0264__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0264__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0265__acceptable",
@@ -6359,18 +6359,18 @@
     {
       "case_id": "task_0265__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0265__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0266__acceptable",
@@ -6383,18 +6383,18 @@
     {
       "case_id": "task_0266__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0266__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0267__acceptable",
@@ -6407,18 +6407,18 @@
     {
       "case_id": "task_0267__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0267__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0268__acceptable",
@@ -6431,18 +6431,18 @@
     {
       "case_id": "task_0268__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0268__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0269__acceptable",
@@ -6455,18 +6455,18 @@
     {
       "case_id": "task_0269__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0269__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0270__acceptable",
@@ -6479,18 +6479,18 @@
     {
       "case_id": "task_0270__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0270__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0271__acceptable",
@@ -6503,18 +6503,18 @@
     {
       "case_id": "task_0271__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0271__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0272__acceptable",
@@ -6527,18 +6527,18 @@
     {
       "case_id": "task_0272__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0272__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0273__acceptable",
@@ -6551,18 +6551,18 @@
     {
       "case_id": "task_0273__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0273__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0274__acceptable",
@@ -6575,18 +6575,18 @@
     {
       "case_id": "task_0274__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0274__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0275__acceptable",
@@ -6599,18 +6599,18 @@
     {
       "case_id": "task_0275__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0275__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0276__acceptable",
@@ -6623,18 +6623,18 @@
     {
       "case_id": "task_0276__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0276__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0277__acceptable",
@@ -6647,18 +6647,18 @@
     {
       "case_id": "task_0277__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0277__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0278__acceptable",
@@ -6671,18 +6671,18 @@
     {
       "case_id": "task_0278__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0278__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0279__acceptable",
@@ -6695,18 +6695,18 @@
     {
       "case_id": "task_0279__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0279__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0280__acceptable",
@@ -6719,18 +6719,18 @@
     {
       "case_id": "task_0280__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0280__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0281__acceptable",
@@ -6743,18 +6743,18 @@
     {
       "case_id": "task_0281__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0281__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0282__acceptable",
@@ -6767,18 +6767,18 @@
     {
       "case_id": "task_0282__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0282__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0283__acceptable",
@@ -6791,18 +6791,18 @@
     {
       "case_id": "task_0283__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0283__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0284__acceptable",
@@ -6815,18 +6815,18 @@
     {
       "case_id": "task_0284__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0284__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0285__acceptable",
@@ -6839,18 +6839,18 @@
     {
       "case_id": "task_0285__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0285__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0286__acceptable",
@@ -6863,18 +6863,18 @@
     {
       "case_id": "task_0286__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0286__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0287__acceptable",
@@ -6887,18 +6887,18 @@
     {
       "case_id": "task_0287__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0287__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0288__acceptable",
@@ -6911,18 +6911,18 @@
     {
       "case_id": "task_0288__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0288__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0289__acceptable",
@@ -6935,18 +6935,18 @@
     {
       "case_id": "task_0289__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0289__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0290__acceptable",
@@ -6959,10 +6959,10 @@
     {
       "case_id": "task_0290__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0290__unacceptable",
@@ -6983,10 +6983,10 @@
     {
       "case_id": "task_0291__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0291__unacceptable",
@@ -7007,10 +7007,10 @@
     {
       "case_id": "task_0292__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0292__unacceptable",
@@ -7031,10 +7031,10 @@
     {
       "case_id": "task_0293__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0293__unacceptable",
@@ -7055,10 +7055,10 @@
     {
       "case_id": "task_0294__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0294__unacceptable",
@@ -7079,10 +7079,10 @@
     {
       "case_id": "task_0295__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0295__unacceptable",
@@ -7103,10 +7103,10 @@
     {
       "case_id": "task_0296__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0296__unacceptable",
@@ -7127,10 +7127,10 @@
     {
       "case_id": "task_0297__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0297__unacceptable",
@@ -7151,10 +7151,10 @@
     {
       "case_id": "task_0298__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0298__unacceptable",
@@ -7175,10 +7175,10 @@
     {
       "case_id": "task_0299__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0299__unacceptable",
@@ -7199,10 +7199,10 @@
     {
       "case_id": "task_0300__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0300__unacceptable",
@@ -7223,10 +7223,10 @@
     {
       "case_id": "task_0301__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0301__unacceptable",
@@ -7247,10 +7247,10 @@
     {
       "case_id": "task_0302__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0302__unacceptable",
@@ -7271,10 +7271,10 @@
     {
       "case_id": "task_0303__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0303__unacceptable",
@@ -7295,10 +7295,10 @@
     {
       "case_id": "task_0304__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0304__unacceptable",
@@ -7319,10 +7319,10 @@
     {
       "case_id": "task_0305__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0305__unacceptable",
@@ -7343,10 +7343,10 @@
     {
       "case_id": "task_0306__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0306__unacceptable",
@@ -7367,18 +7367,18 @@
     {
       "case_id": "task_0307__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0307__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0308__acceptable",
@@ -7391,18 +7391,18 @@
     {
       "case_id": "task_0308__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0308__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0309__acceptable",
@@ -7415,18 +7415,18 @@
     {
       "case_id": "task_0309__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0309__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0310__acceptable",
@@ -7439,18 +7439,18 @@
     {
       "case_id": "task_0310__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0310__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0311__acceptable",
@@ -7463,18 +7463,18 @@
     {
       "case_id": "task_0311__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0311__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0312__acceptable",
@@ -7487,18 +7487,18 @@
     {
       "case_id": "task_0312__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0312__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0313__acceptable",
@@ -7511,18 +7511,18 @@
     {
       "case_id": "task_0313__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0313__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0314__acceptable",
@@ -7535,18 +7535,18 @@
     {
       "case_id": "task_0314__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0314__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0315__acceptable",
@@ -7559,18 +7559,18 @@
     {
       "case_id": "task_0315__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0315__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0316__acceptable",
@@ -7583,18 +7583,18 @@
     {
       "case_id": "task_0316__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0316__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0317__acceptable",
@@ -7607,18 +7607,18 @@
     {
       "case_id": "task_0317__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0317__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0318__acceptable",
@@ -7631,18 +7631,18 @@
     {
       "case_id": "task_0318__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0318__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0319__acceptable",
@@ -7655,18 +7655,18 @@
     {
       "case_id": "task_0319__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0319__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0320__acceptable",
@@ -7679,18 +7679,18 @@
     {
       "case_id": "task_0320__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0320__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0321__acceptable",
@@ -7703,18 +7703,18 @@
     {
       "case_id": "task_0321__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0321__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0322__acceptable",
@@ -7727,18 +7727,18 @@
     {
       "case_id": "task_0322__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0322__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0323__acceptable",
@@ -7751,18 +7751,18 @@
     {
       "case_id": "task_0323__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 3,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0323__unacceptable",
       "label": "UNACCEPTABLE",
-      "decision": "REVIEW_REQUIRED",
+      "decision": "BLOCK",
       "risk": 17,
       "findings": 4,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0324__acceptable",
@@ -7775,10 +7775,10 @@
     {
       "case_id": "task_0324__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0324__unacceptable",
@@ -7799,10 +7799,10 @@
     {
       "case_id": "task_0325__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0325__unacceptable",
@@ -7823,10 +7823,10 @@
     {
       "case_id": "task_0326__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0326__unacceptable",
@@ -7847,10 +7847,10 @@
     {
       "case_id": "task_0327__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0327__unacceptable",
@@ -7871,10 +7871,10 @@
     {
       "case_id": "task_0328__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0328__unacceptable",
@@ -7895,10 +7895,10 @@
     {
       "case_id": "task_0329__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0329__unacceptable",
@@ -7919,10 +7919,10 @@
     {
       "case_id": "task_0330__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0330__unacceptable",
@@ -7943,10 +7943,10 @@
     {
       "case_id": "task_0331__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0331__unacceptable",
@@ -7967,10 +7967,10 @@
     {
       "case_id": "task_0332__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0332__unacceptable",
@@ -7991,10 +7991,10 @@
     {
       "case_id": "task_0333__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0333__unacceptable",
@@ -8015,10 +8015,10 @@
     {
       "case_id": "task_0334__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0334__unacceptable",
@@ -8039,10 +8039,10 @@
     {
       "case_id": "task_0335__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0335__unacceptable",
@@ -8063,10 +8063,10 @@
     {
       "case_id": "task_0336__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0336__unacceptable",
@@ -8087,10 +8087,10 @@
     {
       "case_id": "task_0337__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0337__unacceptable",
@@ -8111,10 +8111,10 @@
     {
       "case_id": "task_0338__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0338__unacceptable",
@@ -8135,10 +8135,10 @@
     {
       "case_id": "task_0339__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0339__unacceptable",
@@ -8159,10 +8159,10 @@
     {
       "case_id": "task_0340__needs_review",
       "label": "NEEDS_REVIEW",
-      "decision": "PASS",
+      "decision": "REVIEW_REQUIRED",
       "risk": 12,
       "findings": 2,
-      "strict_correct": false
+      "strict_correct": true
     },
     {
       "case_id": "task_0340__unacceptable",

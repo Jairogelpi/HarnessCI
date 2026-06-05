@@ -1,0 +1,79 @@
+- change_type: dependency_update
+  expected_scope: medium_change
+  expected_touched_files:
+  - app/
+  - config/
+  - spec/
+  id: task_0310
+  repository_slice: ruby-rails-api
+  spec:
+    acceptance_criteria:
+    - Implementation follows snake_case conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository ruby-rails-api: upgrade all dependencies to latest stable'
+    out_of_scope: &id001
+    - config/initializers/devise.rb
+    - app/controllers/application_controller.rb
+    risk_areas:
+    - dependency_update
+  template:
+    conventions:
+      api: REST
+      auth: Devise + JWT
+      naming: snake_case
+    entities:
+    - files:
+      - app/controllers/
+      - app/models/
+      invariants:
+      - JSON API spec
+      - pagination headers
+      name: Resource
+    - files:
+      - app/controllers/concerns/
+      - config/initializers/
+      invariants:
+      - JWT expiration checked
+      - refresh token rotation
+      name: Auth
+    forbidden_paths: *id001
+    languages:
+    - ruby
+    test_patterns:
+    - spec/
+    - test/
+    - '*_spec.rb'
+  template_domain: Ruby on Rails JSON API
+  title: '[ruby-rails-api] Upgrade all dependencies to latest stable'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: false
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0310_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: false
+        spec_violation: false
+        unrelated_changes: true
+      patch: patches/task_0310_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: false
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0310_unacceptable.diff
+      primary_label: UNACCEPTABLE

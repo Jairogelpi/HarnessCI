@@ -99,6 +99,7 @@ class DriftMatcher:
         except Exception:
             pass
         from .indexer import _deterministic_embed
+
         return _deterministic_embed(text)
 
 

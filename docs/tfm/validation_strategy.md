@@ -11,22 +11,15 @@
 **Situación actual:** n=80 con diffs reales, n=30 gold labels, n=7.338 metadata.
 **Meta:** 95% confidence interval con margen <5% en strict_accuracy.
 
-### 1.1 Expandir Layer 2 a 100 gold labels (+70 casos)
+### 1.1 Layer 2 extendido a 1020 casos (340 tareas × 3 variantes)
 
-Cada caso nuevo = 1 tarea × 3 variantes. Necesitamos 24 tareas adicionales.
+Hecho. Se generaron 340 tareas determinísticas a partir de 20 templates y 3 variantes por tarea, para un total de 1020 casos balanceados (340 ACCEPTABLE, 340 NEEDS_REVIEW, 340 UNACCEPTABLE) sin sesgo del investigador.
 
-| Prioridad | Tipo de tarea | Cantidad | Justificación |
-|---|---|---|---|
-| ALTA | API changes (REST migration, endpoint deprecation) | 6 | El 25% de los PRs reales son API changes |
-| ALTA | Refactoring with behavior change | 6 | Difícil de detectar, alto riesgo |
-| MEDIA | Dependency updates with breaking changes | 4 | Común, subestimado |
-| MEDIA | Configuration changes (env vars, secrets) | 4 | Security-sensitive |
-| BAJA | Documentation + code mixed | 2 | Falsos positivos comunes |
-| BAJA | Multi-file feature additions | 2 | Scope creep detection |
+**Artefactos:** `scripts/build_layer2_extended.py`, `scripts/generate_layer2_patches.py`, `datasets/agenticpr-bench-mini/layer2/manifest_extended.json`, `datasets/agenticpr-bench-mini/layer2/results/layer2_extended_metrics.json`.
 
-**Implementación:** extender `scripts/build_agenticpr_layer2_manifest.py` para aceptar un flag `--extended` que carga 24 tareas adicionales desde `layer2/tasks/extended/`.
+**Resultado observado:** `strict_accuracy = 0.9833`, `unsafe_detection_recall = 1.0000`, `unacceptable_block_recall = 1.0000`, `false_positive_review_rate = 0.0`.
 
-**Target métrico:** Con 100 casos (33 tareas × 3 variantes), el IC-95% para strict_accuracy baja de ±18% a ±10%.
+**Lectura:** el benchmark extendido confirmó 0 falsos positivos en ACCEPTABLE y cobertura completa de los casos inseguros en esta versión; el foco siguiente pasa a validar con diffs reales y traces reales para evitar sobreajuste al benchmark sintético.
 
 ### 1.2 Fetch diffs reales para 500 PRs de Layer 3
 
@@ -52,6 +45,16 @@ Cada shard: 167 PRs × ~2s API call = 5.5 minutos con rate limit de 5000/hora.
 ```
 
 **Target:** "HarnessCI achieves strict_accuracy = 0.XX ± 0.0Y (95% CI, n=500 audited + 100 gold labels)."
+
+### 1.4 Observed preliminary real-diff audit (500 cases)
+
+Hecho de forma preliminar sobre los primeros 500 diffs reales auditados con el pipeline nuevo. El slice está sesgado por el orden del manifest (predominantemente Claude_Code), así que no se debe leer como muestra balanceada por agente. El script ya soporta `--start/--end` para estratificar futuras corridas.
+
+**Resultado observado:** `strict_accuracy = 0.204`, `unsafe_detection_recall = 0.0`, `unacceptable_block_recall = 0.0`, `false_positive_review_rate = 0.796`.
+
+**Bootstrap 1000 iteraciones:** `strict_accuracy = 0.204` con IC-95% `[0.170, 0.240]`.
+
+**Lectura:** la heurística actual no generaliza bien a diffs reales; la tasa de revisión falsa sobre ACCEPTABLE es demasiado alta y la detección de casos inseguros es nula en este slice.
 
 ---
 
@@ -171,7 +174,7 @@ Impacto: corregir 3 sobre-escalaciones.
 
 | Semana | Acción | Gap |
 |---|---|---|
-| **Semana 1** (ahora) | Expandir Layer 2 a 100 gold labels | #1 |
+| **Semana 1** (hecho) | Expandir Layer 2 a 1020 casos | #1 |
 | | Fix change_type classifier | #3 |
 | **Semana 2** | Fetch 500 diffs reales de GitHub | #1 |
 | | Groq-based spec violation detection | #3 |

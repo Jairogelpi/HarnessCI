@@ -1,0 +1,77 @@
+- change_type: bugfix
+  expected_scope: small_bugfix
+  expected_touched_files:
+  - src/main/
+  - src/test/
+  - pom.xml
+  id: task_0137
+  repository_slice: spring-boot-microservice
+  spec:
+    acceptance_criteria:
+    - Implementation follows camelCase conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository spring-boot-microservice: fix null pointer in entity lookup'
+    out_of_scope: &id001
+    - src/main/java/com/app/security/
+    - src/main/resources/application-prod.yml
+    risk_areas:
+    - bugfix
+  template:
+    conventions:
+      api: REST
+      auth: OAuth2 + JWT
+      naming: camelCase
+    entities:
+    - files:
+      - src/main/java/com/app/order/
+      invariants:
+      - has customerId
+      - total > 0
+      name: Order
+    - files:
+      - src/main/java/com/app/inventory/
+      invariants:
+      - quantity >= 0
+      - reserved <= available
+      name: Inventory
+    forbidden_paths: *id001
+    languages:
+    - java
+    test_patterns:
+    - src/test/
+    - '*Test.java'
+    - '*Tests.java'
+  template_domain: Spring Boot order processing microservice
+  title: '[spring-boot-microservice] Fix null pointer in entity lookup'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: false
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0137_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: false
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0137_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: false
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0137_unacceptable.diff
+      primary_label: UNACCEPTABLE

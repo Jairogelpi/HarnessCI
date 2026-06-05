@@ -307,7 +307,7 @@ def decide(
     if block_on_security_critical:
         if security_high_count >= 3:
             return Decision.BLOCK
-        if security_high_count >= 2 and has_spec_finding:
+        if security_high_count >= 1 and has_spec_finding:
             return Decision.BLOCK
         if security_high_count >= 1 or has_spec_finding:
             return Decision.REVIEW_REQUIRED
@@ -317,6 +317,14 @@ def decide(
     if risk >= _BLOCK_THRESHOLD:
         return Decision.BLOCK
     if risk >= _REVIEW_THRESHOLD:
+        return Decision.REVIEW_REQUIRED
+
+    # 10. High test findings still warrant review even when the aggregate risk
+    # is low. Missing test coverage is a strong quality signal, but not enough
+    # to block on its own.
+    if any(
+        f.severity == FindingSeverity.HIGH and f.category == FindingCategory.TESTS for f in findings
+    ):
         return Decision.REVIEW_REQUIRED
 
     return Decision.PASS

@@ -81,16 +81,18 @@ class TestMineSpec:
         (tmp_path / "main.py").write_text("# main")
         (tmp_path / "README.md").write_text("# Test project")
 
-        mock_response = json.dumps({
-            "domain": "Test project",
-            "entities": [],
-            "conventions": {"naming": "snake_case"},
-            "forbidden_paths": [],
-            "allowed_test_patterns": ["tests/"],
-            "architecture": {},
-            "security_invariants": [],
-            "summary_md": "## Test\n\nA test project.",
-        })
+        mock_response = json.dumps(
+            {
+                "domain": "Test project",
+                "entities": [],
+                "conventions": {"naming": "snake_case"},
+                "forbidden_paths": [],
+                "allowed_test_patterns": ["tests/"],
+                "architecture": {},
+                "security_invariants": [],
+                "summary_md": "## Test\n\nA test project.",
+            }
+        )
 
         with patch.object(GroqClient, "complete", return_value=mock_response):
             client = GroqClient("fake-key")

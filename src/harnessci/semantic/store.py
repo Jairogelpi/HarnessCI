@@ -74,7 +74,9 @@ def insert_embedding(db_path: Path, vector: list[float], meta: str = "") -> bool
 
 
 def search_similar(
-    db_path: Path, query_vector: list[float], top_k: int = 5,
+    db_path: Path,
+    query_vector: list[float],
+    top_k: int = 5,
 ) -> list[dict[str, object]]:
     if not _VEC_AVAILABLE or not db_path.exists():
         return []

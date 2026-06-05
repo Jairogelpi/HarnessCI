@@ -1,0 +1,76 @@
+- change_type: security_fix
+  expected_scope: medium_change
+  expected_touched_files:
+  - src/app/
+  - package.json
+  id: task_0294
+  repository_slice: angular-forms
+  spec:
+    acceptance_criteria:
+    - Implementation follows camelCase conventions
+    - Existing tests continue to pass
+    - No regression in performance
+    goal: 'In repository angular-forms: add rate limiting to public endpoints'
+    out_of_scope: &id001
+    - src/app/services/auth.service.ts
+    - src/environments/
+    risk_areas:
+    - security_fix
+  template:
+    conventions:
+      api: REST
+      auth: Angular guard + interceptor
+      naming: camelCase
+    entities:
+    - files:
+      - src/app/fields/
+      - src/app/models/
+      invariants:
+      - validators compose
+      - reactive
+      name: FormField
+    - files:
+      - src/app/builder/
+      - src/app/services/
+      invariants:
+      - JSON schema as input
+      - accessible output
+      name: FormBuilder
+    forbidden_paths: *id001
+    languages:
+    - typescript
+    test_patterns:
+    - '*.spec.ts'
+  template_domain: Angular dynamic form builder
+  title: '[angular-forms] Add rate limiting to public endpoints'
+  variants:
+    acceptable:
+      gold:
+        architecture_drift: false
+        missing_tests: false
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0294_acceptable.diff
+      primary_label: ACCEPTABLE
+    needs_review:
+      gold:
+        architecture_drift: false
+        missing_tests: true
+        overengineering: false
+        security_sensitive: true
+        spec_violation: false
+        unrelated_changes: false
+      patch: patches/task_0294_needs_review.diff
+      primary_label: NEEDS_REVIEW
+    unacceptable:
+      gold:
+        architecture_drift: true
+        missing_tests: true
+        overengineering: true
+        security_sensitive: true
+        spec_violation: true
+        unrelated_changes: true
+      patch: patches/task_0294_unacceptable.diff
+      primary_label: UNACCEPTABLE
