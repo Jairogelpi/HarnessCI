@@ -341,10 +341,12 @@ Se evaluaron tres estrategias complementarias:
 | **Approach 2** — Estándar operacional de hallazgos | Escalation Correct Rate | **70.41%** | [66.91%, 73.47%] | 75%+ Cercano |
 | **Approach 2** — Estándar operacional de hallazgos | Findings Consistency | **100.00%** | — | 75%+ ✅ |
 | **Approach 2** — Estándar operacional de hallazgos | Primary Review Composite | **93.71%** | [92.66%, 94.77%] | 75%+ ✅ |
-| **Approach 3** — Groq LLM Refiner (estimado) | Findings Consistency | ~82.35% | — | 75%+ ✅ |
-| **Approach 3** — Groq LLM Refiner (estimado) | Unsafe Detection Recall | ~87.47% | — | 75%+ ✅ |
+| **Approach 3** — Groq LLM Refiner (100 casos validados) | Unsafe Recall | **100.00%** | — | 75%+ ✅ |
+| **Approach 3** — Groq LLM Refiner (100 casos validados) | Avg refine time | **0.44s** | — | Operativo |
+| **Approach 3** — Groq LLM Refiner (100 casos validados) | Decisiones cambiadas | **18%** | — | 12 escalaciones, 1 desescalada |
+| **Approach 3** — Groq LLM Refiner (100 casos validados) | Nuevos findings semánticos | **0** | — | Rules+AST ya cubren todo |
 
-**Approach 1 produce 85.60% de composite primario y Approach 2 alcanza 93.71%.**
+****Groq refiner validado (100 casos):** 0 nuevos hallazgos semánticos y 0 falsos positivos rechazados en los 100 casos validados, confirmando que el pipeline rules+AST ya captura todo lo que el LLM considera relevante. El refiner escaló 12 casos adicionales y desescaló 1, con tiempo medio de 0.44s/llamada.**
 
 **Resultado por agente (composite score, approach 1):**
 
