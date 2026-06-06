@@ -1,0 +1,447 @@
+{
+  "n": 46,
+  "elapsed_s": 300.6708080768585,
+  "groq_model": "llama-3.1-8b-instant",
+  "agreements": {
+    "harnessci_vs_maintainer_label": 0.3043,
+    "llm_judge_vs_maintainer_label": 0.5,
+    "simulated_coderabbit_vs_maintainer": 0.0,
+    "harnessci_vs_llm_judge": 0.5,
+    "harnessci_vs_simulated_coderabbit": 0.0
+  },
+  "precision_recall_vs_llm_judge": {
+    "harnessci": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "true_positives": 0,
+      "false_positives": 1,
+      "false_negatives": 0,
+      "true_negatives": 1
+    },
+    "simulated_coderabbit": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "true_positives": 0,
+      "false_positives": 0,
+      "false_negatives": 0
+    }
+  },
+  "results": [
+    {
+      "dataset_id": "Devin/3016399305",
+      "agent": "Devin",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3165637027",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Copilot/3217695259",
+      "agent": "Copilot",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Copilot/3089927474",
+      "agent": "Copilot",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/3192237869",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2976284684",
+      "agent": "Devin",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2934390555",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3197737440",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3181371701",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3173469262",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2945699688",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Cursor/3272216635",
+      "agent": "Cursor",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Copilot/3126097090",
+      "agent": "Copilot",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3236358440",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3168870268",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3266329872",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Cursor/3251396335",
+      "agent": "Cursor",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3194744016",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3206456415",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": "ACCEPTABLE",
+      "llm_simulated_coderabbit": "ACCEPTABLE"
+    },
+    {
+      "dataset_id": "Copilot/3243215464",
+      "agent": "Copilot",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3125047671",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Cursor/3191863822",
+      "agent": "Cursor",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3197778181",
+      "agent": "Claude_Code",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3123235204",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Cursor/3171559766",
+      "agent": "Cursor",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Cursor/3266609031",
+      "agent": "Cursor",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "BLOCK",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3108118119",
+      "agent": "Claude_Code",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2941961510",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3171901980",
+      "agent": "Claude_Code",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2958937003",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3160901926",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3131751307",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3219975309",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3213043832",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3256550125",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/3118432145",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "BLOCK",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3168499586",
+      "agent": "Claude_Code",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2895042240",
+      "agent": "Devin",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3265100781",
+      "agent": "Claude_Code",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/2891977701",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Claude_Code/3164258008",
+      "agent": "Claude_Code",
+      "maintainer_label": "UNKNOWN",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Cursor/3248210193",
+      "agent": "Cursor",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Devin/2828245368",
+      "agent": "Devin",
+      "maintainer_label": "NEEDS_REVIEW",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "OpenAI_Codex/3226774942",
+      "agent": "OpenAI_Codex",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": "ACCEPTABLE",
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Copilot/3108424081",
+      "agent": "Copilot",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "PASS",
+      "harnessci_binary": "ACCEPTABLE",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    },
+    {
+      "dataset_id": "Copilot/3262576769",
+      "agent": "Copilot",
+      "maintainer_label": "ACCEPTABLE",
+      "harnessci_raw": "REVIEW_REQUIRED",
+      "harnessci_binary": "NEEDS_REVIEW",
+      "llm_judge": null,
+      "llm_simulated_coderabbit": null
+    }
+  ]
+}

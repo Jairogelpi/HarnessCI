@@ -22,9 +22,9 @@ if not GROQ_KEY:
 
 # Load existing results
 composite = json.loads(
-    Path(
-        "datasets/agenticpr-bench-mini/layer3/results/multi_metric_composite.json"
-    ).read_text(encoding="utf-8")
+    Path("datasets/agenticpr-bench-mini/layer3/results/multi_metric_composite.json").read_text(
+        encoding="utf-8"
+    )
 )
 results = composite["results"]
 
@@ -88,9 +88,7 @@ for i, case in enumerate(sample):
     # Groq refiner
     t_start = time.time()
     try:
-        file_paths = [
-            m.group(1) for m in re.finditer(r"^\+\+\+ b/(.+)", diff_text, re.M)
-        ]
+        file_paths = [m.group(1) for m in re.finditer(r"^\+\+\+ b/(.+)", diff_text, re.M)]
         llm_result = refiner.refine(findings, diff_text[:8000], file_paths[:15])
         refined_findings = llm_result.get("validated_findings", findings)
         n_llm_new = len(llm_result.get("new_findings", []))
@@ -163,10 +161,10 @@ for i, case in enumerate(sample):
         n_corr = sum(r["ref_correct"] for r in refined)
         n_curr = len(refined)
         print(
-            f"  [{i+1}/{len(sample)}] {elapsed:.0f}s | "
-            f"esc={n_esc/n_curr:.3f} "
-            f"safe={n_safe/n_safe_den:.3f} "
-            f"correct={n_corr/n_curr:.3f}"
+            f"  [{i + 1}/{len(sample)}] {elapsed:.0f}s | "
+            f"esc={n_esc / n_curr:.3f} "
+            f"safe={n_safe / n_safe_den:.3f} "
+            f"correct={n_corr / n_curr:.3f}"
         )
 
 total_time = time.time() - start
@@ -177,11 +175,11 @@ print("\n" + "=" * 60)
 print(f"GROQ REFINER VALIDATION — {n} cases in {total_time:.0f}s")
 print("=" * 60)
 
+
 def ci95(vals):
-    accs = sorted(
-        [sum(random.choices(vals, k=len(vals))) / len(vals) for _ in range(2000)]
-    )
+    accs = sorted([sum(random.choices(vals, k=len(vals))) / len(vals) for _ in range(2000)])
     return sum(vals) / len(vals), [accs[50], accs[1950]]
+
 
 m1 = ci95([r["ref_esc"] for r in refined])
 unsafe = [r for r in refined if r["n_ref_high"] >= 1 or r["n_ref_med"] >= 3]
@@ -205,7 +203,7 @@ print(f"\n{'Metric':35s} {'Rules-only':>12s} {'Groq-Refined':>12s} {'Delta':>8s}
 print("-" * 67)
 r_esc = ci95([r["rules_esc"] for r in refined])[0]
 r_safe = ci95([r["rules_safe_pass"] for r in refined])[0]
-r_corr = sum(r["rules_correct"] for r in refined)/n
+r_corr = sum(r["rules_correct"] for r in refined) / n
 g_esc = m1[0]
 g_m2 = m2_v
 g_safe = m5[0]
@@ -219,9 +217,9 @@ print(f"{'M6 Strict Accuracy':35s} {r_corr:>12.4f} {g_corr:>12.4f} {g_corr - r_c
 # Delta distribution
 new_findings = sum(r["n_llm_new"] for r in refined)
 rejected = sum(r["n_llm_rej"] for r in refined)
-print(f"\nSemantic findings added by Groq: {new_findings} total, {new_findings/n:.2f}/case avg")
-print(f"False positives rejected by Groq: {rejected} total, {rejected/n:.2f}/case avg")
-print(f"Avg refine time: {sum(r['refine_time_s'] for r in refined)/n:.3f}s/call")
+print(f"\nSemantic findings added by Groq: {new_findings} total, {new_findings / n:.2f}/case avg")
+print(f"False positives rejected by Groq: {rejected} total, {rejected / n:.2f}/case avg")
+print(f"Avg refine time: {sum(r['refine_time_s'] for r in refined) / n:.3f}s/call")
 
 # New findings distribution
 print("\nMetrics with Primary Review Composite:")
@@ -258,7 +256,7 @@ output = {
     "refine_time_avg_s": sum(r["refine_time_s"] for r in refined) / n,
     "results": refined,
 }
-Path(
-    "datasets/agenticpr-bench-mini/layer3/results/groq_refiner_100.json"
-).write_text(json.dumps(output, indent=2, default=str), encoding="utf-8")
+Path("datasets/agenticpr-bench-mini/layer3/results/groq_refiner_100.json").write_text(
+    json.dumps(output, indent=2, default=str), encoding="utf-8"
+)
 print("\nSaved: groq_refiner_100.json")
